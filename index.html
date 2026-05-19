@@ -70,7 +70,8 @@ section{
 
 .bg{
   position:absolute;inset:0;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  background-position:center;
+  background-repeat:no-repeat;
   transform:scale(1.06);
   transition:transform 0.1s linear;
   will-change:transform;
@@ -83,20 +84,23 @@ section::after{
 
 /* Slide 1: Dark Maroon & Black Background */
 #s1 .bg{
+  background-size: cover;
   background-color:#2a0000;
   background-image: radial-gradient(circle at 50% 45%, #4a0404 0%, #1a0101 60%, #000000 100%);
 }
 
-/* Slide 2: Fits horizontal width exactly and tiles vertically down the slide */
-#s2 .bg{
-  background-image: url('img1.jpg');
-  background-size: 100% auto; /* Fits perfectly to width horizontally */
-  background-repeat: repeat-y; /* Repeats vertically as many times as needed */
-  background-position: center top;
+/* Slide 2: FIXED background properties - perfectly locked horizontally, repeating vertically */
+#s2 .bg {
+  background-image: url('img1.jpg') !important;
+  background-size: 100% auto !important; /* Locks width to screen boundary */
+  background-repeat: repeat-y !important; /* Forces vertical-only repeating down the frame */
+  background-position: center top !important;
+  transform: none !important; /* Disables parallax scaling to ensure the tiling image fits perfectly */
 }
 
 /* Slide 3 Background Styling */
 #s3 .bg{
+  background-size: cover;
   background-image:url('img2.jpg');
   background-color:#217a35;
   background-image:url('img2.jpg'), radial-gradient(circle at 50% 50%, #309c48 0%, #134f20 100%);
@@ -121,20 +125,20 @@ section::after{
 /* Overlay Jester Hat Image Styling - Tilted Right, Positioned Up and Outward */
 .jester-panel-overlay {
   position: absolute;
-  top: -55px;    /* Raised up over the boundary frame */
-  right: -48px;  /* Pushed slightly right over the corner */
-  width: 155px;  
+  top: -55px;    /* Raised up a bit higher over the boundary frame */
+  right: -48px;  /* Pushed slightly further right to match the elevation change */
+  width: 155px;  /* Well-proportioned desktop scale */
   height: auto;
-  z-index: 20;   
-  transform: rotate(15deg); /* Tilted clockwise to the right */
+  z-index: 20;   /* Sits cleanly on top of the borders to mask/cover the corner */
+  transform: rotate(15deg); /* Tilted clockwise to the right onto the corner framework */
   transform-origin: center center;
-  pointer-events: none; 
-  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
+  pointer-events: none; /* Mouse elements pass straight through to prevent blocking text */
+  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); /* Casts deep drop shadow onto panel */
 }
 
 .text-type-wrapper {
   position: relative;
-  z-index: 15; 
+  z-index: 15; /* Forces the text to stay fully readable */
 }
 
 .aero-content-card {
@@ -311,7 +315,7 @@ function updateParallax(){
   const vh=window.innerHeight;
   document.querySelectorAll('section').forEach(s=>{
     const bg=s.querySelector('.bg');
-    if(!bg) return;
+    if(!bg || s.id === 's2') return; /* Bypass Slide 2 to maintain fixed tiling pattern rules */
     const rect=s.getBoundingClientRect();
     const prog=rect.top/vh;
     const nx=(mx/window.innerWidth-0.5)*2;
@@ -359,12 +363,12 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── CHRONOLOGICAL TEXT-TYPE FRAMEWORK ──
+// ── CHRONOLOGICAL TEXT-TYPE FRAMEWORK (RANDOMIZED) ──
 function initTextTypeEngine() {
   const target = document.getElementById('textTypeEngine');
   if(!target) return;
 
-  const textArray = [
+  const originalQuotes = [
     "Hello world", 
     "the world is a kingdom, you are a jester",
     "oversee everyone, as you hold order in your speech",
@@ -379,6 +383,13 @@ function initTextTypeEngine() {
     "your chains are made of gold and illusions",
     "the ultimate tragedy is a silent crowd"
   ];
+  
+  // Clean modern Fisher-Yates array shuffling implementation to fully randomize quote structures
+  const textArray = [...originalQuotes];
+  for (let i = textArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [textArray[i], textArray[j]] = [textArray[j], textArray[i]];
+  }
   
   const typingSpeed = 55;
   const pauseDuration = 2200;
