@@ -43,7 +43,7 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;overflow-x:hid
   user-select:none;
 }
 
-/* ── HERO TITLE ── */
+/* ── HERO TITLE (Triggers down when scrolling from Main Page) ── */
 #hero-title{
   position:fixed;
   top:50%;left:50%;
@@ -67,6 +67,22 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;overflow-x:hid
              text-shadow 0.6s ease;
 }
 
+/* ── MAIN LANDING LAYER SUB-HEADING ── */
+.main-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  animation: fadeUpIn 1.2s 0.5s ease both;
+}
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── SECTIONS ── */
 section{
   width:100vw;height:100vh;
@@ -87,16 +103,17 @@ section::after{
   background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
 }
 
-#s1 .bg{background-color:#2090c8; background-image: radial-gradient(circle at 30% 30%, #3ca9e2 0%, #156293 100%);}
-#s2 .bg{background-color:#3aaa50; background-image: radial-gradient(circle at 70% 60%, #52ca69 0%, #217332 100%);}
-#s3 .bg{background-color:#1cbbb4; background-image: radial-gradient(circle at 80% 20%, #76e4ce 0%, #1cbbb4 100%);}
+#s1 .bg{background-color:#111525; background-image: radial-gradient(circle at 50% 50%, #1a2238 0%, #0a0c16 100%);}
+#s2 .bg{background-color:#2090c8; background-image: radial-gradient(circle at 30% 30%, #3ca9e2 0%, #156293 100%);}
+#s3 .bg{background-color:#3aaa50; background-image: radial-gradient(circle at 70% 60%, #52ca69 0%, #217332 100%);}
+#s4 .bg{background-color:#1cbbb4; background-image: radial-gradient(circle at 80% 20%, #76e4ce 0%, #1cbbb4 100%);}
 
 /* scroll hint */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:6px;
   pointer-events:none;
-  opacity:0;animation:hintIn 1s 2.5s ease forwards;
+  opacity:0;animation:hintIn 1s 1.5s ease forwards;
 }
 @keyframes hintIn{to{opacity:0.65;}}
 .scroll-hint span{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.85);text-transform:uppercase;}
@@ -114,576 +131,14 @@ section::after{
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 
-/* ── CURVED LOOP CONTAINER CARD (AERO DESIGN) ── */
+/* ── EXPANDED CURVED LOOP CONTAINER CARD ── */
 .aero-content-card {
   z-index: 10;
-  width: 85%;
-  max-width: 1000px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(200, 235, 255, 0.15) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 24px;
-  backdrop-filter: blur(20px) saturate(1.6);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  box-shadow: 0 20px 50px rgba(0, 30, 60, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  padding: 40px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ── CURVED LOOP VANILLA LAYER ── */
-.curved-loop-jacket {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
-}
-
-.curved-loop-svg {
-  user-select: none;
-  -webkit-user-select: none;
-  width: 100%;
-  aspect-ratio: 1440 / 140;
-  overflow: visible;
-  display: block;
-}
-
-.curved-loop-svg text {
-  font-size: 3.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  fill: #ffffff;
-  text-shadow: 0 4px 12px rgba(0, 60, 120, 0.3);
-}
-
-/* ── STICKER PEEL NATIVE CONFIG ENGINE STYLE ── */
-:root {
-  --sticker-rotate: 0deg;
-  --sticker-p: 15px;
-  --sticker-peelback-hover: 15%;
-  --sticker-peelback-active: 35%;
-  --sticker-start: calc(-1 * var(--sticker-p));
-  --sticker-end: calc(100% + var(--sticker-p));
-  --peel-direction: -45deg;
-}
-
-.sticker-wall {
-  position: relative;
-  width: 90%;
-  max-width: 1100px;
-  height: 80%;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: inset 0 0 30px rgba(255,255,255,0.2), 0 30px 60px rgba(0,0,0,0.15);
-  z-index: 10;
-  overflow: hidden;
-}
-
-.sticker-wall-title {
-  position: absolute;
-  top: 25px; left: 35px;
-  color: white; font-size: 18px; font-weight: 300; letter-spacing: 4px;
-  text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.sticker-wrapper {
-  position: absolute;
-  touch-action: none;
-  z-index: 20;
-}
-
-/* Adjusted bounds positions */
-#sticker-1 { top: 22%; left: 15%; --sticker-width: 210px; }
-#sticker-2 { top: 15%; left: 55%; --sticker-width: 250px; }
-#sticker-3 { top: 48%; left: 38%; --sticker-width: 220px; }
-
-.sticker-container {
-  position: relative;
-  transform: rotate(var(--peel-direction));
-  transform-origin: center;
-}
-
-.sticker-main {
-  clip-path: polygon(
-    var(--sticker-start) var(--sticker-start),
-    var(--sticker-end) var(--sticker-start),
-    var(--sticker-end) var(--sticker-end),
-    var(--sticker-start) var(--sticker-end)
-  );
-  transition: clip-path 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  filter: url(#dropShadow);
-}
-
-.sticker-main > * {
-  transform: rotate(calc(-1 * var(--peel-direction)));
-}
-
-.sticker-lighting {
-  filter: url(#pointLight);
-}
-
-.sticker-container:hover .sticker-main {
-  clip-path: polygon(
-    var(--sticker-start) var(--sticker-peelback-hover),
-    var(--sticker-end) var(--sticker-peelback-hover),
-    var(--sticker-end) var(--sticker-end),
-    var(--sticker-start) var(--sticker-end)
-  );
-}
-
-.sticker-container:active .sticker-main {
-  clip-path: polygon(
-    var(--sticker-start) var(--sticker-peelback-active),
-    var(--sticker-end) var(--sticker-peelback-active),
-    var(--sticker-end) var(--sticker-end),
-    var(--sticker-start) var(--sticker-end)
-  );
-}
-
-.sticker-image {
-  transform: rotate(var(--sticker-rotate));
-  width: var(--sticker-width);
-  mix-blend-mode: multiply;
-  display: block;
-}
-
-.flap {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: calc(-100% - var(--sticker-p) - var(--sticker-p));
-  clip-path: polygon(
-    var(--sticker-start) var(--sticker-start),
-    var(--sticker-end) var(--sticker-start),
-    var(--sticker-end) var(--sticker-start),
-    var(--sticker-start) var(--sticker-start)
-  );
-  transform: scaleY(-1);
-  transition: top 0.5s cubic-bezier(0.25, 1, 0.5, 1), clip-path 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.flap > * {
-  transform: rotate(calc(-1 * var(--peel-direction)));
-}
-
-.sticker-container:hover .flap {
-  clip-path: polygon(
-    var(--sticker-start) var(--sticker-start),
-    var(--sticker-end) var(--sticker-start),
-    var(--sticker-end) var(--sticker-peelback-hover),
-    var(--sticker-start) var(--sticker-peelback-hover)
-  );
-  top: calc(-100% + 2 * var(--sticker-peelback-hover) - 1px);
-}
-
-.sticker-container:active .flap {
-  clip-path: polygon(
-    var(--sticker-start) var(--sticker-start),
-    var(--sticker-end) var(--sticker-start),
-    var(--sticker-end) var(--sticker-peelback-active),
-    var(--sticker-start) var(--sticker-peelback-active)
-  );
-  top: calc(-100% + 2 * var(--sticker-peelback-active) - 1px);
-}
-
-.flap-lighting {
-  filter: url(#pointLightFlipped);
-}
-
-.flap-image {
-  transform: rotate(var(--sticker-rotate));
-  width: var(--sticker-width);
-  filter: url(#expandAndFill);
-  mix-blend-mode: multiply;
-  display: block;
-}
-
-.sticker-main, .flap {
-  will-change: clip-path, top;
-}
-</style>
-</head>
-<body>
-
-<div id="cursor"></div>
-
-<div id="titlebar">
-  <div class="traffic"><div class="tl r"></div><div class="tl y"></div><div class="tl g"></div></div>
-  <div id="titlebar-text">AERO</div>
-</div>
-
-<div id="hero-title"><h1>AERO</h1></div>
-
-<div id="dots">
-  <div class="dot active" data-i="0"></div>
-  <div class="dot" data-i="1"></div>
-  <div class="dot" data-i="2"></div>
-</div>
-
-<svg width="0" height="0" style="position: absolute;">
-  <defs>
-    <filter id="pointLight">
-      <feGaussianBlur stdDeviation="1" result="blur" />
-      <feSpecularLighting result="spec" in="blur" specularExponent="100" specularConstant="0.15" lighting-color="white">
-        <fePointLight x="150" y="150" z="250" />
-      </feSpecularLighting>
-      <feComposite in="spec" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="lit" />
-      <feComposite in="lit" in2="SourceAlpha" operator="in" />
-    </filter>
-    <filter id="pointLightFlipped">
-      <feGaussianBlur stdDeviation="6" result="blur" />
-      <feSpecularLighting result="spec" in="blur" specularExponent="80" specularConstant="0.8" lighting-color="#e0f5ff">
-        <fePointLight x="150" y="150" z="200" />
-      </feSpecularLighting>
-      <feComposite in="spec" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="lit" />
-      <feComposite in="lit" in2="SourceAlpha" operator="in" />
-    </filter>
-    <filter id="dropShadow">
-      <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#001a33" flood-opacity="0.4" />
-    </filter>
-    <filter id="expandAndFill">
-      <feOffset dx="0" dy="0" in="SourceAlpha" result="shape" />
-      <feFlood flood-color="rgba(220, 240, 255, 0.95)" result="flood" />
-      <feComposite operator="in" in="flood" in2="shape" />
-    </filter>
-  </defs>
-</svg>
-
-<section id="s1">
-  <div class="bg" id="bg1"></div>
-  <div class="scroll-hint">
-    <div class="scroll-arrow"></div>
-    <span>scroll</span>
-  </div>
-</section>
-
-<section id="s2">
-  <div class="bg" id="bg2"></div>
-  
-  <div class="aero-content-card">
-    <div class="curved-loop-jacket">
-      <div class="curved-loop-svg-target" style="width:100%;"></div>
-    </div>
-  </div>
-</section>
-
-<section id="s3">
-  <div class="bg" id="bg3"></div>
-  
-  <div class="sticker-wall">
-    <div class="sticker-wall-title">Aero Ecosystem ✦ Workspace</div>
-    
-    <div class="sticker-wrapper" id="sticker-1">
-      <div class="sticker-container">
-        <div class="sticker-main">
-          <div class="sticker-lighting">
-            <img src="people.png" alt="People Sticker" class="sticker-image" draggable="false">
-          </div>
-        </div>
-        <div class="flap">
-          <div class="flap-lighting">
-            <img src="people.png" alt="People Flap" class="flap-image" draggable="false">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sticker-wrapper" id="sticker-2">
-      <div class="sticker-container">
-        <div class="sticker-main">
-          <div class="sticker-lighting">
-            <img src="butterfly.jpg" alt="Butterfly Sticker" class="sticker-image" draggable="false">
-          </div>
-        </div>
-        <div class="flap">
-          <div class="flap-lighting">
-            <img src="butterfly.jpg" alt="Butterfly Flap" class="flap-image" draggable="false">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sticker-wrapper" id="sticker-3">
-      <div class="sticker-container">
-        <div class="sticker-main">
-          <div class="sticker-lighting">
-            <img src="star.jpg" alt="Star Sticker" class="sticker-image" draggable="false">
-          </div>
-        </div>
-        <div class="flap">
-          <div class="flap-lighting">
-            <img src="star.jpg" alt="Star Flap" class="flap-image" draggable="false">
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<script>
-// ── CURSOR ──
-const cursor=document.getElementById('cursor');
-let mx=0,my=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-document.addEventListener('mousedown',()=>cursor.classList.add('big'));
-document.addEventListener('mouseup',()=>cursor.classList.remove('big'));
-
-// ── TITLEBAR + HERO TITLE ANIMATION ──
-const heroTitle=document.getElementById('hero-title');
-const titlebar=document.getElementById('titlebar');
-const heroH1=heroTitle.querySelector('h1');
-let titleSettled=false;
-
-function updateTitle(){
-  const scrollY=window.scrollY;
-  const vh=window.innerHeight;
-  const progress=Math.min(1,scrollY/(vh*0.38));
-
-  if(progress<=0){
-    heroTitle.style.transition='top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
-    heroTitle.style.top='50%';
-    heroTitle.style.left='50%';
-    heroTitle.style.transform='translate(-50%,-50%)';
-    heroTitle.style.opacity='1';
-    titlebar.classList.remove('visible');
-    titleSettled=false;
-    return;
-  }
-
-  if(progress<1){
-    const startTop=50;
-    const endTop=22/vh*100;
-    const curTop=startTop+(endTop-startTop)*easeInOut(progress);
-    const scale=1-progress*0.88;
-    heroTitle.style.transition='none';
-    heroTitle.style.top=curTop+'vh';
-    heroTitle.style.left='50%';
-    heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;
-    heroTitle.style.opacity=1;
-    
-    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09));
-    const endFs=14;
-    const fs=startFs+(endFs-startFs)*easeInOut(progress);
-    const startLs=12,endLs=5;
-    const ls=startLs+(endLs-startLs)*easeInOut(progress);
-    const r1=255,g1=255,b1=255;
-    const r2=40,g2=80,b2=140;
-    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));
-    const gi=Math.round(g1+(g2-g1)*easeInOut(progress));
-    const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
-    heroH1.style.fontSize=fs+'px';
-    heroH1.style.letterSpacing=ls+'px';
-    heroH1.style.color=`rgba(${ri},${gi},${bi},0.85)`;
-    heroH1.style.textShadow=`0 1px ${20-18*easeInOut(progress)}px rgba(80,200,255,${0.7-0.6*easeInOut(progress)})`;
-    titleSettled=false;
-    titlebar.classList.remove('visible');
-  } else {
-    if(!titleSettled){
-      titleSettled=true;
-      heroTitle.style.opacity='0';
-      heroTitle.style.transition='opacity 0.2s ease';
-      titlebar.classList.add('visible');
-    }
-  }
-}
-
-function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
-
-window.addEventListener('scroll',updateTitle,{passive:true});
-updateTitle();
-
-// ── PARALLAX ──
-function updateParallax(){
-  const scrollY=window.scrollY;
-  const vh=window.innerHeight;
-  document.querySelectorAll('section').forEach(s=>{
-    const bg=s.querySelector('.bg');
-    if(!bg) return;
-    const rect=s.getBoundingClientRect();
-    const prog=rect.top/vh;
-    const nx=(mx/window.innerWidth-0.5)*2;
-    const ny=(my/window.innerHeight-0.5)*2;
-    bg.style.transform=`scale(1.06) translate(${nx*10}px,${ny*8+prog*25}px)`;
-  });
-}
-document.addEventListener('mousemove',updateParallax);
-window.addEventListener('scroll',updateParallax,{passive:true});
-
-// ── DOTS ──
-const dots=document.querySelectorAll('.dot');
-const sections=document.querySelectorAll('section');
-dots.forEach(d=>{
-  d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));
-});
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const i=Array.from(sections).indexOf(e.target);
-      dots.forEach((d,j)=>d.classList.toggle('active',i===j));
-    }
-  });
-},{threshold:0.6});
-sections.forEach(s=>obs.observe(s));
-
-// ── CLICK EFFECTS ──
-document.addEventListener('click',e=>{
-  if (e.target.closest('.sticker-container') || e.target.closest('.curved-loop-svg')) return;
-  const r=document.createElement('div');
-  r.className='ripple';
-  r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),750);
-  for(let i=0;i<10;i++){
-    const s=document.createElement('div');
-    s.className='sparkle';
-    const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
-    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
-    s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
-    s.style.setProperty('--dy',(Math.sin(a)*d)+'px');
-    s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),800);
-  }
-});
-
-// ── VANILLA MARQUEE LOOP ENGINE ──
-const curvedLoopConfig = {
-  marqueeText: "The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦ ",
-  speed: 2.5,
-  curveAmount: 380,
-  direction: "right",
-  interactive: true
-};
-
-function createCurvedLoop() {
-  const targetContainer = document.querySelector('.curved-loop-svg-target');
-  if(!targetContainer) return;
-  
-  const uid = 'curved-path-element';
-  const pathD = `M-100,20 Q720,${20 + curvedLoopConfig.curveAmount} 1640,20`;
-  
-  targetContainer.innerHTML = `
-    <svg class="curved-loop-svg" viewBox="0 0 1440 160">
-      <defs>
-        <path id="${uid}" d="${pathD}" fill="none" stroke="transparent" />
-      </defs>
-      <text ref="measureNode" style="visibility:hidden; opacity:0; pointer-events:none; font-weight:700;">${curvedLoopConfig.marqueeText}</text>
-      <text font-weight="bold">
-        <textPath id="loopTextPath" href="#${uid}" startOffset="0px"></textPath>
-      </text>
-    </svg>
-  `;
-  
-  const textPathNode = document.getElementById('loopTextPath');
-  const measureNode = targetContainer.querySelector('text[ref="measureNode"]');
-  
-  setTimeout(() => {
-    const spacing = measureNode.getComputedTextLength() || 600;
-    const repeatCount = Math.ceil(2400 / spacing) + 3;
-    let longString = "";
-    for(let i=0; i<repeatCount; i++) { longString += curvedLoopConfig.marqueeText; }
-    textPathNode.textContent = longString;
-    
-    let currentOffset = -spacing;
-    textPathNode.setAttribute('startOffset', currentOffset + 'px');
-    
-    let dragActive = false;
-    let lastX = 0;
-    let animDirection = curvedLoopConfig.direction;
-    
-    function renderLoop() {
-      if(!dragActive) {
-        const delta = animDirection === 'right' ? curvedLoopConfig.speed : -curvedLoopConfig.speed;
-        currentOffset += delta;
-        if(currentOffset <= -spacing * 2) currentOffset += spacing;
-        if(currentOffset > 0) currentOffset -= spacing;
-        textPathNode.setAttribute('startOffset', currentOffset + 'px');
-      }
-      requestAnimationFrame(renderLoop);
-    }
-    requestAnimationFrame(renderLoop);
-    
-    if(curvedLoopConfig.interactive) {
-      const svgEl = targetContainer.querySelector('.curved-loop-svg');
-      svgEl.style.cursor = 'grab';
-      
-      svgEl.addEventListener('pointerdown', e => {
-        dragActive = true;
-        lastX = e.clientX;
-        svgEl.style.cursor = 'grabbing';
-        svgEl.setPointerCapture(e.pointerId);
-      });
-      
-      svgEl.addEventListener('pointermove', e => {
-        if(!dragActive) return;
-        const dx = e.clientX - lastX;
-        lastX = e.clientX;
-        currentOffset += dx;
-        if(currentOffset <= -spacing * 2) currentOffset += spacing;
-        if(currentOffset > 0) currentOffset -= spacing;
-        textPathNode.setAttribute('startOffset', currentOffset + 'px');
-        if(Math.abs(dx) > 0.1) animDirection = dx > 0 ? 'right' : 'left';
-      });
-      
-      const clearDrag = () => { dragActive = false; svgEl.style.cursor = 'grab'; };
-      svgEl.addEventListener('pointerup', clearDrag);
-      svgEl.addEventListener('pointerleave', clearDrag);
-    }
-  }, 100);
-}
-createCurvedLoop();
-
-// ── INTERACTIVE DRAGGABLE RIG ──
-function initDraggableStickers() {
-  const wrappers = document.querySelectorAll('.sticker-wrapper');
-  
-  wrappers.forEach(wrapper => {
-    let isDragging = false;
-    let startX = 0, startY = 0;
-    let currentX = 0, currentY = 0;
-    
-    wrapper.addEventListener('pointerdown', e => {
-      isDragging = true;
-      startX = e.clientX - currentX;
-      startY = e.clientY - currentY;
-      wrapper.style.zIndex = "50";
-      wrapper.setPointerCapture(e.pointerId);
-      document.getElementById('cursor').classList.add('big');
-    });
-    
-    wrapper.addEventListener('pointermove', e => {
-      if (!isDragging) return;
-      currentX = e.clientX - startX;
-      currentY = e.clientY - startY;
-      
-      let dragAngle = Math.max(-18, Math.min(18, (e.movementX || 0) * 1.5));
-      wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${dragAngle}deg)`;
-    });
-    
-    const endDrag = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      wrapper.style.zIndex = "20";
-      wrapper.style.transition = "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15)";
-      wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(0deg)`;
-      setTimeout(() => { wrapper.style.transition = "none"; }, 400);
-      document.getElementById('cursor').classList.remove('big');
-    };
-    
-    wrapper.addEventListener('pointerup', endDrag);
-    wrapper.addEventListener('pointercancel', endDrag);
-  });
-}
-initDraggableStickers();
-</script>
-</body>
-</html>
+  width: 92%;
+  max-width: 1200px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(200, 235, 255, 0.12) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 28px;
+  backdrop-filter: blur(25px) saturate(1.6);
+  -webkit-backdrop-filter: blur(25px) saturate(1.6);
+  box-shadow: 0
