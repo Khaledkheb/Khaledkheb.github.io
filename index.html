@@ -99,12 +99,12 @@ section::after{
   top: 44px; /* Flushed perfectly right under the titlebar layout layer */
   left: 0;
   width: 100%;
-  height: 60px; /* Adjust height based on how thick you want your border pattern band */
+  height: 64px; /* Explicit frame thickness */
   z-index: 30;
   background-image: url('img1.jpg');
   background-repeat: repeat-x; /* Repeats horizontally with absolutely no gaps */
   background-position: left top;
-  background-size: contain; /* Automatically scales image height to lock into frame boundaries */
+  background-size: auto 100%; /* Forces exact vertical fit to border edge while repeating smoothly */
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
@@ -130,18 +130,18 @@ section::after{
   box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
-/* Overlay Jester Hat Image Styling - Tilted Right & Covering the Corner */
+/* Overlay Jester Hat Image Styling - Tilted Right, Positioned Up and Outward */
 .jester-panel-overlay {
   position: absolute;
-  top: -40px;    /* Pulls it slightly up past the top boundary */
-  right: -40px;  /* Pulls it across the right boundary */
-  width: 150px;  /* Optimal presentation size */
+  top: -55px;    /* Raised up a bit higher over the boundary frame */
+  right: -48px;  /* Pushed slightly further right to match the elevation change */
+  width: 155px;  /* Well-proportioned desktop scale */
   height: auto;
   z-index: 20;   /* Sits cleanly on top of the borders to mask/cover the corner */
   transform: rotate(15deg); /* Tilted clockwise to the right onto the corner framework */
   transform-origin: center center;
   pointer-events: none; /* Mouse elements pass straight through to prevent blocking text */
-  filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.7)); /* Casts shadow down onto the panel */
+  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); /* Casts deep drop shadow onto panel */
 }
 
 .text-type-wrapper {
