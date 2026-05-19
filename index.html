@@ -32,8 +32,9 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;}
 
 /* traffic light dots */
 .traffic{position:absolute;left:16px;display:flex;gap:7px;align-items:center;}
-.tl{width:13px;height:13px;border-radius:50%;}
-.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);}
+.tl{width:13px;height:13px;border-radius:50%;transition: transform 0.1s; pointer-events: auto;}
+.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);cursor: none;}
+.tl.r:active{transform: scale(0.85);}
 .tl.y{background:radial-gradient(circle at 40% 35%,#ffe080,#d4a000);box-shadow:0 1px 3px rgba(160,120,0,0.3);}
 .tl.g{background:radial-gradient(circle at 40% 35%,#80e880,#20a020);box-shadow:0 1px 3px rgba(0,140,0,0.3);}
 
@@ -114,37 +115,6 @@ section::after{
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 
-/* ── RED DETONATOR BUTTON (SLIDE 2) ── */
-.button-container {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-}
-.red-button {
-  width: 90px;
-  height: 90px;
-  background: radial-gradient(circle at 35% 30%, #ff4d4d, #b30000);
-  border: 4px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5), inset 0 -4px 10px rgba(0,0,0,0.4), 0 0 30px rgba(255,77,77,0.3);
-  cursor: none;
-  transition: transform 0.1s, box-shadow 0.2s;
-}
-.red-button:active {
-  transform: scale(0.92);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 -1px 4px rgba(0,0,0,0.4);
-}
-.button-label {
-  display: block;
-  margin-top: 15px;
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: #fff;
-  text-transform: uppercase;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  opacity: 0.8;
-}
-
 /* ── CRT SHUTDOWN ANIMATION LAYER ── */
 #crt-overlay {
   position: fixed;
@@ -196,7 +166,6 @@ section::after{
   align-items: center;
   justify-content: flex-start;
 }
-/* Inner dynamic bezel shadow */
 .imac-chassis::before {
   content: '';
   position: absolute;
@@ -205,7 +174,6 @@ section::after{
   border: 3px solid rgba(255,255,255,0.15);
   pointer-events: none;
 }
-/* Retro Apple Logo Accent */
 .apple-logo {
   position: absolute;
   bottom: 22px;
@@ -236,7 +204,7 @@ section::after{
   border: 2px solid #111;
 }
 
-/* CRT Curve Scanlines Distortion simulation Overlay */
+/* CRT Curve Scanlines Simulation Overlay */
 .crt-screen::after {
   content: " ";
   display: block;
@@ -290,7 +258,7 @@ section::after{
 <div id="cursor"></div>
 
 <div id="titlebar">
-  <div class="traffic"><div class="tl r"></div><div class="tl y"></div><div class="tl g"></div></div>
+  <div class="traffic"><div class="tl r" id="close-btn"></div><div class="tl y"></div><div class="tl g"></div></div>
   <div id="titlebar-text">AERO</div>
 </div>
 
@@ -311,11 +279,6 @@ section::after{
 
 <section id="s2">
   <div class="bg" id="bg2"></div>
-  
-  <div class="button-container">
-    <button class="red-button" id="detonator"></button>
-    <span class="button-label">System Terminal</span>
-  </div>
 </section>
 
 <div id="crt-overlay"></div>
@@ -444,7 +407,7 @@ sections.forEach(s=>obs.observe(s));
 
 // ── CLICK EFFECTS ──
 document.addEventListener('click',e=>{
-  if (e.target.closest('#detonator') || e.target.closest('#terminal-exit')) return;
+  if (e.target.closest('#close-btn') || e.target.closest('#terminal-exit')) return;
   const r=document.createElement('div');
   r.className='ripple';
   r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
@@ -464,7 +427,7 @@ document.addEventListener('click',e=>{
 });
 
 // ── RETRO SHUTDOWN AND BOOT SIMULATION ──
-const detonator = document.getElementById('detonator');
+const closeBtn = document.getElementById('close-btn');
 const crtOverlay = document.getElementById('crt-overlay');
 const retroStage = document.getElementById('retro-stage');
 const bootTerminal = document.getElementById('boot-terminal');
@@ -487,18 +450,22 @@ const bootLines = [
   "STATUS: TERMINAL STABLE. AWAKE."
 ];
 
-detonator.addEventListener('click', () => {
-  // 1. Kick off CRT collapse animation
+// Trigger sequence when the red mac-style button is clicked on slide 2
+closeBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevents click effects conflict
+  
+  // Only trigger if the user has scrolled to the second slide (so the bar is actually visible)
+  const currentSlideIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
+  if (currentSlideIndex !== 1) return;
+
   crtOverlay.classList.add('shutdown');
   
   setTimeout(() => {
-    // 2. While dark, initialize retro stage visibility and clear layout
     retroStage.classList.add('visible');
     bootTerminal.textContent = "";
   }, 350);
 
   setTimeout(() => {
-    // 3. Clean up the collapse flash overlay and drop into terminal sequence
     crtOverlay.classList.remove('shutdown');
     runBootSequence();
   }, 650);
@@ -513,21 +480,17 @@ function runBootSequence() {
       bootTerminal.textContent += bootLines[lineIndex] + "\n";
       lineIndex++;
     } else {
-      // Loop or output random falling mock matrix code variables
       const hexChars = "0123456789ABCDEFSYSTEMFAILURE//X//";
       let randomLine = "";
       for(let i=0; i<30; i++) {
         randomLine += hexChars.charAt(Math.floor(Math.random() * hexChars.length)) + " ";
       }
       bootTerminal.textContent += randomLine + "\n";
-      
-      // Auto scroll terminal window view down
       bootTerminal.scrollTop = bootTerminal.scrollHeight;
     }
   }, 180);
 }
 
-// Exit button handling
 terminalExit.addEventListener('click', () => {
   clearInterval(bootInterval);
   retroStage.classList.remove('visible');
