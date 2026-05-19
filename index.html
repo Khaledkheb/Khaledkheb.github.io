@@ -130,18 +130,18 @@ section::after{
   box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
-/* Overlay Jester Hat Image Styling - Tilted & Covering the Corner */
+/* Overlay Jester Hat Image Styling - Tilted Right & Covering the Corner */
 .jester-panel-overlay {
   position: absolute;
-  top: -45px;    /* Pulls it slightly up past the top boundary */
-  right: -45px;  /* Pulls it across the right boundary */
+  top: -40px;    /* Pulls it slightly up past the top boundary */
+  right: -40px;  /* Pulls it across the right boundary */
   width: 150px;  /* Optimal presentation size */
   height: auto;
   z-index: 20;   /* Sits cleanly on top of the borders to mask/cover the corner */
-  transform: rotate(-15deg); /* Tilted slightly counter-clockwise to look naturally thrown on */
+  transform: rotate(15deg); /* Tilted clockwise to the right onto the corner framework */
   transform-origin: center center;
   pointer-events: none; /* Mouse elements pass straight through to prevent blocking text */
-  filter: drop-shadow(-5px 10px 15px rgba(0,0,0,0.7)); /* Casts shadow down onto the panel */
+  filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.7)); /* Casts shadow down onto the panel */
 }
 
 .text-type-wrapper {
