@@ -87,12 +87,12 @@ section::after{
   background-image: radial-gradient(circle at 50% 45%, #4a0404 0%, #1a0101 60%, #000000 100%);
 }
 
-/* Slide 2: Full Screen Landscape Fitting Background Cover */
+/* Slide 2: Fits horizontal width exactly and tiles vertically down the slide */
 #s2 .bg{
   background-image: url('img1.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: 100% auto; /* Fits perfectly to width horizontally */
+  background-repeat: repeat-y; /* Repeats vertically as many times as needed */
+  background-position: center top;
 }
 
 /* Slide 3 Background Styling */
@@ -121,20 +121,20 @@ section::after{
 /* Overlay Jester Hat Image Styling - Tilted Right, Positioned Up and Outward */
 .jester-panel-overlay {
   position: absolute;
-  top: -55px;    /* Raised up a bit higher over the boundary frame */
-  right: -48px;  /* Pushed slightly further right to match the elevation change */
-  width: 155px;  /* Well-proportioned desktop scale */
+  top: -55px;    /* Raised up over the boundary frame */
+  right: -48px;  /* Pushed slightly right over the corner */
+  width: 155px;  
   height: auto;
-  z-index: 20;   /* Sits cleanly on top of the borders to mask/cover the corner */
-  transform: rotate(15deg); /* Tilted clockwise to the right onto the corner framework */
+  z-index: 20;   
+  transform: rotate(15deg); /* Tilted clockwise to the right */
   transform-origin: center center;
-  pointer-events: none; /* Mouse elements pass straight through to prevent blocking text */
-  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); /* Casts deep drop shadow onto panel */
+  pointer-events: none; 
+  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
 }
 
 .text-type-wrapper {
   position: relative;
-  z-index: 15; /* Forces the text to stay fully readable */
+  z-index: 15; 
 }
 
 .aero-content-card {
