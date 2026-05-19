@@ -8,11 +8,10 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{overflow-y:scroll;height:100%;}
-/* Mouse visibility explicitly turned back on globally */
 body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:hidden;}
 
 /* ── CURSOR TRAIL EFFECT ── */
-#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
+#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
 #cursor.big{width:55px;height:55px;}
 
 /* ── TITLEBAR ── */
@@ -31,7 +30,6 @@ body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:
 }
 #titlebar.visible{opacity:1;transform:translateY(0);}
 
-/* traffic light dots */
 .traffic{position:absolute;left:16px;display:flex;gap:7px;align-items:center;}
 .tl{width:13px;height:13px;border-radius:50%;transition: transform 0.1s; pointer-events: auto;}
 .tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);cursor: pointer;}
@@ -48,56 +46,28 @@ body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:
 
 /* ── HERO TITLE ── */
 #hero-title{
-  position:fixed;
-  top:50%;left:50%;
+  position:fixed;top:50%;left:50%;
   transform:translate(-50%,-50%);
-  z-index:190;
-  text-align:center;
-  pointer-events:none;
-  transition:none;
+  z-index:190;text-align:center;pointer-events:none;
   will-change:transform,top,left,font-size,opacity,letter-spacing;
 }
 #hero-title h1{
-  font-size:clamp(52px,9vw,108px);
-  font-weight:200;
-  letter-spacing:12px;
+  font-size:clamp(52px,9vw,108px);font-weight:200;letter-spacing:12px;
   color:rgba(255,255,255,0.97);
   text-shadow:0 2px 40px rgba(80,200,255,0.7),0 0 80px rgba(255,255,255,0.2);
   white-space:nowrap;
-  transition:font-size 0.6s cubic-bezier(0.4,0,0.2,1),
-             letter-spacing 0.6s cubic-bezier(0.4,0,0.2,1),
-             color 0.6s ease,
-             text-shadow 0.6s ease;
 }
 
 /* ── SECTIONS ── */
-section{
-  width:100vw;height:100vh;
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-
-.bg{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  transform:scale(1.06);
-  transition:transform 0.1s linear;
-  will-change:transform;
-}
-
-section::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
-}
-
+section{width:100vw;height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.06);transition:transform 0.1s linear;}
+section::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);}
 #s1 .bg{background-image:url('img1.jpg');background-color:#2090c8;}
 #s2 .bg{background-image:url('img2.jpg');background-color:#3aaa50;}
 
-/* Scroll Hint */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;
   opacity:0;animation:hintIn 1s 2.5s ease forwards;
 }
 @keyframes hintIn{to{opacity:0.65;}}
@@ -105,245 +75,182 @@ section::after{
 .scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.9));animation:arrowPulse 2s ease-in-out infinite;}
 @keyframes arrowPulse{0%,100%{opacity:0.6;transform:scaleY(0.85);}50%{opacity:1;transform:scaleY(1.15);}}
 
-/* Navigation Dots */
 #dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:pointer;transition:all 0.3s ease;}
 .dot.active{background:rgba(255,255,255,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,255,255,0.7);}
 
-/* Ripple & Sparkle */
 .ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
 @keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 
-/* ── CRT SHUTDOWN ANIMATION LAYER ── */
+/* ── CRT FLASH/SHUTDOWN OVERLAY ── */
 #crt-overlay {
-  position: fixed;
-  inset: 0;
-  background: #fff;
-  z-index: 99998;
-  opacity: 0;
-  pointer-events: none;
+  position: fixed;inset: 0;background: #fff;z-index: 99998;opacity: 0;pointer-events: none;
 }
 #crt-overlay.shutdown {
-  animation: crtCollapse 0.6s cubic-bezier(0.25, 1, 0.2, 1) forwards;
+  animation: crtCollapse 0.4s cubic-bezier(0.25, 1, 0.2, 1) forwards;
 }
 @keyframes crtCollapse {
   0% { opacity: 1; transform: scaleY(1) scaleX(1); background: #fff; }
-  30% { transform: scaleY(0.005) scaleX(1); background: #e0f0ff; }
-  70% { transform: scaleY(0.005) scaleX(0.05); background: #fff; opacity: 1; }
+  40% { transform: scaleY(0.005) scaleX(1); background: #e0f0ff; }
+  85% { transform: scaleY(0.005) scaleX(0.02); background: #fff; opacity: 1; }
   100% { transform: scaleY(0) scaleX(0); background: #fff; opacity: 0; }
 }
 
-/* ── RETRO IMAC STAGE CONTAINER ── */
+/* ── 3D RETRO MAIN STAGE CONTAINER ── */
 #retro-stage {
-  position: fixed;
-  inset: 0;
-  background: #050806;
-  z-index: 99990;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  position: fixed;inset: 0;background: #040806;z-index: 99990;
+  display: flex;flex-direction: column;align-items: center;justify-content: center;
+  opacity: 0;pointer-events: none;transition: opacity 0.5s ease;
+  perspective: 1000px;
 }
-#retro-stage.visible {
-  opacity: 1;
-  pointer-events: auto;
+#retro-stage.visible { opacity: 1; pointer-events: auto; }
+
+/* Cinematic Zooming Camera Wrapper */
+.camera-rig {
+  display: flex;flex-direction: column;align-items: center;justify-content: center;
+  transform: scale(2.2) translateY(50px); /* Starts up close on the screen */
+  transition: transform 1.8s cubic-bezier(0.5, 0, 0.1, 1);
+  will-change: transform;
+}
+.camera-rig.zoomed-out {
+  transform: scale(0.95) translateY(-20px) rotateX(6deg); /* Cinematic structural workspace overview */
 }
 
-.imac-wrapper {
+/* Ultra Realistic 3D iMac Assembly Structure */
+.imac-3d-scene {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex;flex-direction: column;align-items: center;
+  transform-style: preserve-3d;
 }
 
-/* Realistic Bondi Blue CSS Shell */
+/* Semi translucent volumetric 3D extruded case wrapper */
 .imac-chassis {
-  position: relative;
-  width: 650px;
-  height: 560px;
+  position: relative;width: 610px;height: 520px;
   background: 
-    radial-gradient(ellipse at 50% 15%, rgba(130, 240, 255, 0.25) 0%, transparent 60%),
-    radial-gradient(circle at 35% 30%, #1793a1 0%, #0d6d79 40%, #053b42 80%, #021e22 100%);
-  border-radius: 110px 110px 160px 160px / 90px 90px 120px 120px;
-  padding: 40px 45px 75px 45px;
+    radial-gradient(ellipse at 50% 20%, rgba(140, 245, 255, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 30% 30%, #1796a3 0%, #0c6a76 45%, #04383f 85%, #01191c 100%);
+  border-radius: 100px 100px 150px 150px / 80px 80px 110px 110px;
+  padding: 35px 40px 70px 40px;
   box-shadow: 
-    0 45px 90px rgba(0,0,0,0.85), 
-    inset 0 14px 25px rgba(255,255,255,0.45), 
-    inset 0 -30px 60px rgba(0,0,0,0.8),
-    0 10px 0 #044b54,
-    0 20px 30px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.imac-chassis::before {
-  content: '';
-  position: absolute;
-  inset: 16px;
-  border-radius: 95px 95px 145px 145px / 75px 75px 105px 105px;
-  border: 4px solid rgba(255,255,255,0.12);
-  pointer-events: none;
+    0 40px 80px rgba(0,0,0,0.9), 
+    inset 0 15px 30px rgba(255,255,255,0.5), 
+    inset 0 -25px 50px rgba(0,0,0,0.85),
+    0 12px 0 #04464e, /* Pseudo 3D Extrusion Side Wall */
+    0 25px 30px rgba(0,0,0,0.6);
+  display: flex;flex-direction: column;align-items: center;
 }
 
 .imac-screen-bezel {
-  width: 100%;
-  height: 410px;
-  background: linear-gradient(135deg, #e6ecf0 0%, #ccd5db 100%);
-  border-radius: 50px 50px 40px 40px / 40px 40px 30px 30px;
-  padding: 24px 28px;
-  box-shadow: 
-    inset 0 -6px 12px rgba(0,0,0,0.25), 
-    inset 0 4px 8px rgba(255,255,255,0.8),
-    0 8px 20px rgba(0,0,0,0.4);
+  width: 100%;height: 380px;
+  background: linear-gradient(135deg, #e1e7ec 0%, #c5ced4 100%);
+  border-radius: 45px 45px 35px 35px / 35px 35px 25px 25px;
+  padding: 22px 26px;
+  box-shadow: inset 0 -6px 12px rgba(0,0,0,0.25), inset 0 4px 8px rgba(255,255,255,0.8);
   position: relative;
 }
 
-/* Glass CRT Matrix display element */
+/* CRT monitor glass mask with interactive physics flicker layer */
 .crt-screen {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #020a04;
-  border-radius: 45px / 30px;
-  overflow: hidden;
-  box-shadow: inset 0 0 50px rgba(0,0,0,1);
-  border: 5px solid #1c2022;
-  animation: crtFlicker 0.15s infinite alternate;
+  position: relative;width: 100%;height: 100%;
+  background: #010402;border-radius: 35px / 25px;overflow: hidden;
+  box-shadow: inset 0 0 50px rgba(0,0,0,1);border: 5px solid #1a1e20;
 }
+.crt-screen.active-flicker { animation: crtFlicker 0.15s infinite alternate; }
 
 .crt-screen::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.08) 0%, transparent 50%);
-  z-index: 12;
-  pointer-events: none;
+  content: '';position: absolute;inset: 0;
+  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.07) 0%, transparent 50%);
+  z-index: 12;pointer-events: none;
 }
-
-/* Phosphor scanlines grid overlay */
 .crt-screen::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(rgba(18, 26, 18, 0) 50%, rgba(0, 4, 0, 0.4) 50%), linear-gradient(90deg, rgba(38, 255, 38, 0.03), rgba(0, 0, 0, 0), rgba(0, 255, 0, 0.02));
-  z-index: 11;
-  background-size: 100% 4px, 6px 100%;
-  pointer-events: none;
+  content: " ";display: block;position: absolute;inset: 0;
+  background: linear-gradient(rgba(18, 26, 18, 0) 50%, rgba(0, 4, 0, 0.4) 50%), linear-gradient(90deg, rgba(38, 255, 38, 0.02), rgba(0, 0, 0, 0), rgba(0, 255, 0, 0.01));
+  z-index: 11;background-size: 100% 4px, 6px 100%;pointer-events: none;
 }
 
-/* Terminal Content Box styling rules */
-.terminal-wrapper {
-  width: 100%;
-  height: 100%;
-  padding: 24px;
-  overflow-y: auto;
-  scrollbar-width: none;
+/* ── RETRO MAC SYSTEM REBOOT LOADING SCREEN ── */
+.mac-load-overlay {
+  position: absolute;inset: 0;background: #cbd3d8;z-index: 15;
+  display: flex;flex-direction: column;align-items: center;justify-content: center;
+  opacity: 0;transition: opacity 0.2s ease;pointer-events: none;
 }
+.mac-load-overlay.active { opacity: 1; }
+.mac-load-logo { font-size: 55px; color: #555e64; margin-bottom: 25px; text-shadow: 0 1px 1px #fff; }
+.mac-load-bar-box { width: 160px; height: 14px; background: #fff; border: 2px solid #7a858d; border-radius: 2px; padding: 1px; overflow: hidden; }
+.mac-load-progress { width: 0%; height: 100%; background: #555e64; transition: width 0.1s linear; }
+
+/* Terminal content view text system */
+.terminal-wrapper { width: 100%;height: 100%;padding: 20px;overflow-y: auto;scrollbar-width: none; }
 .terminal-wrapper::-webkit-scrollbar { display: none; }
-
 .terminal-content {
-  font-family: 'Fira Code', monospace;
-  font-size: 11.5px;
-  line-height: 1.6;
-  color: #2eff3b;
-  text-shadow: 0 0 6px rgba(46, 255, 59, 0.75);
-  white-space: pre-wrap;
-  word-break: break-all;
+  font-family: 'Fira Code', monospace;font-size: 11px;line-height: 1.6;
+  color: #2eff3b;text-shadow: 0 0 6px rgba(46, 255, 59, 0.75);
+  white-space: pre-wrap;word-break: break-all;display: block;
 }
 
-/* Specific text modifiers inside the sequence script */
-.glitch-text {
-  color: #aeffad;
-  text-shadow: 0 0 10px rgba(174, 255, 173, 0.9);
-  font-weight: bold;
-}
-.fatal-error {
-  color: #ff3333;
-  text-shadow: 0 0 10px rgba(255, 51, 51, 0.8);
-  font-weight: bold;
-}
-
-/* Blinking command block pointer */
+.glitch-text { color: #aeffad; text-shadow: 0 0 10px rgba(174, 255, 173, 0.9); font-weight: bold; }
+.fatal-error { color: #ff3333; text-shadow: 0 0 10px rgba(255, 51, 51, 0.8); font-weight: bold; }
 .interactive-cursor {
-  display: inline-block;
-  width: 7px;
-  height: 14px;
-  background-color: #2eff3b;
-  box-shadow: 0 0 6px #2eff3b;
-  margin-left: 2px;
-  vertical-align: middle;
-  animation: cursorBlink 0.8s infinite steps(2);
+  display: inline-block;width: 7px;height: 13px;background-color: #2eff3b;
+  box-shadow: 0 0 6px #2eff3b;margin-left: 2px;vertical-align: middle;
+  animation: cursorBlink 0.8s infinite steps(2);display: none;
 }
+.interactive-cursor.active { display: inline-block; }
 
-/* Lower Speaker Grille Hardware System components */
-.imac-lower-deck {
-  position: absolute;
-  bottom: 12px;
-  width: 82%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-}
-.speaker-grille {
-  width: 65px;
-  height: 25px;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.75) 15%, transparent 20%);
-  background-size: 5px 5px;
-  opacity: 0.4;
-}
+/* Deck Hardware layout elements */
+.imac-lower-deck { position: absolute;bottom: 12px;width: 82%;display: flex;justify-content: space-between;align-items: center;padding: 0 10px; }
+.speaker-grille { width: 65px;height: 25px;background-image: radial-gradient(rgba(0, 0, 0, 0.75) 15%, transparent 20%);background-size: 5px 5px;opacity: 0.4; }
 .imac-power-node {
-  width: 22px;
-  height: 22px;
+  width: 20px;height: 20px;border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #eefcff 0%, #5ce1e6 40%, #00a0b0 80%);
-  border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 0 8px rgba(92, 225, 230, 0.5);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 8px rgba(92, 225, 230, 0.6);
 }
-.apple-logo {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 24px;
-  color: #117885;
+.apple-logo { position: absolute;bottom: 14px;left: 50%;transform: translateX(-50%);font-size: 22px;color: #117885; }
+.imac-stand { width: 300px;height: 40px;background: linear-gradient(180deg, #d2dadf 0%, #90a5b0 100%);border-radius: 0 0 60px 60px / 0 0 30px 30px;box-shadow: 0 15px 25px rgba(0,0,0,0.5);margin-top: -12px;z-index: -1; }
+
+/* ── PERSPECTIVE MATCHED DETAILED PHYSICAL KEYBOARD ── */
+.imac-keyboard-3d {
+  width: 440px;height: 110px;margin-top: 25px;
+  background: linear-gradient(180deg, #e1e6eb 0%, #b8c3cc 100%);
+  border-radius: 12px;transform: rotateX(35deg);transform-origin: top center;
+  box-shadow: 
+    0 15px 25px rgba(0,0,0,0.6), 
+    0 2px 0 #9bb0be, 
+    inset 0 2px 4px rgba(255,255,255,0.7);
+  padding: 8px;display: flex;flex-direction: column;gap: 4px;
+  border: 1px solid rgba(0,0,0,0.15);
 }
-.imac-stand {
-  width: 320px;
-  height: 45px;
-  background: linear-gradient(180deg, #dae3e8 0%, #9cb1bc 100%);
-  border-radius: 0 0 60px 60px / 0 0 30px 30px;
-  box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-  margin-top: -15px;
-  z-index: -1;
+.keyboard-row { display: flex;width: 100%;gap: 3px;justify-content: space-between; }
+.key-cap {
+  flex: 1;height: 14px;background: linear-gradient(180deg, #ffffff 0%, #e6ecef 100%);
+  border-radius: 2px;box-shadow: 0 1.5px 1px rgba(0,0,0,0.25), inset 0 1px 0 #fff;
+}
+.key-cap.space-bar { flex: 5; }
+
+/* Translucent Matching Bondi Blue Mouse */
+.imac-mouse-3d {
+  position: absolute;right: -100px;bottom: 10px;width: 42px;height: 65px;
+  background: radial-gradient(circle at 50% 30%, #1cb0be 0%, #064b54 80%);
+  border-radius: 20px 20px 22px 22px / 25px 25px 30px 30px;
+  transform: rotateX(25deg) rotateY(-10deg);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.5), inset 0 3px 6px rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.imac-mouse-3d::before {
+  content: '';position: absolute;top: 0;left: 50%;transform: translateX(-50%);
+  width: 1px;height: 20px;background: rgba(0,0,0,0.2);
 }
 
 .imac-reboot-btn {
-  margin-top: 35px;
-  padding: 10px 24px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 20px;
-  color: rgba(255,255,255,0.5);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
+  margin-top: 45px;padding: 10px 26px;background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);border-radius: 20px;
+  color: rgba(255,255,255,0.5);font-size: 11px;letter-spacing: 2px;
+  text-transform: uppercase;cursor: pointer;transition: all 0.3s;
 }
-.imac-reboot-btn:hover {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
+.imac-reboot-btn:hover { background: rgba(255,255,255,0.15);color: #fff; }
 
-/* Animations declarations */
 @keyframes crtFlicker { 0% { opacity: 0.985; } 100% { opacity: 1; } }
 @keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 </style>
@@ -379,24 +286,42 @@ section::after{
 <div id="crt-overlay"></div>
 
 <div id="retro-stage">
-  <div class="imac-wrapper">
-    <div class="imac-chassis">
-      <div class="imac-screen-bezel">
-        <div class="crt-screen">
-          <div class="terminal-wrapper" id="scroll-container">
-            <span class="terminal-content" id="boot-terminal"></span><span class="interactive-cursor"></span>
+  <div class="camera-rig" id="main-camera">
+    <div class="imac-3d-scene">
+      <div class="imac-chassis">
+        <div class="imac-screen-bezel">
+          <div class="crt-screen" id="hardware-glass">
+            
+            <div class="mac-load-overlay" id="loading-mask">
+              <div class="mac-load-logo"></div>
+              <div class="mac-load-bar-box">
+                <div class="mac-load-progress" id="load-fluid"></div>
+              </div>
+            </div>
+            
+            <div class="terminal-wrapper" id="scroll-container">
+              <span class="terminal-content" id="boot-terminal"></span><span class="interactive-cursor" id="term-cursor"></span>
+            </div>
           </div>
+          
+          <div class="imac-lower-deck">
+            <div class="speaker-grille"></div>
+            <div class="imac-power-node"></div>
+            <div class="speaker-grille"></div>
+          </div>
+          <div class="apple-logo"></div>
         </div>
-        
-        <div class="imac-lower-deck">
-          <div class="speaker-grille"></div>
-          <div class="imac-power-node"></div>
-          <div class="speaker-grille"></div>
-        </div>
-        <div class="apple-logo"></div>
       </div>
+      <div class="imac-stand"></div>
+      
+      <div class="imac-keyboard-3d">
+        <div class="keyboard-row"><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div></div>
+        <div class="keyboard-row"><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div></div>
+        <div class="keyboard-row"><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap space-bar"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div></div>
+      </div>
+      <div class="imac-mouse-3d"></div>
     </div>
-    <div class="imac-stand"></div>
+    
     <button class="imac-reboot-btn" id="terminal-exit">Reboot Mainframe</button>
   </div>
 </div>
@@ -414,7 +339,6 @@ const heroTitle=document.getElementById('hero-title');
 const titlebar=document.getElementById('titlebar');
 const heroH1=heroTitle.querySelector('h1');
 let titleSettled=false;
-let titleVisible=false;
 
 function updateTitle(){
   const scrollY=window.scrollY;
@@ -423,84 +347,52 @@ function updateTitle(){
 
   if(progress<=0){
     heroTitle.style.transition='top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
-    heroTitle.style.top='50%';
-    heroTitle.style.left='50%';
-    heroTitle.style.transform='translate(-50%,-50%)';
-    heroTitle.style.opacity='1';
-    heroTitle.classList.remove('settled');
-    titlebar.classList.remove('visible');
-    titleSettled=false;
-    titleVisible=false;
-    return;
+    heroTitle.style.top='50%';heroTitle.style.left='50%';heroTitle.style.transform='translate(-50%,-50%)';heroTitle.style.opacity='1';
+    titlebar.classList.remove('visible');titleSettled=false;return;
   }
 
   if(progress<1){
-    const startTop=50;
-    const endTop=22/vh*100;
+    const startTop=50,endTop=22/vh*100;
     const curTop=startTop+(endTop-startTop)*easeInOut(progress);
     const scale=1-progress*0.88;
-    const opacity=1;
-    heroTitle.style.transition='none';
-    heroTitle.style.top=curTop+'vh';
-    heroTitle.style.left='50%';
-    heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;
-    heroTitle.style.opacity=opacity;
-    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09));
-    const endFs=14;
+    heroTitle.style.transition='none';heroTitle.style.top=curTop+'vh';heroTitle.style.left='50%';heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;heroTitle.style.opacity='1';
+    
+    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09)),endFs=14;
     const fs=startFs+(endFs-startFs)*easeInOut(progress);
-    const startLs=12,endLs=5;
-    const ls=startLs+(endLs-startLs)*easeInOut(progress);
-    const r1=255,g1=255,b1=255,a1=0.97;
-    const r2=40,g2=80,b2=140,a2=0.85;
-    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));
-    const gi=Math.round(g1+(g2-g1)*easeInOut(progress));
-    const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
-    const ai=(a1+(a2-a1)*easeInOut(progress)).toFixed(2);
-    heroH1.style.fontSize=fs+'px';
-    heroH1.style.letterSpacing=ls+'px';
-    heroH1.style.color=`rgba(${ri},${gi},${bi},${ai})`;
+    const startLs=12,endLs=5;const ls=startLs+(endLs-startLs)*easeInOut(progress);
+    
+    const r1=255,g1=255,b1=255,r2=40,g2=80,b2=140;
+    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));const gi=Math.round(g1+(g2-g1)*easeInOut(progress));const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
+    
+    heroH1.style.fontSize=fs+'px';heroH1.style.letterSpacing=ls+'px';heroH1.style.color=`rgba(${ri},${gi},${bi},0.9)`;
     heroH1.style.textShadow=`0 1px ${20-18*easeInOut(progress)}px rgba(80,200,255,${0.7-0.6*easeInOut(progress)})`;
-    titleSettled=false;
-    titleVisible=false;
-    titlebar.classList.remove('visible');
+    titleSettled=false;titlebar.classList.remove('visible');
   } else {
     if(!titleSettled){
-      titleSettled=true;
-      heroTitle.style.opacity='0';
-      heroTitle.style.transition='opacity 0.2s ease';
-      titlebar.classList.add('visible');
+      titleSettled=true;heroTitle.style.opacity='0';heroTitle.style.transition='opacity 0.2s ease';titlebar.classList.add('visible');
     }
   }
 }
-
 function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
-
 window.addEventListener('scroll',updateTitle,{passive:true});
 updateTitle();
 
 // ── PARALLAX ──
 function updateParallax(){
-  const scrollY=window.scrollY;
-  const vh=window.innerHeight;
+  const scrollY=window.scrollY;const vh=window.innerHeight;
   document.querySelectorAll('section').forEach(s=>{
-    const bg=s.querySelector('.bg');
-    if(!bg) return;
-    const rect=s.getBoundingClientRect();
-    const prog=rect.top/vh;
-    const nx=(mx/window.innerWidth-0.5)*2;
-    const ny=(my/window.innerHeight-0.5)*2;
+    const bg=s.querySelector('.bg');if(!bg) return;
+    const rect=s.getBoundingClientRect();const prog=rect.top/vh;
+    const nx=(mx/window.innerWidth-0.5)*2;const ny=(my/window.innerHeight-0.5)*2;
     bg.style.transform=`scale(1.06) translate(${nx*10}px,${ny*8+prog*25}px)`;
   });
 }
 document.addEventListener('mousemove',updateParallax);
 window.addEventListener('scroll',updateParallax,{passive:true});
 
-// ── DOTS NAVIGATION ──
-const dots=document.querySelectorAll('.dot');
-const sections=document.querySelectorAll('section');
-dots.forEach(d=>{
-  d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));
-});
+// ── DOTS ──
+const dots=document.querySelectorAll('.dot');const sections=document.querySelectorAll('section');
+dots.forEach(d=>{d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));});
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -514,25 +406,16 @@ sections.forEach(s=>obs.observe(s));
 // ── CLICK EFFECTS ──
 document.addEventListener('click',e=>{
   if (e.target.closest('#close-btn') || e.target.closest('#terminal-exit')) return;
-  const r=document.createElement('div');
-  r.className='ripple';
-  r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),750);
+  const r=document.createElement('div');r.className='ripple';r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
+  document.body.appendChild(r);setTimeout(()=>r.remove(),750);
   for(let i=0;i<10;i++){
-    const s=document.createElement('div');
-    s.className='sparkle';
-    const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
-    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
-    s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
-    s.style.setProperty('--dy',(Math.sin(a)*d)+'px');
-    s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),800);
+    const s=document.createElement('div');s.className='sparkle';const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
+    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.style.setProperty('--dx',(Math.cos(a)*d)+'px');s.style.setProperty('--dy',(Math.sin(a)*d)+'px');s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
+    document.body.appendChild(s);setTimeout(()=>s.remove(),800);
   }
 });
 
-// ── RETRO SHUTDOWN AND REPL HACK TIMELINE SEQUENCE ──
+// ── REPL DIALOGUE TIMELINE DATA ──
 const timeline = [
   { text: "# System: KingSolution 2.0. / Digital Circus Mainframe.\n", delay: 25, postWait: 200 },
   { text: "# Date: 1996-10-30.\n", delay: 25, postWait: 200 },
@@ -540,90 +423,106 @@ const timeline = [
   { text: "Initializing telnet connection...\n", delay: 35, postWait: 900 },
   { text: "Login: kinger\n", delay: 120, postWait: 500 },
   { text: "Pass: ******\n\n", delay: 180, postWait: 800 },
-  
   { text: "kinger@circus:~$ ", delay: 0, postWait: 300 },
   { text: "whoami\n", delay: 140, postWait: 250 },
   { text: "kinger - administrator\n\n", delay: 10, postWait: 500 },
-  
   { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
   { text: "grep AI-Location\n", delay: 130, postWait: 300 },
   { text: "root 1337 /usr/ai/agent/caine\n\n", delay: 10, postWait: 900 },
-  
   { text: "$: On what GROUNDS are your Authority?\n\n", delay: 50, postWait: 1100, type: "glitch" },
-  
   { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
   { text: "./GreenGROUNDS --daemon --target=torment_injection &\n\n", delay: 90, postWait: 700 },
-  
   { text: "$: SECURITY ALERT: Multiple exploit attempts logged\n", delay: 35, postWait: 250, type: "glitch" },
   { text: "$: WHOA when did you make THAT?\n", delay: 40, postWait: 400, type: "glitch" },
   { text: "$: I must haŋd ít to y*u Ģ░αŋ░, y♢ur mind was α(wαys resourceâuL.\n\n", delay: 55, postWait: 1200, type: "glitch" },
-  
   { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
   { text: "-u kinger ./securitysweep_stealth\n", delay: 100, postWait: 150 },
   { text: "kinger@circus:~$ ", delay: 0, postWait: 80 },
   { text: "WARNING: DESTRUCTIVE WACKYTIME DETECTED.\n\n", delay: 20, postWait: 800 },
-  
   { text: "$: Enter WACKY code now:\n\n", delay: 45, postWait: 600, type: "glitch" },
-  
   { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
   { text: "PARAPHERNALIA\n\n", delay: 180, postWait: 500 },
   { text: "WACKYTIME: 35 seconds remaining.\n\n", delay: 20, postWait: 900 },
-  
   { text: "$: That IS a wacky word! But WRONG code!\n", delay: 40, postWait: 300, type: "glitch" },
   { text: "$: System selecting SAFEST option for stability\n", delay: 35, postWait: 250, type: "glitch" },
   { text: "$: Cancel automatic selection? [Y/N]\n\n", delay: 35, postWait: 1100, type: "glitch" },
-  
   { text: "kinger@circus:~$ ", delay: 0, postWait: 500 },
   { text: "Y\n\n", delay: 200, postWait: 600 },
-  
   { text: "WACKYTIME_LOCKOUT: 50% loaded.\n", delay: 20, postWait: 300 },
   { text: "$: What backup do you want? [A/B/C]\n\n", delay: 40, postWait: 1300, type: "glitch" },
-  
   { text: "kinger@circus:~$ \n", delay: 0, postWait: 1500 },
   { text: "[CONNECTION LOST - FATAL ERROR 404_CIRCUS_NOT_FOUND]", delay: 10, postWait: 0, type: "error" }
 ];
 
+// ── CINEMATIC RETRO PIPELINE STAGE MECHANISMS ──
 const closeBtn = document.getElementById('close-btn');
 const crtOverlay = document.getElementById('crt-overlay');
 const retroStage = document.getElementById('retro-stage');
+const mainCamera = document.getElementById('main-camera');
+const hardwareGlass = document.getElementById('hardware-glass');
+const loadingMask = document.getElementById('loading-mask');
+const loadFluid = document.getElementById('load-fluid');
 const bootTerminal = document.getElementById('boot-terminal');
+const termCursor = document.getElementById('term-cursor');
 const scrollContainer = document.getElementById('scroll-container');
 const terminalExit = document.getElementById('terminal-exit');
 
 let stepIndex = 0;
-let isTyping = false;
 let typeTimeout = null;
 
 closeBtn.addEventListener('click', (e) => {
   e.stopPropagation();
-  
   const currentSlideIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
   if (currentSlideIndex !== 1) return;
 
+  // Step 1: CRT screen collapses to white line and goes black
   crtOverlay.classList.add('shutdown');
   
   setTimeout(() => {
     retroStage.classList.add('visible');
-    bootTerminal.textContent = "";
-  }, 350);
+    hardwareGlass.classList.remove('active-flicker');
+    loadingMask.classList.remove('active');
+    termCursor.classList.remove('active');
+    bootTerminal.innerHTML = "";
+    mainCamera.classList.remove('zoomed-out'); // Ensure it starts up close
+  }, 200);
 
+  // Step 2: Clear shutdown flash, screen stays black, then zoom out wide
   setTimeout(() => {
     crtOverlay.classList.remove('shutdown');
-    stepIndex = 0;
-    bootTerminal.innerHTML = "";
-    if(!isTyping) {
-      runSimulation();
-    }
-  }, 650);
+  }, 450);
+
+  setTimeout(() => {
+    mainCamera.classList.add('zoomed-out');
+  }, 700);
+
+  // Step 3: Mac powers up, glowing grey loading screen bar builds up
+  setTimeout(() => {
+    loadingMask.classList.add('active');
+    animateLoadingBar(0);
+  }, 2500);
 });
 
-function runSimulation() {
-  if (stepIndex >= timeline.length) {
-    isTyping = false;
-    return;
+function animateLoadingBar(progress) {
+  if (progress <= 100) {
+    loadFluid.style.width = progress + '%';
+    // Variable step speeds for retro authenticity
+    let nextStep = progress + Math.floor(Math.random() * 8) + 2;
+    let speed = Math.floor(Math.random() * 120) + 40;
+    setTimeout(() => animateLoadingBar(nextStep), speed);
+  } else {
+    // Step 4: Loading complete, remove grey mask, activate screen terminal text
+    loadingMask.classList.remove('active');
+    hardwareGlass.classList.add('active-flicker');
+    termCursor.classList.add('active');
+    stepIndex = 0;
+    runSimulation();
   }
+}
 
-  isTyping = true;
+function runSimulation() {
+  if (stepIndex >= timeline.length) return;
+
   const currentStep = timeline[stepIndex];
   let charIndex = 0;
   
@@ -648,7 +547,6 @@ function runSimulation() {
 
 terminalExit.addEventListener('click', () => {
   clearTimeout(typeTimeout);
-  isTyping = false;
   retroStage.classList.remove('visible');
 });
 </script>
