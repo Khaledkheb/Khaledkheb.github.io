@@ -14,7 +14,7 @@ html, body {
   height: 100%;
   width: 100%;
   background: #000;
-  overflow: hidden; /* Outsource scrolling management to the view wrap container layer */
+  overflow: hidden; 
 }
 
 body {
@@ -77,7 +77,8 @@ section{
   will-change:transform;
 }
 
-section::after{
+/* Vignette overlay applied ONLY to non-tiling slides to prevent breaking Slide 2 */
+section:not(#s2)::after{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,0.6) 100%);
 }
@@ -89,13 +90,18 @@ section::after{
   background-image: radial-gradient(circle at 50% 45%, #4a0404 0%, #1a0101 60%, #000000 100%);
 }
 
-/* Slide 2: FIXED background properties - perfectly locked horizontally, repeating vertically */
-#s2 .bg {
+/* Slide 2: FORCE EXACT ACCORDION HORIZONTAL STRETCH WITH VERTICAL TILING */
+#s2 .bg-tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
   background-image: url('img1.jpg') !important;
-  background-size: 100% auto !important; /* Locks width to screen boundary */
-  background-repeat: repeat-y !important; /* Forces vertical-only repeating down the frame */
+  background-size: 100% auto !important; /* Locks perfectly edge-to-edge horizontally */
+  background-repeat: repeat-y !important; /* Continuous repeat down the screen height */
   background-position: center top !important;
-  transform: none !important; /* Disables parallax scaling to ensure the tiling image fits perfectly */
+  transform: none !important; /* Kill all translation matrix scaling strings */
 }
 
 /* Slide 3 Background Styling */
@@ -108,7 +114,7 @@ section::after{
 
 /* ── CONTENT PRESENTATION PANEL CARDS ── */
 .jester-display-panel {
-  position: relative; /* Anchor target for absolute positioning the corner image */
+  position: relative; 
   z-index: 10;
   text-align: center;
   width: 85%;
@@ -122,23 +128,22 @@ section::after{
   box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
-/* Overlay Jester Hat Image Styling - Tilted Right, Positioned Up and Outward */
 .jester-panel-overlay {
   position: absolute;
-  top: -55px;    /* Raised up a bit higher over the boundary frame */
-  right: -48px;  /* Pushed slightly further right to match the elevation change */
-  width: 155px;  /* Well-proportioned desktop scale */
+  top: -55px;    
+  right: -48px;  
+  width: 155px;  
   height: auto;
-  z-index: 20;   /* Sits cleanly on top of the borders to mask/cover the corner */
-  transform: rotate(15deg); /* Tilted clockwise to the right onto the corner framework */
+  z-index: 20;   
+  transform: rotate(15deg); 
   transform-origin: center center;
-  pointer-events: none; /* Mouse elements pass straight through to prevent blocking text */
-  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); /* Casts deep drop shadow onto panel */
+  pointer-events: none; 
+  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
 }
 
 .text-type-wrapper {
   position: relative;
-  z-index: 15; /* Forces the text to stay fully readable */
+  z-index: 15; 
 }
 
 .aero-content-card {
@@ -271,7 +276,7 @@ section::after{
   </section>
 
   <section id="s2">
-    <div class="bg" id="bg2"></div>
+    <div class="bg-tile" id="bg2"></div>
     
     <div class="scroll-hint">
       <div class="scroll-arrow"></div>
@@ -315,7 +320,7 @@ function updateParallax(){
   const vh=window.innerHeight;
   document.querySelectorAll('section').forEach(s=>{
     const bg=s.querySelector('.bg');
-    if(!bg || s.id === 's2') return; /* Bypass Slide 2 to maintain fixed tiling pattern rules */
+    if(!bg) return; /* Safely skips Slide 2 entirely since it uses .bg-tile now */
     const rect=s.getBoundingClientRect();
     const prog=rect.top/vh;
     const nx=(mx/window.innerWidth-0.5)*2;
@@ -363,13 +368,12 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── CHRONOLOGICAL TEXT-TYPE FRAMEWORK (RANDOMIZED) ──
+// ── AUTO TYPING TEXT LAYOUT (HELLO WORLD ALWAYS FIRST + RANDOMIZED POOL) ──
 function initTextTypeEngine() {
   const target = document.getElementById('textTypeEngine');
   if(!target) return;
 
-  const originalQuotes = [
-    "Hello world", 
+  const dynamicQuotesPool = [
     "the world is a kingdom, you are a jester",
     "oversee everyone, as you hold order in your speech",
     "entertain the world, you are a fool after all",
@@ -384,12 +388,14 @@ function initTextTypeEngine() {
     "the ultimate tragedy is a silent crowd"
   ];
   
-  // Clean modern Fisher-Yates array shuffling implementation to fully randomize quote structures
-  const textArray = [...originalQuotes];
-  for (let i = textArray.length - 1; i > 0; i--) {
+  // Shuffle only the dynamic contextual pool
+  for (let i = dynamicQuotesPool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [textArray[i], textArray[j]] = [textArray[j], textArray[i]];
+    [dynamicQuotesPool[i], dynamicQuotesPool[j]] = [dynamicQuotesPool[j], dynamicQuotesPool[i]];
   }
+  
+  // Explicitly prepend "Hello world" so it retains structural priority position 0
+  const textArray = ["Hello world", ...dynamicQuotesPool];
   
   const typingSpeed = 55;
   const pauseDuration = 2200;
