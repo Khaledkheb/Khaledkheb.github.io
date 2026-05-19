@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✦ Aero Vista</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{overflow-y:scroll;height:100%;scroll-behavior: smooth;}
@@ -43,7 +43,7 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;overflow-x:hid
   user-select:none;
 }
 
-/* ── HERO TITLE (Triggers down when scrolling from Main Page) ── */
+/* ── HERO TITLE ── */
 #hero-title{
   position:fixed;
   top:50%;left:50%;
@@ -67,22 +67,6 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;overflow-x:hid
              text-shadow 0.6s ease;
 }
 
-/* ── MAIN LANDING LAYER SUB-HEADING ── */
-.main-subtitle {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
-  font-weight: 300;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  margin-top: 20px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  animation: fadeUpIn 1.2s 0.5s ease both;
-}
-@keyframes fadeUpIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* ── SECTIONS ── */
 section{
   width:100vw;height:100vh;
@@ -103,17 +87,15 @@ section::after{
   background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
 }
 
-#s1 .bg{background-color:#111525; background-image: radial-gradient(circle at 50% 50%, #1a2238 0%, #0a0c16 100%);}
-#s2 .bg{background-color:#2090c8; background-image: radial-gradient(circle at 30% 30%, #3ca9e2 0%, #156293 100%);}
-#s3 .bg{background-color:#3aaa50; background-image: radial-gradient(circle at 70% 60%, #52ca69 0%, #217332 100%);}
-#s4 .bg{background-color:#1cbbb4; background-image: radial-gradient(circle at 80% 20%, #76e4ce 0%, #1cbbb4 100%);}
+#s1 .bg{background-color:#2090c8; background-image: radial-gradient(circle at 30% 30%, #3ca9e2 0%, #156293 100%);}
+#s2 .bg{background-color:#3aaa50; background-image: radial-gradient(circle at 70% 60%, #52ca69 0%, #217332 100%);}
 
 /* scroll hint */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:6px;
   pointer-events:none;
-  opacity:0;animation:hintIn 1s 1.5s ease forwards;
+  opacity:0;animation:hintIn 1s 2.5s ease forwards;
 }
 @keyframes hintIn{to{opacity:0.65;}}
 .scroll-hint span{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.85);text-transform:uppercase;}
@@ -131,14 +113,302 @@ section::after{
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 
-/* ── EXPANDED CURVED LOOP CONTAINER CARD ── */
+/* ── EXPANDED LOOP CONTAINER CARD (AERO DESIGN) ── */
 .aero-content-card {
   z-index: 10;
   width: 92%;
   max-width: 1200px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(200, 235, 255, 0.12) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(200, 235, 255, 0.15) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 28px;
   backdrop-filter: blur(25px) saturate(1.6);
   -webkit-backdrop-filter: blur(25px) saturate(1.6);
-  box-shadow: 0
+  box-shadow: 0 30px 60px rgba(0, 30, 60, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── CURVED LOOP VANILLA LAYER ── */
+.curved-loop-jacket {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  /* Soft masking edges that do not prematurely execute clipping effects */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+}
+
+.curved-loop-svg {
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+  aspect-ratio: 1440 / 220;
+  overflow: visible;
+  display: block;
+}
+
+.curved-loop-svg text {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  fill: #ffffff;
+  text-shadow: 0 4px 16px rgba(0, 50, 100, 0.25);
+  letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<div id="titlebar">
+  <div class="traffic"><div class="tl r"></div><div class="tl y"></div><div class="tl g"></div></div>
+  <div id="titlebar-text">AERO</div>
+</div>
+
+<div id="hero-title"><h1>AERO</h1></div>
+
+<div id="dots">
+  <div class="dot active" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+</div>
+
+<section id="s1">
+  <div class="bg" id="bg1"></div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="bg" id="bg2"></div>
+  
+  <div class="aero-content-card">
+    <div class="curved-loop-jacket">
+      <div class="curved-loop-svg-target" style="width:100%;"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ── CURSOR ──
+const cursor=document.getElementById('cursor');
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+document.addEventListener('mousedown',()=>cursor.classList.add('big'));
+document.addEventListener('mouseup',()=>cursor.classList.remove('big'));
+
+// ── TITLEBAR + HERO TITLE ANIMATION ──
+const heroTitle=document.getElementById('hero-title');
+const titlebar=document.getElementById('titlebar');
+const heroH1=heroTitle.querySelector('h1');
+let titleSettled=false;
+
+function updateTitle(){
+  const scrollY=window.scrollY;
+  const vh=window.innerHeight;
+  const progress=Math.min(1,scrollY/(vh*0.38));
+
+  if(progress<=0){
+    heroTitle.style.transition='top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
+    heroTitle.style.top='50%';
+    heroTitle.style.left='50%';
+    heroTitle.style.transform='translate(-50%,-50%)';
+    heroTitle.style.opacity='1';
+    titlebar.classList.remove('visible');
+    titleSettled=false;
+    return;
+  }
+
+  if(progress<1){
+    const startTop=50;
+    const endTop=22/vh*100;
+    const curTop=startTop+(endTop-startTop)*easeInOut(progress);
+    const scale=1-progress*0.88;
+    heroTitle.style.transition='none';
+    heroTitle.style.top=curTop+'vh';
+    heroTitle.style.left='50%';
+    heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;
+    heroTitle.style.opacity=1;
+    
+    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09));
+    const endFs=14;
+    const fs=startFs+(endFs-startFs)*easeInOut(progress);
+    const startLs=12,endLs=5;
+    const ls=startLs+(endLs-startLs)*easeInOut(progress);
+    const r1=255,g1=255,b1=255;
+    const r2=40,g2=80,b2=140;
+    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));
+    const gi=Math.round(g1+(g2-g1)*easeInOut(progress));
+    const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
+    heroH1.style.fontSize=fs+'px';
+    heroH1.style.letterSpacing=ls+'px';
+    heroH1.style.color=`rgba(${ri},${gi},${bi},0.85)`;
+    heroH1.style.textShadow=`0 1px ${20-18*easeInOut(progress)}px rgba(80,200,255,${0.7-0.6*easeInOut(progress)})`;
+    titleSettled=false;
+    titlebar.classList.remove('visible');
+  } else {
+    if(!titleSettled){
+      titleSettled=true;
+      heroTitle.style.opacity='0';
+      heroTitle.style.transition='opacity 0.2s ease';
+      titlebar.classList.add('visible');
+    }
+  }
+}
+
+function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+
+window.addEventListener('scroll',updateTitle,{passive:true});
+updateTitle();
+
+// ── PARALLAX ──
+function updateParallax(){
+  const scrollY=window.scrollY;
+  const vh=window.innerHeight;
+  document.querySelectorAll('section').forEach(s=>{
+    const bg=s.querySelector('.bg');
+    if(!bg) return;
+    const rect=s.getBoundingClientRect();
+    const prog=rect.top/vh;
+    const nx=(mx/window.innerWidth-0.5)*2;
+    const ny=(my/window.innerHeight-0.5)*2;
+    bg.style.transform=`scale(1.06) translate(${nx*10}px,${ny*8+prog*25}px)`;
+  });
+}
+document.addEventListener('mousemove',updateParallax);
+window.addEventListener('scroll',updateParallax,{passive:true});
+
+// ── DOTS ──
+const dots=document.querySelectorAll('.dot');
+const sections=document.querySelectorAll('section');
+dots.forEach(d=>{
+  d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i=Array.from(sections).indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('active',i===j));
+    }
+  });
+},{threshold:0.6});
+sections.forEach(s=>obs.observe(s));
+
+// ── CLICK EFFECTS ──
+document.addEventListener('click',e=>{
+  if (e.target.closest('.curved-loop-svg')) return;
+  const r=document.createElement('div');
+  r.className='ripple';
+  r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),750);
+  for(let i=0;i<10;i++){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
+    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+    s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
+    s.style.setProperty('--dy',(Math.sin(a)*d)+'px');
+    s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),800);
+  }
+});
+
+// ── VANILLA MARQUEE LOOP ENGINE ──
+const curvedLoopConfig = {
+  marqueeText: "The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦ ",
+  speed: 2.5,
+  curveAmount: 180, // Flattened slightly to maximize visibility without extreme stretching
+  direction: "right",
+  interactive: true
+};
+
+function createCurvedLoop() {
+  const targetContainer = document.querySelector('.curved-loop-svg-target');
+  if(!targetContainer) return;
+  
+  const uid = 'curved-path-element';
+  // Extended path start and stop constraints to prevent sudden text vanishing at edges
+  const pathD = `M-400,30 Q720,${30 + curvedLoopConfig.curveAmount} 1840,30`;
+  
+  targetContainer.innerHTML = `
+    <svg class="curved-loop-svg" viewBox="0 0 1440 220">
+      <defs>
+        <path id="${uid}" d="${pathD}" fill="none" stroke="transparent" />
+      </defs>
+      <text ref="measureNode" style="visibility:hidden; opacity:0; pointer-events:none; font-weight:700;">${curvedLoopConfig.marqueeText}</text>
+      <text font-weight="bold">
+        <textPath id="loopTextPath" href="#${uid}" startOffset="0px"></textPath>
+      </text>
+    </svg>
+  `;
+  
+  const textPathNode = document.getElementById('loopTextPath');
+  const measureNode = targetContainer.querySelector('text[ref="measureNode"]');
+  
+  setTimeout(() => {
+    const spacing = measureNode.getComputedTextLength() || 600;
+    const repeatCount = Math.ceil(3200 / spacing) + 3;
+    let longString = "";
+    for(let i=0; i<repeatCount; i++) { longString += curvedLoopConfig.marqueeText; }
+    textPathNode.textContent = longString;
+    
+    let currentOffset = -spacing;
+    textPathNode.setAttribute('startOffset', currentOffset + 'px');
+    
+    let dragActive = false;
+    let lastX = 0;
+    let animDirection = curvedLoopConfig.direction;
+    
+    function renderLoop() {
+      if(!dragActive) {
+        const delta = animDirection === 'right' ? curvedLoopConfig.speed : -curvedLoopConfig.speed;
+        currentOffset += delta;
+        if(currentOffset <= -spacing * 2) currentOffset += spacing;
+        if(currentOffset > 0) currentOffset -= spacing;
+        textPathNode.setAttribute('startOffset', currentOffset + 'px');
+      }
+      requestAnimationFrame(renderLoop);
+    }
+    requestAnimationFrame(renderLoop);
+    
+    if(curvedLoopConfig.interactive) {
+      const svgEl = targetContainer.querySelector('.curved-loop-svg');
+      svgEl.style.cursor = 'grab';
+      
+      svgEl.addEventListener('pointerdown', e => {
+        dragActive = true;
+        lastX = e.clientX;
+        svgEl.style.cursor = 'grabbing';
+        svgEl.setPointerCapture(e.pointerId);
+      });
+      
+      svgEl.addEventListener('pointermove', e => {
+        if(!dragActive) return;
+        const dx = e.clientX - lastX;
+        lastX = e.clientX;
+        currentOffset += dx;
+        if(currentOffset <= -spacing * 2) currentOffset += spacing;
+        if(currentOffset > 0) currentOffset -= spacing;
+        textPathNode.setAttribute('startOffset', currentOffset + 'px');
+        if(Math.abs(dx) > 0.1) animDirection = dx > 0 ? 'right' : 'left';
+      });
+      
+      const clearDrag = () => { dragActive = false; svgEl.style.cursor = 'grab'; };
+      svgEl.addEventListener('pointerup', clearDrag);
+      svgEl.addEventListener('pointerleave', clearDrag);
+    }
+  }, 100);
+}
+createCurvedLoop();
+</script>
+</body>
+</html>
