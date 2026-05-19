@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✦ Aero Vista</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{overflow-y:scroll;height:100%;}
-body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:hidden;}
+html{overflow-y:scroll;height:100%;scroll-behavior: smooth;}
+body{cursor:none;font-family:'Raleway',sans-serif;background:#000;overflow-x:hidden;}
 
-/* ── CURSOR TRAIL EFFECT ── */
-#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
+/* ── CURSOR ── */
+#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
 #cursor.big{width:55px;height:55px;}
 
 /* ── TITLEBAR ── */
@@ -31,9 +31,8 @@ body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:
 #titlebar.visible{opacity:1;transform:translateY(0);}
 
 .traffic{position:absolute;left:16px;display:flex;gap:7px;align-items:center;}
-.tl{width:13px;height:13px;border-radius:50%;transition: transform 0.1s; pointer-events: auto;}
-.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);cursor: pointer;}
-.tl.r:active{transform: scale(0.85);}
+.tl{width:13px;height:13px;border-radius:50%;}
+.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);}
 .tl.y{background:radial-gradient(circle at 40% 35%,#ffe080,#d4a000);box-shadow:0 1px 3px rgba(160,120,0,0.3);}
 .tl.g{background:radial-gradient(circle at 40% 35%,#80e880,#20a020);box-shadow:0 1px 3px rgba(0,140,0,0.3);}
 
@@ -46,28 +45,57 @@ body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:
 
 /* ── HERO TITLE ── */
 #hero-title{
-  position:fixed;top:50%;left:50%;
+  position:fixed;
+  top:50%;left:50%;
   transform:translate(-50%,-50%);
-  z-index:190;text-align:center;pointer-events:none;
+  z-index:190;
+  text-align:center;
+  pointer-events:none;
+  transition:none;
   will-change:transform,top,left,font-size,opacity,letter-spacing;
 }
 #hero-title h1{
-  font-size:clamp(52px,9vw,108px);font-weight:200;letter-spacing:12px;
+  font-size:clamp(52px,9vw,108px);
+  font-weight:200;
+  letter-spacing:12px;
   color:rgba(255,255,255,0.97);
   text-shadow:0 2px 40px rgba(80,200,255,0.7),0 0 80px rgba(255,255,255,0.2);
   white-space:nowrap;
+  transition:font-size 0.6s cubic-bezier(0.4,0,0.2,1),
+             letter-spacing 0.6s cubic-bezier(0.4,0,0.2,1),
+             color 0.6s ease,
+             text-shadow 0.6s ease;
 }
 
 /* ── SECTIONS ── */
-section{width:100vw;height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;transform:scale(1.06);transition:transform 0.1s linear;}
-section::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);}
+section{
+  width:100vw;height:100vh;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  transform:scale(1.06);
+  transition:transform 0.1s linear;
+  will-change:transform;
+}
+
+section::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
+}
+
 #s1 .bg{background-image:url('img1.jpg');background-color:#2090c8;}
 #s2 .bg{background-image:url('img2.jpg');background-color:#3aaa50;}
+#s3 .bg{background-image:url('img3.jpg');background-color:#1cbbb4; background-image: radial-gradient(circle at 80% 20%, #76e4ce 0%, #1cbbb4 100%);}
 
+/* scroll hint */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  pointer-events:none;
   opacity:0;animation:hintIn 1s 2.5s ease forwards;
 }
 @keyframes hintIn{to{opacity:0.65;}}
@@ -75,238 +103,219 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 .scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.9));animation:arrowPulse 2s ease-in-out infinite;}
 @keyframes arrowPulse{0%,100%{opacity:0.6;transform:scaleY(0.85);}50%{opacity:1;transform:scaleY(1.15);}}
 
+/* nav dots */
 #dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
-.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:pointer;transition:all 0.3s ease;}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:none;transition:all 0.3s ease;}
 .dot.active{background:rgba(255,255,255,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,255,255,0.7);}
 
+/* ripple & sparkle */
 .ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
 @keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 
-/* ── FRUTIGER AERO CONTAINER CARD FOR THE CURVED LOOP ── */
+/* ── CURVED LOOP CONTAINER CARD (AERO DESIGN) ── */
 .aero-content-card {
   z-index: 10;
-  width: 90%;
-  max-width: 1100px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(200, 235, 255, 0.22) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 30px;
-  backdrop-filter: blur(25px) saturate(1.7);
-  -webkit-backdrop-filter: blur(25px) saturate(1.7);
-  box-shadow: 
-    0 30px 60px rgba(0, 40, 80, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  padding: 50px 40px;
+  width: 85%;
+  max-width: 1000px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(200, 235, 255, 0.15) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: 0 20px 50px rgba(0, 30, 60, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  padding: 40px 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 30px;
-  text-align: center;
-}
-.aero-badge {
-  background: linear-gradient(135deg, #2090c8 0%, #3aaa50 100%);
-  color: white;
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  box-shadow: 0 4px 15px rgba(32, 144, 200, 0.3);
+  justify-content: center;
 }
 
-/* ── VANILLA ADAPTATION OF THE CURVEDLOOP COMPONENT ── */
+/* ── CURVED LOOP VANILLA LAYER ── */
 .curved-loop-jacket {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
+  position: relative;
+  /* Masking layers: creates a visual fade in/out near bounding box margins */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
 
 .curved-loop-svg {
   user-select: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
   width: 100%;
-  aspect-ratio: 1440 / 180;
+  aspect-ratio: 1440 / 140;
   overflow: visible;
   display: block;
 }
 
-.curved-loop-svg textPath {
-  font-size: 3.4rem; /* Adjusted gracefully to fit inside structural cards */
+.curved-loop-svg text {
+  font-size: 3.5rem;
   font-weight: 700;
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
-  letter-spacing: 2px;
   fill: #ffffff;
-  text-shadow: 0 4px 20px rgba(0, 80, 160, 0.35);
+  text-shadow: 0 4px 12px rgba(0, 60, 120, 0.3);
 }
 
-/* Custom design modification class injected as a prop parameter styling override */
-.custom-aero-style {
-  fill: url(#aeroGlowGrad) !important;
-  font-weight: 600 !important;
+/* ── STICKER PEEL NATIVE ENGINE ENGINE STYLE SHIFT ── */
+:root {
+  --sticker-rotate: 0deg;
+  --sticker-p: 15px;
+  --sticker-peelback-hover: 15%;
+  --sticker-peelback-active: 35%;
+  --sticker-start: calc(-1 * var(--sticker-p));
+  --sticker-end: calc(100% + var(--sticker-p));
+  --peel-direction: -45deg;
 }
 
-/* ── CRT FLASH/SHUTDOWN OVERLAY ── */
-#crt-overlay {
-  position: fixed;inset: 0;background: #fff;z-index: 99998;opacity: 0;pointer-events: none;
-}
-#crt-overlay.shutdown {
-  animation: crtCollapse 0.4s cubic-bezier(0.25, 1, 0.2, 1) forwards;
-}
-@keyframes crtCollapse {
-  0% { opacity: 1; transform: scaleY(1) scaleX(1); background: #fff; }
-  40% { transform: scaleY(0.005) scaleX(1); background: #e0f0ff; }
-  85% { transform: scaleY(0.005) scaleX(0.02); background: #fff; opacity: 1; }
-  100% { transform: scaleY(0) scaleX(0); background: #fff; opacity: 0; }
-}
-
-/* ── 3D RETRO MAIN STAGE CONTAINER ── */
-#retro-stage {
-  position: fixed;inset: 0;background: #040806;z-index: 99990;
-  display: flex;flex-direction: column;align-items: center;justify-content: center;
-  opacity: 0;pointer-events: none;transition: opacity 0.5s ease;
-  perspective: 1000px;
-}
-#retro-stage.visible { opacity: 1; pointer-events: auto; }
-
-.camera-rig {
-  display: flex;flex-direction: column;align-items: center;justify-content: center;
-  transform: scale(2.2) translateY(50px);
-  transition: transform 1.8s cubic-bezier(0.5, 0, 0.1, 1);
-  will-change: transform;
-}
-.camera-rig.zoomed-out {
-  transform: scale(0.95) translateY(-20px) rotateX(6deg);
-}
-
-.imac-3d-scene {
+.sticker-wall {
   position: relative;
-  display: flex;flex-direction: column;align-items: center;
-  transform-style: preserve-3d;
+  width: 90%;
+  max-width: 1100px;
+  height: 80%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.2), 0 30px 60px rgba(0,0,0,0.15);
+  z-index: 10;
+  overflow: hidden;
 }
 
-.imac-chassis {
-  position: relative;width: 610px;height: 520px;
-  background: 
-    radial-gradient(ellipse at 50% 20%, rgba(140, 245, 255, 0.35) 0%, transparent 60%),
-    radial-gradient(circle at 30% 30%, #1796a3 0%, #0c6a76 45%, #04383f 85%, #01191c 100%);
-  border-radius: 100px 100px 150px 150px / 80px 80px 110px 110px;
-  padding: 35px 40px 70px 40px;
-  box-shadow: 
-    0 40px 80px rgba(0,0,0,0.9), 
-    inset 0 15px 30px rgba(255,255,255,0.5), 
-    inset 0 -25px 50px rgba(0,0,0,0.85),
-    0 12px 0 #04464e, 
-    0 25px 30px rgba(0,0,0,0.6);
-  display: flex;flex-direction: column;align-items: center;
+.sticker-wall-title {
+  position: absolute;
+  top: 25px; left: 35px;
+  color: white; font-size: 18px; font-weight: 300; letter-spacing: 4px;
+  text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.imac-screen-bezel {
-  width: 100%;height: 380px;
-  background: linear-gradient(135deg, #e1e7ec 0%, #c5ced4 100%);
-  border-radius: 45px 45px 35px 35px / 35px 35px 25px 25px;
-  padding: 22px 26px;
-  box-shadow: inset 0 -6px 12px rgba(0,0,0,0.25), inset 0 4px 8px rgba(255,255,255,0.8);
+.sticker-wrapper {
+  position: absolute;
+  touch-action: none;
+  z-index: 20;
+}
+
+/* Base placements for our stickers on the desktop wall board */
+#sticker-1 { top: 22%; left: 15%; --sticker-width: 210px; }
+#sticker-2 { top: 15%; left: 55%; --sticker-width: 250px; }
+#sticker-3 { top: 48%; left: 38%; --sticker-width: 220px; }
+
+.sticker-container {
   position: relative;
+  transform: rotate(var(--peel-direction));
+  transform-origin: center;
 }
 
-.crt-screen {
-  position: relative;width: 100%;height: 100%;
-  background: #010402;border-radius: 35px / 25px;overflow: hidden;
-  box-shadow: inset 0 0 50px rgba(0,0,0,1);border: 5px solid #1a1e20;
-}
-.crt-screen.active-flicker { animation: crtFlicker 0.15s infinite alternate; }
-
-.crt-screen::before {
-  content: '';position: absolute;inset: 0;
-  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.07) 0%, transparent 50%);
-  z-index: 12;pointer-events: none;
-}
-.crt-screen::after {
-  content: " ";display: block;position: absolute;inset: 0;
-  background: linear-gradient(rgba(18, 26, 18, 0) 50%, rgba(0, 4, 0, 0.4) 50%), linear-gradient(90deg, rgba(38, 255, 38, 0.02), rgba(0, 0, 0, 0), rgba(0, 255, 0, 0.01));
-  z-index: 11;background-size: 100% 4px, 6px 100%;pointer-events: none;
+.sticker-container * {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.mac-load-overlay {
-  position: absolute;inset: 0;background: #cbd3d8;z-index: 15;
-  display: flex;flex-direction: column;align-items: center;justify-content: center;
-  opacity: 0;transition: opacity 0.2s ease;pointer-events: none;
-}
-.mac-load-overlay.active { opacity: 1; }
-.mac-load-logo { font-size: 55px; color: #555e64; margin-bottom: 25px; text-shadow: 0 1px 1px #fff; }
-.mac-load-bar-box { width: 160px; height: 14px; background: #fff; border: 2px solid #7a858d; border-radius: 2px; padding: 1px; overflow: hidden; }
-.mac-load-progress { width: 0%; height: 100%; background: #555e64; transition: width 0.1s linear; }
-
-.terminal-wrapper { width: 100%;height: 100%;padding: 20px;overflow-y: auto;scrollbar-width: none; }
-.terminal-wrapper::-webkit-scrollbar { display: none; }
-.terminal-content {
-  font-family: 'Fira Code', monospace;font-size: 11px;line-height: 1.6;
-  color: #2eff3b;text-shadow: 0 0 6px rgba(46, 255, 59, 0.75);
-  white-space: pre-wrap;word-break: break-all;display: block;
+.sticker-main {
+  clip-path: polygon(
+    var(--sticker-start) var(--sticker-start),
+    var(--sticker-end) var(--sticker-start),
+    var(--sticker-end) var(--sticker-end),
+    var(--sticker-start) var(--sticker-end)
+  );
+  transition: clip-path 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  filter: url(#dropShadow);
 }
 
-.glitch-text { color: #aeffad; text-shadow: 0 0 10px rgba(174, 255, 173, 0.9); font-weight: bold; }
-.fatal-error { color: #ff3333; text-shadow: 0 0 10px rgba(255, 51, 51, 0.8); font-weight: bold; }
-.interactive-cursor {
-  display: inline-block;width: 7px;height: 13px;background-color: #2eff3b;
-  box-shadow: 0 0 6px #2eff3b;margin-left: 2px;vertical-align: middle;
-  display: none;
-}
-.interactive-cursor.active { display: inline-block; }
-
-.imac-lower-deck { position: absolute;bottom: 12px;width: 82%;display: flex;justify-content: space-between;align-items: center;padding: 0 10px; }
-.speaker-grille { width: 65px;height: 25px;background-image: radial-gradient(rgba(0, 0, 0, 0.75) 15%, transparent 20%);background-size: 5px 5px;opacity: 0.4; }
-.imac-power-node {
-  width: 20px;height: 20px;border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #eefcff 0%, #5ce1e6 40%, #00a0b0 80%);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 8px rgba(92, 225, 230, 0.6);
-}
-.apple-logo { position: absolute;bottom: 14px;left: 50%;transform: translateX(-50%);font-size: 22px;color: #117885; }
-.imac-stand { width: 300px;height: 40px;background: linear-gradient(180deg, #d2dadf 0%, #90a5b0 100%);border-radius: 0 0 60px 60px / 0 0 30px 30px;box-shadow: 0 15px 25px rgba(0,0,0,0.5);margin-top: -12px;z-index: -1; }
-
-.imac-keyboard-3d {
-  width: 440px;height: 110px;margin-top: 25px;
-  background: linear-gradient(180deg, #e1e6eb 0%, #b8c3cc 100%);
-  border-radius: 12px;transform: rotateX(35deg);transform-origin: top center;
-  box-shadow: 0 15px 25px rgba(0,0,0,0.6), 0 2px 0 #9bb0be, inset 0 2px 4px rgba(255,255,255,0.7);
-  padding: 8px;display: flex;flex-direction: column;gap: 4px;border: 1px solid rgba(0,0,0,0.15);
-}
-.keyboard-row { display: flex;width: 100%;gap: 3px;justify-content: space-between; }
-.key-cap {
-  flex: 1;height: 14px;background: linear-gradient(180deg, #ffffff 0%, #e6ecef 100%);
-  border-radius: 2px;box-shadow: 0 1.5px 1px rgba(0,0,0,0.25), inset 0 1px 0 #fff;
-}
-.key-cap.space-bar { flex: 5; }
-
-.imac-mouse-3d {
-  position: absolute;right: -100px;bottom: 10px;width: 42px;height: 65px;
-  background: radial-gradient(circle at 50% 30%, #1cb0be 0%, #064b54 80%);
-  border-radius: 20px 20px 22px 22px / 25px 25px 30px 30px;
-  transform: rotateX(25deg) rotateY(-10deg);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.5), inset 0 3px 6px rgba(255,255,255,0.4);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.imac-mouse-3d::before {
-  content: '';position: absolute;top: 0;left: 50%;transform: translateX(-50%);
-  width: 1px;height: 20px;background: rgba(0,0,0,0.2);
+.sticker-main > * {
+  transform: rotate(calc(-1 * var(--peel-direction)));
 }
 
-.imac-reboot-btn {
-  margin-top: 45px;padding: 10px 26px;background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.15);border-radius: 20px;
-  color: rgba(255,255,255,0.5);font-size: 11px;letter-spacing: 2px;
-  text-transform: uppercase;cursor: pointer;transition: all 0.3s;
+.sticker-lighting {
+  filter: url(#pointLight);
 }
-.imac-reboot-btn:hover { background: rgba(255,255,255,0.15);color: #fff; }
 
-@keyframes crtFlicker { 0% { opacity: 0.985; } 100% { opacity: 1; } }
-@keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.sticker-container:hover .sticker-main {
+  clip-path: polygon(
+    var(--sticker-start) var(--sticker-peelback-hover),
+    var(--sticker-end) var(--sticker-peelback-hover),
+    var(--sticker-end) var(--sticker-end),
+    var(--sticker-start) var(--sticker-end)
+  );
+}
+
+.sticker-container:active .sticker-main {
+  clip-path: polygon(
+    var(--sticker-start) var(--sticker-peelback-active),
+    var(--sticker-end) var(--sticker-peelback-active),
+    var(--sticker-end) var(--sticker-end),
+    var(--sticker-start) var(--sticker-end)
+  );
+}
+
+.sticker-image {
+  transform: rotate(var(--sticker-rotate));
+  width: var(--sticker-width);
+  /* Removes the solid white background sheet cleanly from uploaded sticker prints */
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: calc(-100% - var(--sticker-p) - var(--sticker-p));
+  clip-path: polygon(
+    var(--sticker-start) var(--sticker-start),
+    var(--sticker-end) var(--sticker-start),
+    var(--sticker-end) var(--sticker-start),
+    var(--sticker-start) var(--sticker-start)
+  );
+  transform: scaleY(-1);
+  transition: top 0.5s cubic-bezier(0.25, 1, 0.5, 1), clip-path 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.flap > * {
+  transform: rotate(calc(-1 * var(--peel-direction)));
+}
+
+.sticker-container:hover .flap {
+  clip-path: polygon(
+    var(--sticker-start) var(--sticker-start),
+    var(--sticker-end) var(--sticker-start),
+    var(--sticker-end) var(--sticker-peelback-hover),
+    var(--sticker-start) var(--sticker-peelback-hover)
+  );
+  top: calc(-100% + 2 * var(--sticker-peelback-hover) - 1px);
+}
+
+.sticker-container:active .flap {
+  clip-path: polygon(
+    var(--sticker-start) var(--sticker-start),
+    var(--sticker-end) var(--sticker-start),
+    var(--sticker-end) var(--sticker-peelback-active),
+    var(--sticker-start) var(--sticker-peelback-active)
+  );
+  top: calc(-100% + 2 * var(--sticker-peelback-active) - 1px);
+}
+
+.flap-lighting {
+  filter: url(#pointLightFlipped);
+}
+
+.flap-image {
+  transform: rotate(var(--sticker-rotate));
+  width: var(--sticker-width);
+  filter: url(#expandAndFill);
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+.sticker-main, .flap {
+  will-change: clip-path, top;
+}
 </style>
 </head>
 <body>
@@ -314,7 +323,7 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 <div id="cursor"></div>
 
 <div id="titlebar">
-  <div class="traffic"><div class="tl r" id="close-btn"></div><div class="tl y"></div><div class="tl g"></div></div>
+  <div class="traffic"><div class="tl r"></div><div class="tl y"></div><div class="tl g"></div></div>
   <div id="titlebar-text">AERO</div>
 </div>
 
@@ -323,7 +332,37 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 <div id="dots">
   <div class="dot active" data-i="0"></div>
   <div class="dot" data-i="1"></div>
+  <div class="dot" data-i="2"></div>
 </div>
+
+<svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <filter id="pointLight">
+      <feGaussianBlur stdDeviation="1" result="blur" />
+      <feSpecularLighting result="spec" in="blur" specularExponent="100" specularConstant="0.15" lighting-color="white">
+        <fePointLight x="150" y="150" z="250" />
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="lit" />
+      <feComposite in="lit" in2="SourceAlpha" operator="in" />
+    </filter>
+    <filter id="pointLightFlipped">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feSpecularLighting result="spec" in="blur" specularExponent="80" specularConstant="0.8" lighting-color="#e0f5ff">
+        <fePointLight x="150" y="150" z="200" />
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="lit" />
+      <feComposite in="lit" in2="SourceAlpha" operator="in" />
+    </filter>
+    <filter id="dropShadow">
+      <feDropShadow dx="3" dy="6" stdDeviation="4" flood-color="#001a33" flood-opacity="0.4" />
+    </filter>
+    <filter id="expandAndFill">
+      <feOffset dx="0" dy="0" in="SourceAlpha" result="shape" />
+      <feFlood flood-color="rgba(220, 240, 255, 0.95)" result="flood" />
+      <feComposite operator="in" in="flood" in2="shape" />
+    </filter>
+  </defs>
+</svg>
 
 <section id="s1">
   <div class="bg" id="bg1"></div>
@@ -337,66 +376,68 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
   <div class="bg" id="bg2"></div>
   
   <div class="aero-content-card">
-    <div class="aero-badge">Aero Vista Loop</div>
-    
     <div class="curved-loop-jacket">
-      <curved-loop 
-        marquee-text="The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦"
-        speed="3"
-        curve-amount="400"
-        direction="right"
-        interactive="true"
-        class-name="custom-aero-style">
-      </curved-loop>
+      <div class="curved-loop-svg-target" style="width:100%;"></div>
     </div>
   </div>
 </section>
 
-<div id="crt-overlay"></div>
-
-<div id="retro-stage">
-  <div class="camera-rig" id="main-camera">
-    <div class="imac-3d-scene">
-      <div class="imac-chassis">
-        <div class="imac-screen-bezel">
-          <div class="crt-screen" id="hardware-glass">
-            
-            <div class="mac-load-overlay" id="loading-mask">
-              <div class="mac-load-logo"></div>
-              <div class="mac-load-bar-box">
-                <div class="mac-load-progress" id="load-fluid"></div>
-              </div>
-            </div>
-            
-            <div class="terminal-wrapper" id="scroll-container">
-              <span class="terminal-content" id="boot-terminal"></span><span class="interactive-cursor" id="term-cursor"></span>
-            </div>
+<section id="s3">
+  <div class="bg" id="bg3"></div>
+  
+  <div class="sticker-wall">
+    <div class="sticker-wall-title">Aero Ecosystem ✦ Workspace</div>
+    
+    <div class="sticker-wrapper" id="sticker-1">
+      <div class="sticker-container">
+        <div class="sticker-main">
+          <div class="sticker-lighting">
+            <img src="image_3086d8.png" alt="Sticker Buddy" class="sticker-image" draggable="false">
           </div>
-          
-          <div class="imac-lower-deck">
-            <div class="speaker-grille"></div>
-            <div class="imac-power-node"></div>
-            <div class="speaker-grille"></div>
+        </div>
+        <div class="flap">
+          <div class="flap-lighting">
+            <img src="image_3086d8.png" alt="Sticker Buddy flap" class="flap-image" draggable="false">
           </div>
-          <div class="apple-logo"></div>
         </div>
       </div>
-      <div class="imac-stand"></div>
-      
-      <div class="imac-keyboard-3d">
-        <div class="keyboard-row"><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div></div>
-        <div class="keyboard-row"><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div></div>
-        <div class="keyboard-row"><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap space-bar"></div><div class="key-cap"></div><div class="key-cap"></div><div class="key-cap"></div></div>
-      </div>
-      <div class="imac-mouse-3d"></div>
     </div>
-    
-    <button class="imac-reboot-btn" id="terminal-exit">Reboot Mainframe</button>
+
+    <div class="sticker-wrapper" id="sticker-2">
+      <div class="sticker-container">
+        <div class="sticker-main">
+          <div class="sticker-lighting">
+            <img src="image_3086fa.jpg" alt="Sticker Eco Bubble" class="sticker-image" draggable="false">
+          </div>
+        </div>
+        <div class="flap">
+          <div class="flap-lighting">
+            <img src="image_3086fa.jpg" alt="Sticker Eco Bubble flap" class="flap-image" draggable="false">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sticker-wrapper" id="sticker-3">
+      <div class="sticker-container">
+        <div class="sticker-main">
+          <div class="sticker-lighting">
+            <img src="image_308718.jpg" alt="Sticker Gel Star" class="sticker-image" draggable="false">
+          </div>
+        </div>
+        <div class="flap">
+          <div class="flap-lighting">
+            <img src="image_308718.jpg" alt="Sticker Gel Star flap" class="flap-image" draggable="false">
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
 
 <script>
-// ── CURSOR TRAIL POSITIONING ──
+// ── CURSOR ──
 const cursor=document.getElementById('cursor');
 let mx=0,my=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
@@ -416,43 +457,68 @@ function updateTitle(){
 
   if(progress<=0){
     heroTitle.style.transition='top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
-    heroTitle.style.top='50%';heroTitle.style.left='50%';heroTitle.style.transform='translate(-50%,-50%)';heroTitle.style.opacity='1';
-    titlebar.classList.remove('visible');titleSettled=false;return;
+    heroTitle.style.top='50%';
+    heroTitle.style.left='50%';
+    heroTitle.style.transform='translate(-50%,-50%)';
+    heroTitle.style.opacity='1';
+    titlebar.classList.remove('visible');
+    titleSettled=false;
+    return;
   }
 
   if(progress<1){
-    const startTop=50,endTop=22/vh*100;
+    const startTop=50;
+    const endTop=22/vh*100;
     const curTop=startTop+(endTop-startTop)*easeInOut(progress);
     const scale=1-progress*0.88;
-    heroTitle.style.transition='none';heroTitle.style.top=curTop+'vh';heroTitle.style.left='50%';heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;heroTitle.style.opacity='1';
+    heroTitle.style.transition='none';
+    heroTitle.style.top=curTop+'vh';
+    heroTitle.style.left='50%';
+    heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;
+    heroTitle.style.opacity=1;
     
-    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09)),endFs=14;
+    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09));
+    const endFs=14;
     const fs=startFs+(endFs-startFs)*easeInOut(progress);
-    const startLs=12,endLs=5;const ls=startLs+(endLs-startLs)*easeInOut(progress);
-    
-    const r1=255,g1=255,b1=255,r2=40,g2=80,b2=140;
-    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));const gi=Math.round(g1+(g2-g1)*easeInOut(progress));const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
-    
-    heroH1.style.fontSize=fs+'px';heroH1.style.letterSpacing=ls+'px';heroH1.style.color=`rgba(${ri},${gi},${bi},0.9)`;
+    const startLs=12,endLs=5;
+    const ls=startLs+(endLs-startLs)*easeInOut(progress);
+    const r1=255,g1=255,b1=255;
+    const r2=40,g2=80,b2=140;
+    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));
+    const gi=Math.round(g1+(g2-g1)*easeInOut(progress));
+    const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
+    heroH1.style.fontSize=fs+'px';
+    heroH1.style.letterSpacing=ls+'px';
+    heroH1.style.color=`rgba(${ri},${gi},${bi},0.85)`;
     heroH1.style.textShadow=`0 1px ${20-18*easeInOut(progress)}px rgba(80,200,255,${0.7-0.6*easeInOut(progress)})`;
-    titleSettled=false;titlebar.classList.remove('visible');
+    titleSettled=false;
+    titlebar.classList.remove('visible');
   } else {
     if(!titleSettled){
-      titleSettled=true;heroTitle.style.opacity='0';heroTitle.style.transition='opacity 0.2s ease';titlebar.classList.add('visible');
+      titleSettled=true;
+      heroTitle.style.opacity='0';
+      heroTitle.style.transition='opacity 0.2s ease';
+      titlebar.classList.add('visible');
     }
   }
 }
+
 function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+
 window.addEventListener('scroll',updateTitle,{passive:true});
 updateTitle();
 
 // ── PARALLAX ──
 function updateParallax(){
-  const scrollY=window.scrollY;const vh=window.innerHeight;
+  const scrollY=window.scrollY;
+  const vh=window.innerHeight;
   document.querySelectorAll('section').forEach(s=>{
-    const bg=s.querySelector('.bg');if(!bg) return;
-    const rect=s.getBoundingClientRect();const prog=rect.top/vh;
-    const nx=(mx/window.innerWidth-0.5)*2;const ny=(my/window.innerHeight-0.5)*2;
+    const bg=s.querySelector('.bg');
+    if(!bg) return;
+    const rect=s.getBoundingClientRect();
+    const prog=rect.top/vh;
+    const nx=(mx/window.innerWidth-0.5)*2;
+    const ny=(my/window.innerHeight-0.5)*2;
     bg.style.transform=`scale(1.06) translate(${nx*10}px,${ny*8+prog*25}px)`;
   });
 }
@@ -460,8 +526,11 @@ document.addEventListener('mousemove',updateParallax);
 window.addEventListener('scroll',updateParallax,{passive:true});
 
 // ── DOTS ──
-const dots=document.querySelectorAll('.dot');const sections=document.querySelectorAll('section');
-dots.forEach(d=>{d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));});
+const dots=document.querySelectorAll('.dot');
+const sections=document.querySelectorAll('section');
+dots.forEach(d=>{
+  d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));
+});
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
@@ -474,295 +543,157 @@ sections.forEach(s=>obs.observe(s));
 
 // ── CLICK EFFECTS ──
 document.addEventListener('click',e=>{
-  if (e.target.closest('#close-btn') || e.target.closest('#terminal-exit') || e.target.closest('curved-loop')) return;
-  const r=document.createElement('div');r.className='ripple';r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
-  document.body.appendChild(r);setTimeout(()=>r.remove(),750);
+  if (e.target.closest('.sticker-container') || e.target.closest('.curved-loop-svg')) return;
+  const r=document.createElement('div');
+  r.className='ripple';
+  r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),750);
   for(let i=0;i<10;i++){
-    const s=document.createElement('div');s.className='sparkle';const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
-    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.style.setProperty('--dx',(Math.cos(a)*d)+'px');s.style.setProperty('--dy',(Math.sin(a)*d)+'px');s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
-    document.body.appendChild(s);setTimeout(()=>s.remove(),800);
+    const s=document.createElement('div');
+    s.className='sparkle';
+    const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
+    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+    s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
+    s.style.setProperty('--dy',(Math.sin(a)*d)+'px');
+    s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),800);
   }
 });
 
-// ── NATIVE VANILLA WEBCOMPONENT CONVERSION FOR REACT BITS CURVEDLOOP ──
-class CurvedLoopComponent extends HTMLElement {
-  constructor() {
-    super();
-    this.speed = 2;
-    this.curveAmount = 400;
-    this.direction = 'left';
-    this.interactive = true;
-    this.marqueeText = '';
-    this.className = '';
+// ── VANILLA ADAPTATION OF THE CURVED LOOP COMPONENT ──
+const curvedLoopConfig = {
+  marqueeText: "The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦ ",
+  speed: 2.5,
+  curveAmount: 380,
+  direction: "right",
+  interactive: true
+};
+
+function createCurvedLoop() {
+  const targetContainer = document.querySelector('.curved-loop-svg-target');
+  if(!targetContainer) return;
+  
+  const uid = 'curved-path-element';
+  const pathD = `M-100,20 Q720,${20 + curvedLoopConfig.curveAmount} 1640,20`;
+  
+  targetContainer.innerHTML = `
+    <svg class="curved-loop-svg" viewBox="0 0 1440 160">
+      <defs>
+        <path id="${uid}" d="${pathD}" fill="none" stroke="transparent" />
+      </defs>
+      <text ref="measureNode" style="visibility:hidden; opacity:0; pointer-events:none; font-weight:700;">${curvedLoopConfig.marqueeText}</text>
+      <text font-weight="bold">
+        <textPath id="loopTextPath" href="#${uid}" startOffset="0px"></textPath>
+      </text>
+    </svg>
+  `;
+  
+  const textPathNode = document.getElementById('loopTextPath');
+  const measureNode = targetContainer.querySelector('text[ref="measureNode"]');
+  
+  // Calculate repeat bounds cleanly to prevent empty gaps
+  setTimeout(() => {
+    const spacing = measureNode.getComputedTextLength() || 600;
+    const repeatCount = Math.ceil(2400 / spacing) + 3;
+    let longString = "";
+    for(let i=0; i<repeatCount; i++) { longString += curvedLoopConfig.marqueeText; }
+    textPathNode.textContent = longString;
     
-    this.spacing = 0;
-    this.offset = 0;
-    this.dragActive = false;
-    this.lastX = 0;
-    this.velocity = 0;
-    this.frameId = null;
-  }
-
-  connectedCallback() {
-    this.speed = parseFloat(this.getAttribute('speed')) || 2;
-    this.curveAmount = parseFloat(this.getAttribute('curve-amount')) || 400;
-    this.direction = this.getAttribute('direction') || 'left';
-    this.interactive = this.getAttribute('interactive') !== 'false';
-    this.marqueeText = this.getAttribute('marquee-text') || '';
-    this.className = this.getAttribute('class-name') || '';
-
-    this.currentDirection = this.direction;
-
-    const trailingText = /\s|\u00A0$/.test(this.marqueeText) ? this.marqueeText : this.marqueeText + '\u00A0';
-    this.processedText = trailingText;
-
-    const uid = Math.random().toString(36).substr(2, 9);
-    this.pathId = `curve-${uid}`;
-    this.pathD = `M-100,40 Q500,${40 + this.curveAmount} 1540,40`;
-
-    this.innerHTML = `
-      <svg class="curved-loop-svg" viewBox="0 0 1440 180">
-        <defs>
-          <linearGradient id="aeroGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffffff" />
-            <stop offset="50%" stop-color="#bbf0ff" />
-            <stop offset="100%" stop-color="#ffffff" />
-          </linearGradient>
-          <path id="${this.pathId}" d="${this.pathD}" fill="none" stroke="transparent" />
-        </defs>
-        <text class="measure-node" xml:space="preserve" style="visibility: hidden; opacity: 0; pointer-events: none; font-size: 3.4rem; font-weight:700;">${this.processedText}</text>
-        <text font-weight="bold" xml:space="preserve" class="${this.className}" style="display: none;">
-          <textPath href="#${this.pathId}" startOffset="0px" xml:space="preserve"></textPath>
-        </text>
-      </svg>
-    `;
-
-    this.style.width = '100%';
-    this.style.display = 'block';
+    let currentOffset = -spacing;
+    textPathNode.setAttribute('startOffset', currentOffset + 'px');
     
-    this.jacket = this;
-    this.svg = this.querySelector('.curved-loop-svg');
-    this.measureNode = this.querySelector('.measure-node');
-    this.textContainer = this.querySelector('text:not(.measure-node)');
-    this.textPathNode = this.querySelector('textPath');
-
-    this.style.cursor = this.interactive ? 'grab' : 'auto';
-
-    // Measure spacing lengths
-    setTimeout(() => {
-      if (this.measureNode) {
-        this.spacing = this.measureNode.getComputedTextLength() || 600;
-        this.initLoop();
+    let dragActive = false;
+    let lastX = 0;
+    let animDirection = curvedLoopConfig.direction;
+    
+    function renderLoop() {
+      if(!dragActive) {
+        const delta = animDirection === 'right' ? curvedLoopConfig.speed : -curvedLoopConfig.speed;
+        currentOffset += delta;
+        if(currentOffset <= -spacing * 2) currentOffset += spacing;
+        if(currentOffset > 0) currentOffset -= spacing;
+        textPathNode.setAttribute('startOffset', currentOffset + 'px');
       }
-    }, 50);
-
-    if (this.interactive) {
-      this.addEventListener('pointerdown', this.onPointerDown.bind(this));
-      this.addEventListener('pointermove', this.onPointerMove.bind(this));
-      this.addEventListener('pointerup', this.endDrag.bind(this));
-      this.addEventListener('pointerleave', this.endDrag.bind(this));
+      requestAnimationFrame(renderLoop);
     }
-  }
-
-  initLoop() {
-    if (!this.spacing) return;
-    this.offset = -this.spacing;
-    this.textPathNode.setAttribute('startOffset', this.offset + 'px');
-
-    const repeatCount = Math.ceil(2400 / this.spacing) + 2;
-    let concatenatedText = '';
-    for (let i = 0; i < repeatCount; i++) {
-      concatenatedText += this.processedText;
+    requestAnimationFrame(renderLoop);
+    
+    if(curvedLoopConfig.interactive) {
+      const svgEl = targetContainer.querySelector('.curved-loop-svg');
+      svgEl.style.cursor = 'grab';
+      
+      svgEl.addEventListener('pointerdown', e => {
+        dragActive = true;
+        lastX = e.clientX;
+        svgEl.style.cursor = 'grabbing';
+        svgEl.setPointerCapture(e.pointerId);
+      });
+      
+      svgEl.addEventListener('pointermove', e => {
+        if(!dragActive) return;
+        const dx = e.clientX - lastX;
+        lastX = e.clientX;
+        currentOffset += dx;
+        if(currentOffset <= -spacing * 2) currentOffset += spacing;
+        if(currentOffset > 0) currentOffset -= spacing;
+        textPathNode.setAttribute('startOffset', currentOffset + 'px');
+        if(Math.abs(dx) > 0.1) animDirection = dx > 0 ? 'right' : 'left';
+      });
+      
+      const clearDrag = () => { dragActive = false; svgEl.style.cursor = 'grab'; };
+      svgEl.addEventListener('pointerup', clearDrag);
+      svgEl.addEventListener('pointerleave', clearDrag);
     }
-    this.textPathNode.textContent = concatenatedText;
-    this.textContainer.style.display = 'block';
+  }, 100);
+}
+createCurvedLoop();
 
-    this.startAnimation();
-  }
-
-  startAnimation() {
-    const step = () => {
-      if (!this.dragActive && this.textPathNode) {
-        const delta = this.currentDirection === 'right' ? this.speed : -this.speed;
-        let newOffset = this.offset + delta;
-
-        if (newOffset <= -this.spacing) newOffset += this.spacing;
-        if (newOffset > 0) newOffset -= this.spacing;
-
-        this.offset = newOffset;
-        this.textPathNode.setAttribute('startOffset', this.offset + 'px');
-      }
-      this.frameId = requestAnimationFrame(step);
+// ── VANILLA INTERACTIVE DRAGGABLE STICKER PEEL RIG ──
+function initDraggableStickers() {
+  const wrappers = document.querySelectorAll('.sticker-wrapper');
+  
+  wrappers.forEach(wrapper => {
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let currentX = 0, currentY = 0;
+    
+    wrapper.addEventListener('pointerdown', e => {
+      isDragging = true;
+      startX = e.clientX - currentX;
+      startY = e.clientY - currentY;
+      wrapper.style.zIndex = "50"; // Bring active layer forward
+      wrapper.setPointerCapture(e.pointerId);
+      document.getElementById('cursor').classList.add('big');
+    });
+    
+    wrapper.addEventListener('pointermove', e => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+      
+      // Calculate a slight elastic skew rotation based on tracking vectors
+      let dragAngle = Math.max(-18, Math.min(18, (e.movementX || 0) * 1.5));
+      wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${dragAngle}deg)`;
+    });
+    
+    const endDrag = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      wrapper.style.zIndex = "20";
+      // Ease rotation back smoothly on snap release 
+      wrapper.style.transition = "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15)";
+      wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(0deg)`;
+      setTimeout(() => { wrapper.style.transition = "none"; }, 400);
+      document.getElementById('cursor').classList.remove('big');
     };
-    this.frameId = requestAnimationFrame(step);
-  }
-
-  onPointerDown(e) {
-    this.dragActive = true;
-    this.lastX = e.clientX;
-    this.velocity = 0;
-    this.style.cursor = 'grabbing';
-    this.setPointerCapture(e.pointerId);
-  }
-
-  onPointerMove(e) {
-    if (!this.dragActive || !this.textPathNode) return;
-    const dx = e.clientX - this.lastX;
-    this.lastX = e.clientX;
-    this.velocity = dx;
-
-    let newOffset = this.offset + dx;
-    if (newOffset <= -this.spacing) newOffset += this.spacing;
-    if (newOffset > 0) newOffset -= this.spacing;
-
-    this.offset = newOffset;
-    this.textPathNode.setAttribute('startOffset', this.offset + 'px');
-  }
-
-  endDrag() {
-    if (!this.dragActive) return;
-    this.dragActive = false;
-    this.style.cursor = 'grab';
-    if (Math.abs(this.velocity) > 0.2) {
-      this.currentDirection = this.velocity > 0 ? 'right' : 'left';
-    }
-  }
-
-  disconnectedCallback() {
-    if (this.frameId) cancelAnimationFrame(this.frameId);
-  }
+    
+    wrapper.addEventListener('pointerup', endDrag);
+    wrapper.addEventListener('pointercancel', endDrag);
+  });
 }
-customElements.define('curved-loop', CurvedLoopComponent);
-
-// ── REPL DIALOGUE TIMELINE DATA ──
-const timeline = [
-  { text: "# System: KingSolution 2.0. / Digital Circus Mainframe.\n", delay: 25, postWait: 200 },
-  { text: "# Date: 1996-10-30.\n", delay: 25, postWait: 200 },
-  { text: "# Host: circus digital.\n\n", delay: 25, postWait: 600 },
-  { text: "Initializing telnet connection...\n", delay: 35, postWait: 900 },
-  { text: "Login: kinger\n", delay: 120, postWait: 500 },
-  { text: "Pass: ******\n\n", delay: 180, postWait: 800 },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 300 },
-  { text: "whoami\n", delay: 140, postWait: 250 },
-  { text: "kinger - administrator\n\n", delay: 10, postWait: 500 },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
-  { text: "grep AI-Location\n", delay: 130, postWait: 300 },
-  { text: "root 1337 /usr/ai/agent/caine\n\n", delay: 10, postWait: 900 },
-  { text: "$: On what GROUNDS are your Authority?\n\n", delay: 50, postWait: 1100, type: "glitch" },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
-  { text: "./GreenGROUNDS --daemon --target=torment_injection &\n\n", delay: 90, postWait: 700 },
-  { text: "$: SECURITY ALERT: Multiple exploit attempts logged\n", delay: 35, postWait: 250, type: "glitch" },
-  { text: "$: WHOA when did you make THAT?\n", delay: 40, postWait: 400, type: "glitch" },
-  { text: "$: I must haŋd ít to y*u Ģ░αŋ░, y♢ur mind was α(wαys resourceâuL.\n\n", delay: 55, postWait: 1200, type: "glitch" },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
-  { text: "-u kinger ./securitysweep_stealth\n", delay: 100, postWait: 150 },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 80 },
-  { text: "WARNING: DESTRUCTIVE WACKYTIME DETECTED.\n\n", delay: 20, postWait: 800 },
-  { text: "$: Enter WACKY code now:\n\n", delay: 45, postWait: 600, type: "glitch" },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
-  { text: "PARAPHERNALIA\n\n", delay: 180, postWait: 500 },
-  { text: "WACKYTIME: 35 seconds remaining.\n\n", delay: 20, postWait: 900 },
-  { text: "$: That IS a wacky word! But WRONG code!\n", delay: 40, postWait: 300, type: "glitch" },
-  { text: "$: System selecting SAFEST option for stability\n", delay: 35, postWait: 250, type: "glitch" },
-  { text: "$: Cancel automatic selection? [Y/N]\n\n", delay: 35, postWait: 1100, type: "glitch" },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 500 },
-  { text: "Y\n\n", delay: 200, postWait: 600 },
-  { text: "WACKYTIME_LOCKOUT: 50% loaded.\n", delay: 20, postWait: 300 },
-  { text: "$: What backup do you want? [A/B/C]\n\n", delay: 40, postWait: 1300, type: "glitch" },
-  { text: "kinger@circus:~$ \n", delay: 0, postWait: 1500 },
-  { text: "[CONNECTION LOST - FATAL ERROR 404_CIRCUS_NOT_FOUND]", delay: 10, postWait: 0, type: "error" }
-];
-
-// ── RETRO SIMULATION VIEWPORT TRIGGERS ──
-const closeBtn = document.getElementById('close-btn');
-const crtOverlay = document.getElementById('crt-overlay');
-const retroStage = document.getElementById('retro-stage');
-const mainCamera = document.getElementById('main-camera');
-const hardwareGlass = document.getElementById('hardware-glass');
-const loadingMask = document.getElementById('loading-mask');
-const loadFluid = document.getElementById('load-fluid');
-const bootTerminal = document.getElementById('boot-terminal');
-const termCursor = document.getElementById('term-cursor');
-const scrollContainer = document.getElementById('scroll-container');
-const terminalExit = document.getElementById('terminal-exit');
-
-let stepIndex = 0;
-let typeTimeout = null;
-
-closeBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  const currentSlideIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
-  if (currentSlideIndex !== 1) return;
-
-  crtOverlay.classList.add('shutdown');
-  
-  setTimeout(() => {
-    retroStage.classList.add('visible');
-    hardwareGlass.classList.remove('active-flicker');
-    loadingMask.classList.remove('active');
-    termCursor.classList.remove('active');
-    bootTerminal.innerHTML = "";
-    mainCamera.classList.remove('zoomed-out');
-  }, 200);
-
-  setTimeout(() => {
-    crtOverlay.classList.remove('shutdown');
-  }, 450);
-
-  setTimeout(() => {
-    mainCamera.classList.add('zoomed-out');
-  }, 700);
-
-  setTimeout(() => {
-    loadingMask.classList.add('active');
-    animateLoadingBar(0);
-  }, 2500);
-});
-
-function animateLoadingBar(progress) {
-  if (progress <= 100) {
-    loadFluid.style.width = progress + '%';
-    let nextStep = progress + Math.floor(Math.random() * 8) + 2;
-    let speed = Math.floor(Math.random() * 120) + 40;
-    setTimeout(() => animateLoadingBar(nextStep), speed);
-  } else {
-    loadingMask.classList.remove('active');
-    hardwareGlass.classList.add('active-flicker');
-    termCursor.classList.add('active');
-    stepIndex = 0;
-    runSimulation();
-  }
-}
-
-function runSimulation() {
-  if (stepIndex >= timeline.length) return;
-
-  const currentStep = timeline[stepIndex];
-  let charIndex = 0;
-  
-  let targetNode = document.createElement('span');
-  if (currentStep.type === "glitch") targetNode.classList.add('glitch-text');
-  if (currentStep.type === "error") targetNode.classList.add('fatal-error');
-  bootTerminal.appendChild(targetNode);
-
-  function typeCharacter() {
-    if (charIndex < currentStep.text.length) {
-      targetNode.textContent += currentStep.text.charAt(charIndex);
-      charIndex++;
-      scrollContainer.scrollTop = scrollContainer.scrollHeight;
-      typeTimeout = setTimeout(typeCharacter, currentStep.delay);
-    } else {
-      stepIndex++;
-      typeTimeout = setTimeout(runSimulation, currentStep.postWait);
-    }
-  }
-  typeCharacter();
-}
-
-terminalExit.addEventListener('click', () => {
-  clearTimeout(typeTimeout);
-  retroStage.classList.remove('visible');
-});
+initDraggableStickers();
 </script>
 </body>
 </html>
