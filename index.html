@@ -87,27 +87,15 @@ section::after{
   background-image: radial-gradient(circle at 50% 45%, #4a0404 0%, #1a0101 60%, #000000 100%);
 }
 
-/* Slide 2 Background Styling */
+/* Slide 2: Full Screen Landscape Fitting Background Cover */
 #s2 .bg{
-  background-color:#2090c8;
-  background-image: radial-gradient(circle at 30% 30%, #156293 0%, #0c3652 100%);
-}
-
-/* Seamless Horizontal Repeating Pattern Border for Slide 2 */
-.slide-border-pattern {
-  position: absolute;
-  top: 44px; /* Flushed perfectly right under the titlebar layout layer */
-  left: 0;
-  width: 100%;
-  height: 64px; /* Explicit frame thickness */
-  z-index: 30;
   background-image: url('img1.jpg');
-  background-repeat: repeat-x; /* Repeats horizontally with absolutely no gaps */
-  background-position: left top;
-  background-size: auto 100%; /* Forces exact vertical fit to border edge while repeating smoothly */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
+/* Slide 3 Background Styling */
 #s3 .bg{
   background-image:url('img2.jpg');
   background-color:#217a35;
@@ -280,8 +268,6 @@ section::after{
 
   <section id="s2">
     <div class="bg" id="bg2"></div>
-    
-    <div class="slide-border-pattern"></div>
     
     <div class="scroll-hint">
       <div class="scroll-arrow"></div>
