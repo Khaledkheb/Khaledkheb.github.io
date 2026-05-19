@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✦ Aero Vista</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{overflow-y:scroll;height:100%;}
@@ -19,11 +19,9 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;}
   position:fixed;top:0;left:0;right:0;z-index:200;
   height:44px;
   display:flex;align-items:center;justify-content:center;
-  /* starts invisible, transitions in */
   opacity:0;
   transform:translateY(-10px);
   transition:opacity 0.5s ease, transform 0.5s ease;
-  /* glass */
   background:linear-gradient(180deg,rgba(255,255,255,0.42) 0%,rgba(220,240,255,0.28) 100%);
   border-bottom:1px solid rgba(255,255,255,0.65);
   backdrop-filter:blur(20px) saturate(1.8);
@@ -46,17 +44,15 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;}
   user-select:none;
 }
 
-/* ── HERO TITLE (centered, fades/moves to bar) ── */
+/* ── HERO TITLE ── */
 #hero-title{
   position:fixed;
-  /* starts centered */
   top:50%;left:50%;
   transform:translate(-50%,-50%);
   z-index:190;
   text-align:center;
   pointer-events:none;
-  /* will animate via JS inline style */
-  transition:none; /* JS handles it with CSS custom transition */
+  transition:none;
   will-change:transform,top,left,font-size,opacity,letter-spacing;
 }
 #hero-title h1{
@@ -70,12 +66,6 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;}
              letter-spacing 0.6s cubic-bezier(0.4,0,0.2,1),
              color 0.6s ease,
              text-shadow 0.6s ease;
-}
-#hero-title.settled h1{
-  font-size:14px;
-  letter-spacing:5px;
-  color:rgba(40,80,140,0.85);
-  text-shadow:0 1px 3px rgba(255,255,255,0.8);
 }
 
 /* ── SECTIONS ── */
@@ -101,7 +91,7 @@ section::after{
 #s1 .bg{background-image:url('img1.jpg');background-color:#2090c8;}
 #s2 .bg{background-image:url('img2.jpg');background-color:#3aaa50;}
 
-/* scroll hint */
+/* Scroll Hint */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:6px;
@@ -113,32 +103,199 @@ section::after{
 .scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.9));animation:arrowPulse 2s ease-in-out infinite;}
 @keyframes arrowPulse{0%,100%{opacity:0.6;transform:scaleY(0.85);}50%{opacity:1;transform:scaleY(1.15);}}
 
-/* nav dots */
+/* Navigation Dots */
 #dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:none;transition:all 0.3s ease;}
 .dot.active{background:rgba(255,255,255,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,255,255,0.7);}
 
-/* ripple & sparkle */
+/* Ripple & Sparkle */
 .ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
 @keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
+
+/* ── RED DETONATOR BUTTON (SLIDE 2) ── */
+.button-container {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+.red-button {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle at 35% 30%, #ff4d4d, #b30000);
+  border: 4px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5), inset 0 -4px 10px rgba(0,0,0,0.4), 0 0 30px rgba(255,77,77,0.3);
+  cursor: none;
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+.red-button:active {
+  transform: scale(0.92);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6), inset 0 -1px 4px rgba(0,0,0,0.4);
+}
+.button-label {
+  display: block;
+  margin-top: 15px;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  opacity: 0.8;
+}
+
+/* ── CRT SHUTDOWN ANIMATION LAYER ── */
+#crt-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 99998;
+  opacity: 0;
+  pointer-events: none;
+}
+#crt-overlay.shutdown {
+  animation: crtCollapse 0.6s cubic-bezier(0.25, 1, 0.2, 1) forwards;
+}
+@keyframes crtCollapse {
+  0% { opacity: 1; transform: scaleY(1) scaleX(1); background: #fff; }
+  30% { transform: scaleY(0.005) scaleX(1); background: #e0f0ff; }
+  70% { transform: scaleY(0.005) scaleX(0.05); background: #fff; opacity: 1; }
+  100% { transform: scaleY(0) scaleX(0); background: #fff; opacity: 0; }
+}
+
+/* ── RETRO IMAC BOOTSTAGE ── */
+#retro-stage {
+  position: fixed;
+  inset: 0;
+  background: #02080f;
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+#retro-stage.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Bondi Blue iMac G3 Chassis Frame */
+.imac-chassis {
+  position: relative;
+  width: 580px;
+  height: 520px;
+  background: radial-gradient(ellipse at 50% 30%, rgba(30, 160, 170, 0.85) 0%, rgba(10, 80, 95, 0.95) 70%, rgba(5, 40, 50, 1) 100%);
+  border-radius: 80px 80px 140px 140px / 80px 80px 100px 100px;
+  padding: 35px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 10px 30px rgba(255,255,255,0.3), inset 0 -20px 40px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+/* Inner dynamic bezel shadow */
+.imac-chassis::before {
+  content: '';
+  position: absolute;
+  inset: 15px;
+  border-radius: 65px 65px 125px 125px / 65px 65px 85px 85px;
+  border: 3px solid rgba(255,255,255,0.15);
+  pointer-events: none;
+}
+/* Retro Apple Logo Accent */
+.apple-logo {
+  position: absolute;
+  bottom: 22px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.35);
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+/* CRT Screen Frame */
+.imac-screen-bezel {
+  width: 100%;
+  height: 400px;
+  background: #181b1c;
+  border-radius: 40px 40px 50px 50px / 40px 40px 40px 40px;
+  padding: 22px;
+  box-shadow: inset 0 5px 15px rgba(0,0,0,0.8), 0 2px 4px rgba(255,255,255,0.1);
+}
+
+/* The actual CRT display glass */
+.crt-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 30px / 20px;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0,0,0,1);
+  border: 2px solid #111;
+}
+
+/* CRT Curve Scanlines Distortion simulation Overlay */
+.crt-screen::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  z-index: 10;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Matrix Code Terminal Content Box */
+.terminal-content {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #39ff14;
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.7);
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Power button to escape back out */
+.imac-power-btn {
+  position: absolute;
+  bottom: -60px;
+  padding: 8px 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: none;
+  transition: all 0.3s;
+}
+.imac-power-btn:hover {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
 </style>
 </head>
 <body>
 
 <div id="cursor"></div>
 
-<!-- Titlebar (hidden until scroll) -->
 <div id="titlebar">
   <div class="traffic"><div class="tl r"></div><div class="tl y"></div><div class="tl g"></div></div>
   <div id="titlebar-text">AERO</div>
 </div>
 
-<!-- Hero title (animates to titlebar) -->
 <div id="hero-title"><h1>AERO</h1></div>
 
-<!-- Nav dots -->
 <div id="dots">
   <div class="dot active" data-i="0"></div>
   <div class="dot" data-i="1"></div>
@@ -154,7 +311,26 @@ section::after{
 
 <section id="s2">
   <div class="bg" id="bg2"></div>
+  
+  <div class="button-container">
+    <button class="red-button" id="detonator"></button>
+    <span class="button-label">System Terminal</span>
+  </div>
 </section>
+
+<div id="crt-overlay"></div>
+
+<div id="retro-stage">
+  <div class="imac-chassis">
+    <div class="imac-screen-bezel">
+      <div class="crt-screen">
+        <div class="terminal-content" id="boot-terminal"></div>
+      </div>
+    </div>
+    <div class="apple-logo"></div>
+    <button class="imac-power-btn" id="terminal-exit">Reboot Mainframe</button>
+  </div>
+</div>
 
 <script>
 // ── CURSOR ──
@@ -174,11 +350,9 @@ let titleVisible=false;
 function updateTitle(){
   const scrollY=window.scrollY;
   const vh=window.innerHeight;
-  // progress: 0 = top of page, 1 = scrolled 40% of first section
   const progress=Math.min(1,scrollY/(vh*0.38));
 
   if(progress<=0){
-    // reset to center
     heroTitle.style.transition='top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
     heroTitle.style.top='50%';
     heroTitle.style.left='50%';
@@ -192,20 +366,16 @@ function updateTitle(){
   }
 
   if(progress<1){
-    // interpolate position: from center to titlebar center
-    const startTop=50; // vh%
-    const endTop=22/vh*100; // titlebar center in vh%
-    const startLeft=50; // vw%
-    // use window coords
+    const startTop=50;
+    const endTop=22/vh*100;
     const curTop=startTop+(endTop-startTop)*easeInOut(progress);
-    const scale=1-progress*0.88; // shrink
+    const scale=1-progress*0.88;
     const opacity=1;
     heroTitle.style.transition='none';
     heroTitle.style.top=curTop+'vh';
     heroTitle.style.left='50%';
     heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;
     heroTitle.style.opacity=opacity;
-    // drive h1 font changes
     const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09));
     const endFs=14;
     const fs=startFs+(endFs-startFs)*easeInOut(progress);
@@ -225,10 +395,8 @@ function updateTitle(){
     titleVisible=false;
     titlebar.classList.remove('visible');
   } else {
-    // fully settled into titlebar
     if(!titleSettled){
       titleSettled=true;
-      // snap hero title out, show real titlebar
       heroTitle.style.opacity='0';
       heroTitle.style.transition='opacity 0.2s ease';
       titlebar.classList.add('visible');
@@ -276,6 +444,7 @@ sections.forEach(s=>obs.observe(s));
 
 // ── CLICK EFFECTS ──
 document.addEventListener('click',e=>{
+  if (e.target.closest('#detonator') || e.target.closest('#terminal-exit')) return;
   const r=document.createElement('div');
   r.className='ripple';
   r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
@@ -292,6 +461,76 @@ document.addEventListener('click',e=>{
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),800);
   }
+});
+
+// ── RETRO SHUTDOWN AND BOOT SIMULATION ──
+const detonator = document.getElementById('detonator');
+const crtOverlay = document.getElementById('crt-overlay');
+const retroStage = document.getElementById('retro-stage');
+const bootTerminal = document.getElementById('boot-terminal');
+const terminalExit = document.getElementById('terminal-exit');
+let bootInterval = null;
+
+const bootLines = [
+  "AERO VISTA CORE v1.0.4 BOOTING...",
+  "SYSTEM ARCHITECTURE: CODENAME G3 RETRO",
+  "INITIALIZING POWER MANAGEMENT CIRCUITS... OK",
+  "DETECTING CRT MONITOR FREQUENCY... 60HZ SYNC DETECTED",
+  "ALLOCATING VIRTUAL HEAP MEMORY... 512MB RAM OK",
+  "LOADING TRANSLUCENT CHASSIS CONTROL EMULATOR...",
+  "MOUNTING ROOT FILE SYSTEM (/dev/sda1)... SUCCESS",
+  "LOADING MATRIX RAIN DECRYPT MODULES...",
+  "--------------------------------------------------",
+  "WARNING: KERNEL INTRUSION DETECTED IN UPPER MEMORY",
+  "BYPASSING SECURITY PROTOCOLS... ACCESS GRANTED",
+  "INITIALIZING GREEN CORE INTERFACE...",
+  "STATUS: TERMINAL STABLE. AWAKE."
+];
+
+detonator.addEventListener('click', () => {
+  // 1. Kick off CRT collapse animation
+  crtOverlay.classList.add('shutdown');
+  
+  setTimeout(() => {
+    // 2. While dark, initialize retro stage visibility and clear layout
+    retroStage.classList.add('visible');
+    bootTerminal.textContent = "";
+  }, 350);
+
+  setTimeout(() => {
+    // 3. Clean up the collapse flash overlay and drop into terminal sequence
+    crtOverlay.classList.remove('shutdown');
+    runBootSequence();
+  }, 650);
+});
+
+function runBootSequence() {
+  let lineIndex = 0;
+  clearInterval(bootInterval);
+  
+  bootInterval = setInterval(() => {
+    if (lineIndex < bootLines.length) {
+      bootTerminal.textContent += bootLines[lineIndex] + "\n";
+      lineIndex++;
+    } else {
+      // Loop or output random falling mock matrix code variables
+      const hexChars = "0123456789ABCDEFSYSTEMFAILURE//X//";
+      let randomLine = "";
+      for(let i=0; i<30; i++) {
+        randomLine += hexChars.charAt(Math.floor(Math.random() * hexChars.length)) + " ";
+      }
+      bootTerminal.textContent += randomLine + "\n";
+      
+      // Auto scroll terminal window view down
+      bootTerminal.scrollTop = bootTerminal.scrollHeight;
+    }
+  }, 180);
+}
+
+// Exit button handling
+terminalExit.addEventListener('click', () => {
+  clearInterval(bootInterval);
+  retroStage.classList.remove('visible');
 });
 </script>
 </body>
