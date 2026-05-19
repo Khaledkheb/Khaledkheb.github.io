@@ -31,10 +31,92 @@ body {
   scroll-snap-type: y mandatory;
   position: relative;
   background: #000;
+  display: none; /* Hidden until curtain rises */
+}
+
+/* INTRO THEATER CURTAIN LAYER */
+#theater-curtain {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.theater-prompt {
+  color: #ff3333;
+  font-size: clamp(24px, 4vw, 46px);
+  font-weight: 200;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  margin-bottom: 8vh;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* TAROT THEMED CODE VAULT */
+.fool-vault-box {
+  background: linear-gradient(135deg, rgba(30, 0, 0, 0.6) 0%, rgba(5, 5, 5, 0.9) 100%);
+  border: 1px solid rgba(255, 50, 50, 0.25);
+  border-radius: 16px;
+  padding: 24px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 1px 2px rgba(255,50,50,0.15);
+  max-width: 320px;
+  width: 90%;
+}
+
+.vault-label {
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.vault-display {
+  font-size: 48px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  letter-spacing: 2px;
+  background: rgba(0,0,0,0.4);
+  padding: 4px 24px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.vault-btn {
+  background: #ff2222;
+  color: #fff;
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 10px 24px;
+  border-radius: 20px;
+  cursor: none;
+  margin-top: 6px;
+  box-shadow: 0 4px 15px rgba(255,0,0,0.4);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.vault-btn:hover {
+  background: #ff4444;
+  transform: scale(1.05);
 }
 
 /* 2. CUSTOM INTERACTIVE CURSOR */
-#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,50,50,0.95),rgba(100,0,0,0.6),rgba(0,0,0,0.2));border:1px solid rgba(255,100,100,0.8);box-shadow:0 0 10px rgba(255,0,0,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
+#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,50,50,0.95),rgba(100,0,0,0.6),rgba(0,0,0,0.2));border:1px solid rgba(255,100,100,0.8);box-shadow:0 0 10px rgba(255,0,0,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
 #cursor.big{width:55px;height:55px;}
 
 /* 3. TITLEBAR UI */
@@ -74,7 +156,7 @@ section{
   will-change:transform;
 }
 
-section:not(#s2)::after{
+section:not(#s2):\:\:after{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,0.6) 100%);
 }
@@ -97,33 +179,27 @@ section:not(#s2)::after{
     pointer-events: none;
 }
 
-/* 5. PRESENTATION PANEL DESIGN CARDS */
-.jester-display-panel {
+/* REMOVED .jester-display-panel STRUCTURE - NEW CLEAN SLIDE 1 CONTAINER */
+.jester-freestyle-wrapper {
   position: relative;
   z-index: 10;
   text-align: center;
-  width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   max-width: 850px;
-  padding: 55px 45px;
-  background: linear-gradient(135deg, rgba(60, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
-  border: 1px solid rgba(255, 50, 50, 0.2);
-  border-radius: 28px;
-  backdrop-filter: blur(25px) saturate(1.2);
-  -webkit-backdrop-filter: blur(25px) saturate(1.2);
-  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
+  width: 85%;
+  padding: 20px;
 }
 
-.jester-panel-overlay {
-  position: absolute;
-  top: -55px;    
-  right: -48px;  
-  width: 155px;  
+.jester-standalone-hat {
+  width: 140px;  
   height: auto;
   z-index: 20;   
-  transform: rotate(15deg); 
-  transform-origin: center center;
-  pointer-events: none; 
-  filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
+  margin-bottom: 25px;
+  filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.8)); 
+  transform: rotate(4deg);
 }
 
 .text-type-wrapper {
@@ -229,6 +305,15 @@ section:not(#s2)::after{
 
 <div id="cursor"></div>
 
+<div id="theater-curtain">
+  <div class="theater-prompt">The theater is dark.</div>
+  <div class="fool-vault-box">
+    <div class="vault-label">Tarot Card Key [0]</div>
+    <div class="vault-display">0</div>
+    <button class="vault-btn" id="enter-stage-btn">Enter Arena</button>
+  </div>
+</div>
+
 <div id="titlebar">
   <div class="traffic"><div class="tl r"></div><div class="tl y"></div><div class="tl g"></div></div>
 </div>
@@ -242,8 +327,8 @@ section:not(#s2)::after{
 
   <section id="s1">
     <div class="bg" id="bg1"></div>
-    <div class="jester-display-panel">
-       <img src="jester.png" alt="Jester Hat" class="jester-panel-overlay">
+    <div class="jester-freestyle-wrapper">
+       <img src="jester.png" alt="Jester Hat" class="jester-standalone-hat">
        <div class="text-type-wrapper">
          <div id="textTypeEngine1" class="text-type"></div>
        </div>
@@ -445,12 +530,13 @@ void main() {
 
 function initFaultyTerminal() {
     const container = document.getElementById('terminal-bg');
+    if (!container) return;
     const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
     const gl = renderer.gl;
     container.appendChild(gl.canvas);
 
     const geometry = new Triangle(gl);
-    const tintColor = new Color('#800000'); // HARD TINT TO DARK RED PER INSTRUCTION
+    const tintColor = new Color('#800000');
 
     const program = new Program(gl, {
         vertex: vertexShader,
@@ -511,9 +597,29 @@ window.addEventListener('DOMContentLoaded', () => {
 <script>
 // ── SCROLL RESTORATION OVERRIDE ──
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+// ── ENTRANCE CONTROL PIPELINE ──
+const enterBtn = document.getElementById('enter-stage-btn');
+const curtain = document.getElementById('theater-curtain');
+const scrollContainer = document.getElementById('scroll-container');
+
+enterBtn.addEventListener('click', () => {
+  // Show app content, drop curtain
+  scrollContainer.style.display = 'block';
+  curtain.style.opacity = '0';
+  curtain.style.transform = 'translateY(-100%)';
+  
+  // Clean initialization loops inside arena view
+  setTimeout(() => {
+    curtain.remove();
+    initTextTypeEngine('textTypeEngine1');
+    initTextTypeEngine('textTypeEngine2');
+    createCurvedLoop();
+  }, 1200);
+});
+
 window.addEventListener('beforeunload', () => {
-  const container = document.getElementById('scroll-container');
-  if(container) container.scrollTop = 0;
+  if(scrollContainer) scrollContainer.scrollTop = 0;
 });
 
 // ── CUSTOM INTEGRATED CURSOR LOGIC ──
@@ -522,8 +628,6 @@ let mx=0,my=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
 document.addEventListener('mousedown',()=>cursor.classList.add('big'));
 document.addEventListener('mouseup',()=>cursor.classList.remove('big'));
-
-const scrollContainer = document.getElementById('scroll-container');
 
 // ── PERSISTENT SECT PARALLAX ──
 function updateParallax(){
@@ -559,16 +663,16 @@ sections.forEach(s=>obs.observe(s));
 
 // ── SPARK PARTICLE LAYER INTERACTION ──
 document.addEventListener('click',e=>{
-  if (e.target.closest('.curved-loop-svg')) return;
+  if (e.target.closest('.curved-loop-svg') || e.target.closest('.fool-vault-box')) return;
   const r=document.createElement('div');
   r.className='ripple';
   r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
   document.body.appendChild(r);
   setTimeout(()=>r.remove(),750);
-  for(let i=0;i<10;i++){
+  for(let i=0; i<10; i++){
     const s=document.createElement('div');
     s.className='sparkle';
-    const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
+    const a=Math.random()*Math.PI*2, d=15+Math.random()*45;
     s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
     s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
     s.style.setProperty('--dy',(Math.sin(a)*d)+'px');
@@ -578,7 +682,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── CHRONO POOL SHUFFLE ENGINE (HELLO WORLD FIXED AT INDEX 0) ──
+// ── CHRONO POOL SHUFFLE ENGINE ──
 function initTextTypeEngine(id) {
   const target = document.getElementById(id);
   if(!target) return;
@@ -598,13 +702,11 @@ function initTextTypeEngine(id) {
     "the ultimate tragedy is a silent crowd"
   ];
   
-  // Fisher-Yates shuffle exclusively for the secondary pool
   for (let i = pool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
   
-  // Anchor Hello World explicitly to top of array index 0
   const textArray = ["Hello world", ...pool];
   let displayedText = "", charIdx = 0, isDeleting = false, textIdx = 0, timeout;
   target.innerHTML = `<span class="text-type__content"></span><span class="text-type__cursor">|</span>`;
@@ -663,12 +765,6 @@ function createCurvedLoop() {
     render();
   }, 100);
 }
-
-window.addEventListener('DOMContentLoaded', () => {
-  initTextTypeEngine('textTypeEngine1');
-  initTextTypeEngine('textTypeEngine2');
-  createCurvedLoop();
-});
 </script>
 </body>
 </html>
