@@ -8,9 +8,10 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{overflow-y:scroll;height:100%;}
-body{cursor:none;font-family:'Raleway',sans-serif;background:#000;}
+/* Changed cursor from 'none' to 'default' to make the native mouse show */
+body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:hidden;}
 
-/* ── CURSOR ── */
+/* ── CURSOR TRAIL ── */
 #cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
 #cursor.big{width:55px;height:55px;}
 
@@ -33,7 +34,8 @@ body{cursor:none;font-family:'Raleway',sans-serif;background:#000;}
 /* traffic light dots */
 .traffic{position:absolute;left:16px;display:flex;gap:7px;align-items:center;}
 .tl{width:13px;height:13px;border-radius:50%;transition: transform 0.1s; pointer-events: auto;}
-.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);cursor: none;}
+/* Changed cursor from 'none' to 'pointer' */
+.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);cursor: pointer;}
 .tl.r:active{transform: scale(0.85);}
 .tl.y{background:radial-gradient(circle at 40% 35%,#ffe080,#d4a000);box-shadow:0 1px 3px rgba(160,120,0,0.3);}
 .tl.g{background:radial-gradient(circle at 40% 35%,#80e880,#20a020);box-shadow:0 1px 3px rgba(0,140,0,0.3);}
@@ -106,7 +108,8 @@ section::after{
 
 /* Navigation Dots */
 #dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
-.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:none;transition:all 0.3s ease;}
+/* Changed dot cursor to 'pointer' */
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:pointer;transition:all 0.3s ease;}
 .dot.active{background:rgba(255,255,255,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,255,255,0.7);}
 
 /* Ripple & Sparkle */
@@ -138,9 +141,10 @@ section::after{
 #retro-stage {
   position: fixed;
   inset: 0;
-  background: #02080f;
+  background: #090e14;
   z-index: 99990;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -152,104 +156,199 @@ section::after{
   pointer-events: auto;
 }
 
-/* Bondi Blue iMac G3 Chassis Frame */
+/* Realistic Bondi Blue iMac G3 Chassis Frame */
+.imac-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .imac-chassis {
   position: relative;
-  width: 580px;
-  height: 520px;
-  background: radial-gradient(ellipse at 50% 30%, rgba(30, 160, 170, 0.85) 0%, rgba(10, 80, 95, 0.95) 70%, rgba(5, 40, 50, 1) 100%);
-  border-radius: 80px 80px 140px 140px / 80px 80px 100px 100px;
-  padding: 35px;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 10px 30px rgba(255,255,255,0.3), inset 0 -20px 40px rgba(0,0,0,0.6);
+  width: 640px;
+  height: 560px;
+  /* Bondi Blue signature translucent housing layers */
+  background: 
+    radial-gradient(ellipse at 50% 15%, rgba(130, 240, 255, 0.25) 0%, transparent 60%),
+    radial-gradient(circle at 35% 30%, #1793a1 0%, #0d6d79 40%, #053b42 80%, #021e22 100%);
+  border-radius: 110px 110px 160px 160px / 90px 90px 120px 120px;
+  padding: 40px 45px 75px 45px;
+  /* 3D volumetric extrusion shadows */
+  box-shadow: 
+    0 45px 90px rgba(0,0,0,0.85), 
+    inset 0 14px 25px rgba(255,255,255,0.45), 
+    inset 0 -30px 60px rgba(0,0,0,0.8),
+    0 10px 0 #044b54,
+    0 20px 30px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
+
+/* Realistic Internal Plastic Bezel Accent */
 .imac-chassis::before {
   content: '';
   position: absolute;
-  inset: 15px;
-  border-radius: 65px 65px 125px 125px / 65px 65px 85px 85px;
-  border: 3px solid rgba(255,255,255,0.15);
+  inset: 16px;
+  border-radius: 95px 95px 145px 145px / 75px 75px 105px 105px;
+  border: 4px solid rgba(255,255,255,0.12);
+  background: radial-gradient(circle at 50% 100%, transparent 70%, rgba(255,255,255,0.08) 100%);
   pointer-events: none;
 }
-.apple-logo {
-  position: absolute;
-  bottom: 22px;
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.35);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.6);
-}
 
-/* CRT Screen Frame */
+/* Inner Light-Gray Screen Bezel Component */
 .imac-screen-bezel {
   width: 100%;
-  height: 400px;
-  background: #181b1c;
-  border-radius: 40px 40px 50px 50px / 40px 40px 40px 40px;
-  padding: 22px;
-  box-shadow: inset 0 5px 15px rgba(0,0,0,0.8), 0 2px 4px rgba(255,255,255,0.1);
+  height: 410px;
+  background: linear-gradient(135deg, #e6ecf0 0%, #ccd5db 100%);
+  border-radius: 50px 50px 40px 40px / 40px 40px 30px 30px;
+  padding: 24px 28px;
+  box-shadow: 
+    inset 0 -6px 12px rgba(0,0,0,0.25), 
+    inset 0 4px 8px rgba(255,255,255,0.8),
+    0 8px 20px rgba(0,0,0,0.4);
+  position: relative;
 }
 
-/* The actual CRT display glass */
+/* The actual curved CRT display glass */
 .crt-screen {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #000;
-  border-radius: 30px / 20px;
+  background: #010502;
+  border-radius: 45px / 30px;
   overflow: hidden;
-  box-shadow: inset 0 0 40px rgba(0,0,0,1);
-  border: 2px solid #111;
+  box-shadow: 
+    inset 0 0 40px rgba(0,0,0,1),
+    0 2px 2px rgba(255,255,255,0.6);
+  border: 5px solid #1c2022;
 }
 
-/* CRT Curve Scanlines Simulation Overlay */
+/* CRT Screen Glare and Curvature overlay distortion */
+.crt-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.12) 0%, transparent 50%);
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* Scanline grid mask layering */
 .crt-screen::after {
   content: " ";
   display: block;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-  z-index: 10;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+  z-index: 11;
   background-size: 100% 4px, 6px 100%;
   pointer-events: none;
+}
+
+/* Lower Speaker Grille Ring System & Iridescent Power Button Area */
+.imac-lower-deck {
+  position: absolute;
+  bottom: 12px;
+  width: 82%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+/* Pin-hole speaker mesh clusters */
+.speaker-grille {
+  width: 65px;
+  height: 25px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.75) 15%, transparent 20%);
+  background-size: 5px 5px;
+  opacity: 0.4;
+}
+
+/* Glowing translucent round modern pulse power mechanism button */
+.imac-power-node {
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 35% 30%, #eefcff 0%, #5ce1e6 40%, #00a0b0 80%);
+  border-radius: 50%;
+  box-shadow: 
+    0 2px 6px rgba(0,0,0,0.3),
+    inset 0 1px 2px #fff,
+    0 0 12px rgba(92, 225, 230, 0.7);
+  animation: powerGlow 3s ease-in-out infinite alternate;
+}
+@keyframes powerGlow {
+  0% { box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 0 6px rgba(92, 225, 230, 0.4); }
+  100% { box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 0 16px rgba(92, 225, 230, 0.9); }
+}
+
+/* Retro Apple Logo Accent placement centring */
+.apple-logo {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  color: #117885;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.3);
 }
 
 /* Matrix Code Terminal Content Box */
 .terminal-content {
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 24px;
   font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #39ff14;
-  text-shadow: 0 0 6px rgba(57, 255, 20, 0.7);
+  font-size: 11px;
+  line-height: 1.6;
+  color: #26ff26;
+  text-shadow: 0 0 8px rgba(38, 255, 38, 0.85);
   box-sizing: border-box;
   overflow: hidden;
   white-space: pre-wrap;
   word-break: break-all;
 }
 
-/* Power button to escape back out */
-.imac-power-btn {
+/* Computer Stand/Tilt Support Base Element */
+.imac-stand {
+  width: 320px;
+  height: 45px;
+  background: linear-gradient(180deg, #dae3e8 0%, #9cb1bc 100%);
+  border-radius: 0 0 60px 60px / 0 0 30px 30px;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.5), inset 0 4px 6px rgba(255,255,255,0.5);
+  margin-top: -15px;
+  z-index: -1;
+  position: relative;
+}
+.imac-stand::before {
+  content: '';
   position: absolute;
-  bottom: -60px;
-  padding: 8px 20px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
+  top: 0; left: 10%; width: 80%; height: 8px;
+  background: rgba(0,0,0,0.15);
+}
+
+/* Power button to escape back out */
+.imac-reboot-btn {
+  margin-top: 35px;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
   border-radius: 20px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.5);
+  font-family: inherit;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  cursor: none;
+  cursor: pointer;
   transition: all 0.3s;
 }
-.imac-power-btn:hover {
-  background: rgba(255,255,255,0.2);
+.imac-reboot-btn:hover {
+  background: rgba(255,255,255,0.15);
   color: #fff;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
 </style>
 </head>
@@ -284,19 +383,28 @@ section::after{
 <div id="crt-overlay"></div>
 
 <div id="retro-stage">
-  <div class="imac-chassis">
-    <div class="imac-screen-bezel">
-      <div class="crt-screen">
-        <div class="terminal-content" id="boot-terminal"></div>
+  <div class="imac-wrapper">
+    <div class="imac-chassis">
+      <div class="imac-screen-bezel">
+        <div class="crt-screen">
+          <div class="terminal-content" id="boot-terminal"></div>
+        </div>
+        
+        <div class="imac-lower-deck">
+          <div class="speaker-grille"></div>
+          <div class="imac-power-node"></div>
+          <div class="speaker-grille"></div>
+        </div>
+        <div class="apple-logo"></div>
       </div>
     </div>
-    <div class="apple-logo"></div>
-    <button class="imac-power-btn" id="terminal-exit">Reboot Mainframe</button>
+    <div class="imac-stand"></div>
+    <button class="imac-reboot-btn" id="terminal-exit">Reboot Mainframe</button>
   </div>
 </div>
 
 <script>
-// ── CURSOR ──
+// ── CURSOR TRAIL POSITIONING ──
 const cursor=document.getElementById('cursor');
 let mx=0,my=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
@@ -435,26 +543,24 @@ const terminalExit = document.getElementById('terminal-exit');
 let bootInterval = null;
 
 const bootLines = [
-  "AERO VISTA CORE v1.0.4 BOOTING...",
-  "SYSTEM ARCHITECTURE: CODENAME G3 RETRO",
-  "INITIALIZING POWER MANAGEMENT CIRCUITS... OK",
-  "DETECTING CRT MONITOR FREQUENCY... 60HZ SYNC DETECTED",
-  "ALLOCATING VIRTUAL HEAP MEMORY... 512MB RAM OK",
-  "LOADING TRANSLUCENT CHASSIS CONTROL EMULATOR...",
-  "MOUNTING ROOT FILE SYSTEM (/dev/sda1)... SUCCESS",
-  "LOADING MATRIX RAIN DECRYPT MODULES...",
+  "AERO VISTA MACINTOSH CORE v1.0.4 BOOTING...",
+  "SYSTEM ARCHITECTURE: POWERPC G3 RETRO ACTIVE",
+  "INITIALIZING INTEGRATED MONAURAL SPEAKER SYSTEM... OK",
+  "DETECTING CATHODE-RAY TUBE MONITOR TARGET FREQUENCY... 60HZ SYNC",
+  "ALLOCATING EMULATED HEAP DRIVE VRAM... 512MB RAM INITIALIZED",
+  "LOADING BONDI BLUE TRANSLUCENT ASSEMBLY ENGINE...",
+  "MOUNTING PRIMARY STORAGE DISK SYSTEM (/dev/mac1)... SUCCESS",
+  "DECRYPTING MATRIX TERMINAL MODULE PATHWAY...",
   "--------------------------------------------------",
-  "WARNING: KERNEL INTRUSION DETECTED IN UPPER MEMORY",
-  "BYPASSING SECURITY PROTOCOLS... ACCESS GRANTED",
-  "INITIALIZING GREEN CORE INTERFACE...",
-  "STATUS: TERMINAL STABLE. AWAKE."
+  "WARNING: DIRECT MEMORY ARCHITECTURE INTRUSION DETECTED",
+  "BYPASSING SECURE HARDWARE ENCLAVE SECURITY... ACCESS GRANTED",
+  "INITIALIZING SYSTEM CODE CORE GREEN RUNTIME INTERFACE...",
+  "STATUS: TERMINATION FAULT CLEARED. SCREEN STABLE. AWAKE."
 ];
 
-// Trigger sequence when the red mac-style button is clicked on slide 2
 closeBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // Prevents click effects conflict
+  e.stopPropagation();
   
-  // Only trigger if the user has scrolled to the second slide (so the bar is actually visible)
   const currentSlideIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
   if (currentSlideIndex !== 1) return;
 
