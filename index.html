@@ -87,9 +87,9 @@ section::after{
   background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
 }
 
-#s1 .bg{background-color:#2090c8; background-image: radial-gradient(circle at 30% 30%, #3ca9e2 0%, #156293 100%);}
-#s2 .bg{background-color:#3aaa50; background-image: radial-gradient(circle at 70% 60%, #52ca69 0%, #217332 100%);}
-#s3 .bg{background-color:#1cbbb4; background-image: radial-gradient(circle at 80% 20%, #76e4ce 0%, #1cbbb4 100%);}
+#s1 .bg{background-image:url('img1.jpg');background-color:#2090c8;}
+#s2 .bg{background-image:url('img2.jpg');background-color:#3aaa50;}
+#s3 .bg{background-image:url('img3.jpg');background-color:#1cbbb4; background-image: radial-gradient(circle at 80% 20%, #76e4ce 0%, #1cbbb4 100%);}
 
 /* scroll hint */
 .scroll-hint{
@@ -139,6 +139,7 @@ section::after{
   justify-content: center;
   overflow: hidden;
   position: relative;
+  /* Masking layers: creates a visual fade in/out near bounding box margins */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
@@ -160,7 +161,7 @@ section::after{
   text-shadow: 0 4px 12px rgba(0, 60, 120, 0.3);
 }
 
-/* ── STICKER PEEL NATIVE CONFIG ENGINE STYLE ── */
+/* ── STICKER PEEL NATIVE ENGINE ENGINE STYLE SHIFT ── */
 :root {
   --sticker-rotate: 0deg;
   --sticker-p: 15px;
@@ -199,7 +200,7 @@ section::after{
   z-index: 20;
 }
 
-/* Adjusted bounds positions */
+/* Base placements for our stickers on the desktop wall board */
 #sticker-1 { top: 22%; left: 15%; --sticker-width: 210px; }
 #sticker-2 { top: 15%; left: 55%; --sticker-width: 250px; }
 #sticker-3 { top: 48%; left: 38%; --sticker-width: 220px; }
@@ -208,6 +209,11 @@ section::after{
   position: relative;
   transform: rotate(var(--peel-direction));
   transform-origin: center;
+}
+
+.sticker-container * {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .sticker-main {
@@ -250,6 +256,7 @@ section::after{
 .sticker-image {
   transform: rotate(var(--sticker-rotate));
   width: var(--sticker-width);
+  /* Removes the solid white background sheet cleanly from uploaded sticker prints */
   mix-blend-mode: multiply;
   display: block;
 }
@@ -385,12 +392,12 @@ section::after{
       <div class="sticker-container">
         <div class="sticker-main">
           <div class="sticker-lighting">
-            <img src="people.png" alt="People Sticker" class="sticker-image" draggable="false">
+            <img src="image_3086d8.png" alt="Sticker Buddy" class="sticker-image" draggable="false">
           </div>
         </div>
         <div class="flap">
           <div class="flap-lighting">
-            <img src="people.png" alt="People Flap" class="flap-image" draggable="false">
+            <img src="image_3086d8.png" alt="Sticker Buddy flap" class="flap-image" draggable="false">
           </div>
         </div>
       </div>
@@ -400,12 +407,12 @@ section::after{
       <div class="sticker-container">
         <div class="sticker-main">
           <div class="sticker-lighting">
-            <img src="butterfly.jpg" alt="Butterfly Sticker" class="sticker-image" draggable="false">
+            <img src="image_3086fa.jpg" alt="Sticker Eco Bubble" class="sticker-image" draggable="false">
           </div>
         </div>
         <div class="flap">
           <div class="flap-lighting">
-            <img src="butterfly.jpg" alt="Butterfly Flap" class="flap-image" draggable="false">
+            <img src="image_3086fa.jpg" alt="Sticker Eco Bubble flap" class="flap-image" draggable="false">
           </div>
         </div>
       </div>
@@ -415,12 +422,12 @@ section::after{
       <div class="sticker-container">
         <div class="sticker-main">
           <div class="sticker-lighting">
-            <img src="star.jpg" alt="Star Sticker" class="sticker-image" draggable="false">
+            <img src="image_308718.jpg" alt="Sticker Gel Star" class="sticker-image" draggable="false">
           </div>
         </div>
         <div class="flap">
           <div class="flap-lighting">
-            <img src="star.jpg" alt="Star Flap" class="flap-image" draggable="false">
+            <img src="image_308718.jpg" alt="Sticker Gel Star flap" class="flap-image" draggable="false">
           </div>
         </div>
       </div>
@@ -555,7 +562,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── VANILLA MARQUEE LOOP ENGINE ──
+// ── VANILLA ADAPTATION OF THE CURVED LOOP COMPONENT ──
 const curvedLoopConfig = {
   marqueeText: "The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦ ",
   speed: 2.5,
@@ -586,6 +593,7 @@ function createCurvedLoop() {
   const textPathNode = document.getElementById('loopTextPath');
   const measureNode = targetContainer.querySelector('text[ref="measureNode"]');
   
+  // Calculate repeat bounds cleanly to prevent empty gaps
   setTimeout(() => {
     const spacing = measureNode.getComputedTextLength() || 600;
     const repeatCount = Math.ceil(2400 / spacing) + 3;
@@ -642,7 +650,7 @@ function createCurvedLoop() {
 }
 createCurvedLoop();
 
-// ── INTERACTIVE DRAGGABLE RIG ──
+// ── VANILLA INTERACTIVE DRAGGABLE STICKER PEEL RIG ──
 function initDraggableStickers() {
   const wrappers = document.querySelectorAll('.sticker-wrapper');
   
@@ -655,7 +663,7 @@ function initDraggableStickers() {
       isDragging = true;
       startX = e.clientX - currentX;
       startY = e.clientY - currentY;
-      wrapper.style.zIndex = "50";
+      wrapper.style.zIndex = "50"; // Bring active layer forward
       wrapper.setPointerCapture(e.pointerId);
       document.getElementById('cursor').classList.add('big');
     });
@@ -665,6 +673,7 @@ function initDraggableStickers() {
       currentX = e.clientX - startX;
       currentY = e.clientY - startY;
       
+      // Calculate a slight elastic skew rotation based on tracking vectors
       let dragAngle = Math.max(-18, Math.min(18, (e.movementX || 0) * 1.5));
       wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${dragAngle}deg)`;
     });
@@ -673,6 +682,7 @@ function initDraggableStickers() {
       if (!isDragging) return;
       isDragging = false;
       wrapper.style.zIndex = "20";
+      // Ease rotation back smoothly on snap release 
       wrapper.style.transition = "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15)";
       wrapper.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(0deg)`;
       setTimeout(() => { wrapper.style.transition = "none"; }, 400);
