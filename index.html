@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✦ Jester's Realm</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght=200;300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* 1. CORE SNAP-SCROLL CONTAINER SETUP */
+/* 1. CORE SETUP */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html, body {
   margin: 0;
@@ -117,7 +117,6 @@ section:not(#s2)::after{
 .jester-panel-overlay {
   width: 100%;
   height: auto;
-  transform: rotate(15deg); 
   filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
 }
 
@@ -126,7 +125,7 @@ section:not(#s2)::after{
   z-index: 15; 
 }
 
-/* Slide 2 Content Card (The Archives / Vault Room) */
+/* Slide 2 Content Card (The Hidden Realm Archives) */
 .jester-content-card {
   z-index: 10;
   width: 92%;
@@ -422,7 +421,7 @@ section:not(#s2)::after{
   box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
 }
 
-/* 9. DIGITAL CIPHER INTERFACE (BOTTOM RIGHT) */
+/* 9. CIRCULAR CIPHER ENGINE (BOTTOM RIGHT) */
 .cipher-terminal-pod {
   position: fixed;
   bottom: 24px;
@@ -431,9 +430,9 @@ section:not(#s2)::after{
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(60, 0, 0, 0.8) 0%, rgba(10, 0, 0, 0.95) 100%);
-  border: 2px solid rgba(255, 50, 50, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.2);
+  background: linear-gradient(135deg, rgba(60, 0, 0, 0.85) 0%, rgba(10, 0, 0, 0.95) 100%);
+  border: 2px solid rgba(255, 50, 50, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 50, 50, 0.3);
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
@@ -444,22 +443,22 @@ section:not(#s2)::after{
 .cipher-terminal-pod:hover, .cipher-terminal-pod:focus-within {
   width: 260px;
   border-radius: 32px;
-  border-color: rgba(255, 77, 77, 0.8);
-  box-shadow: 0 8px 32px rgba(255, 0, 0, 0.15), 0 0 20px rgba(255, 0, 0, 0.3);
+  border-color: rgba(255, 77, 77, 0.9);
+  box-shadow: 0 8px 32px rgba(255, 0, 0, 0.2), 0 0 25px rgba(255, 0, 0, 0.4);
 }
 .cipher-wrapper {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0 12px;
-  gap: 8px;
+  padding: 0 14px;
+  gap: 10px;
 }
 .cipher-icon {
-  font-size: 20px;
+  font-size: 22px;
   color: #ff4d4d;
   user-select: none;
   flex-shrink: 0;
-  width: 40px;
+  width: 36px;
   text-align: center;
   text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
 }
@@ -470,7 +469,7 @@ section:not(#s2)::after{
   outline: none;
   color: #ffffff;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 2px;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -481,28 +480,18 @@ section:not(#s2)::after{
   pointer-events: auto;
 }
 .cipher-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.35);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-/* 10. OTHER SYSTEM UI ELEMENTS */
-.scroll-hint{
-  position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  pointer-events:none;
-  opacity:0;animation:hintIn 1s 2.5s ease forwards;
-}
-@keyframes hintIn{to{opacity:0.65;}}
-.scroll-hint span{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.85);text-transform:uppercase;}
-.scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,50,50,0.9));animation:arrowPulse 2s ease-in-out infinite;}
-@keyframes arrowPulse{0%,100%{opacity:0.6;transform:scaleY(0.85);}50%{opacity:1;transform:scaleY(1.15);}}
-
+/* 10. SYSTEM NAVIGATION DOTS */
 #dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.4);cursor:none;transition:all 0.3s ease;}
 .dot.active{background:rgba(255,50,50,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,0,0,0.7);}
 
+/* CLICK VISUAL FX */
 .ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,0,0,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
 @keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
 .sparkle{position:fixed;width:5px;height:5px;background:#ff3333;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(255,0,0,0.8);animation:sparkPop ease-out forwards;}
@@ -544,7 +533,7 @@ section:not(#s2)::after{
 <div class="cipher-terminal-pod">
   <div class="cipher-wrapper">
     <div class="cipher-icon">🔑</div>
-    <input type="text" class="cipher-input" id="realmCipher" placeholder="Enter key..." maxlength="10">
+    <input type="text" class="cipher-input" id="realmCipher" placeholder="Enter key..." maxlength="5">
   </div>
 </div>
 
@@ -559,10 +548,6 @@ section:not(#s2)::after{
        <div class="text-type-wrapper">
          <div id="textTypeEngine1" class="text-type"></div>
        </div>
-    </div>
-    <div class="scroll-hint">
-      <div class="scroll-arrow"></div>
-      <span>descend</span>
     </div>
   </section>
 
@@ -650,7 +635,7 @@ section:not(#s2)::after{
 </div>
 
 <script type="module">
-// ── WEBGL INTERACTIVE SHADER GENERATOR via OGL LIGHTWEIGHT PIPELINE ──
+// ── WEBGL INTERACTIVE SHADER GENERATOR ──
 import { Renderer, Program, Mesh, Triangle, Color } from 'https://unpkg.com/ogl';
 
 const vertexShader = `
@@ -890,14 +875,14 @@ window.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-// ── SCROLL RESTORATION OVERRIDE ──
+// ── SCROLL OVERRIDE SETUP ──
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.addEventListener('beforeunload', () => {
   const container = document.getElementById('scroll-container');
   if(container) container.scrollTop = 0;
 });
 
-// ── CUSTOM INTEGRATED CURSOR LOGIC ──
+// ── CUSTOM INTEGRATED CURSOR ──
 const cursor=document.getElementById('cursor');
 let mx=0,my=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
@@ -922,7 +907,7 @@ function updateParallax(){
 document.addEventListener('mousemove',updateParallax);
 scrollContainer.addEventListener('scroll',updateParallax,{passive:true});
 
-// ── DOT SYSTEM MAP NAVIGATION ──
+// ── DOT MAP SYSTEM NAVIGATOR ──
 const dots=document.querySelectorAll('.dot');
 const sections=document.querySelectorAll('section');
 dots.forEach(d=>{
@@ -939,23 +924,22 @@ const obs=new IntersectionObserver(entries=>{
 sections.forEach(s=>obs.observe(s));
 
 
-/* ── CIPHER CODES ENGINE DIRECT ACCESS ROUTER ── */
+/* ── CIPHER CODES ROUTER: INPUT '0' TO UNLOCK SUBPAGE ── */
 const cipherInput = document.getElementById('realmCipher');
 cipherInput.addEventListener('input', (e) => {
-  // Check if the user entered '0' (The Fool's Vector number)
   if (e.target.value.trim() === '0') {
-    triggerTrinket('✨ The Fool\'s number accepted. Accessing the Vault...');
+    triggerTrinket('✨ The Fool\'s Vector opened! Accessing the Vault...');
     e.target.value = '';
     e.target.blur();
     
-    // Jump down instantly to the themed cards arena on page 2
+    // Jump instantly to the hidden design subpages
     setTimeout(() => {
       sections[1].scrollIntoView({behavior:'smooth'});
     }, 400);
   }
 });
 
-/* ── SUBPAGE CONTROLLER MECHANISM ── */
+/* ── SUBPAGE CONTROLLER SYSTEM ── */
 window.switchInternalTab = function(pageId) {
   document.querySelectorAll('.vault-tab').forEach(btn => btn.classList.remove('active'));
   event.currentTarget.classList.add('active');
@@ -970,8 +954,8 @@ window.switchInternalTab = function(pageId) {
   }
 };
 
-/* ── SUBPAGE INTERACTIVE LOGIC UNITS ── */
-// 1. Hall of Mirrors filter system
+/* ── SUBPAGE INTERACTIVE ELEMENTS ── */
+// 1. Hall of Mirrors filter module
 window.filterMirrors = function(category) {
   document.querySelectorAll('.lens-btn').forEach(btn => btn.classList.remove('active'));
   event.currentTarget.classList.add('active');
@@ -995,7 +979,7 @@ window.togglePouch = function(headerElement) {
   }
 };
 
-// 3. Jester Alert System
+// 3. Jester System Alerts
 window.triggerTrinket = function(message) {
   const alertEl = document.getElementById('jesterAlert');
   alertEl.textContent = message;
@@ -1004,7 +988,7 @@ window.triggerTrinket = function(message) {
 };
 
 
-// ── SPARK PARTICLE LAYER INTERACTION ──
+// ── SPARK PARTICLE LAYER EFFECT ──
 document.addEventListener('click',e=>{
   if (e.target.closest('.curved-loop-svg') || e.target.closest('.cipher-terminal-pod') || e.target.closest('.gauntlet-input') || e.target.closest('.lens-btn') || e.target.closest('.vault-tab')) return;
   const r=document.createElement('div');
@@ -1025,7 +1009,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── CHRONO POOL SHUFFLE ENGINE ──
+// ── TEXT GENERATOR ENGINE ──
 function initTextTypeEngine(id) {
   const target = document.getElementById(id);
   if(!target) return;
