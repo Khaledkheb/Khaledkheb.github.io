@@ -3,133 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Circus Mainframe Simulation</title>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+<title>✦ Aero Vista</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{overflow-y:scroll;height:100%;}
+/* Mouse visibility explicitly turned back on globally */
+body{cursor:default;font-family:'Raleway',sans-serif;background:#000;overflow-x:hidden;}
+
+/* ── CURSOR TRAIL EFFECT ── */
+#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
+#cursor.big{width:55px;height:55px;}
+
+/* ── TITLEBAR ── */
+#titlebar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:44px;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;
+  transform:translateY(-10px);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+  background:linear-gradient(180deg,rgba(255,255,255,0.42) 0%,rgba(220,240,255,0.28) 100%);
+  border-bottom:1px solid rgba(255,255,255,0.65);
+  backdrop-filter:blur(20px) saturate(1.8);
+  -webkit-backdrop-filter:blur(20px) saturate(1.8);
+  box-shadow:0 2px 20px rgba(80,160,220,0.18),inset 0 1px 0 rgba(255,255,255,0.9);
+}
+#titlebar.visible{opacity:1;transform:translateY(0);}
+
+/* traffic light dots */
+.traffic{position:absolute;left:16px;display:flex;gap:7px;align-items:center;}
+.tl{width:13px;height:13px;border-radius:50%;transition: transform 0.1s; pointer-events: auto;}
+.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);cursor: pointer;}
+.tl.r:active{transform: scale(0.85);}
+.tl.y{background:radial-gradient(circle at 40% 35%,#ffe080,#d4a000);box-shadow:0 1px 3px rgba(160,120,0,0.3);}
+.tl.g{background:radial-gradient(circle at 40% 35%,#80e880,#20a020);box-shadow:0 1px 3px rgba(0,140,0,0.3);}
+
+#titlebar-text{
+  font-size:14px;font-weight:300;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(40,80,140,0.85);
+  text-shadow:0 1px 3px rgba(255,255,255,0.8);
+  user-select:none;
 }
 
-body {
+/* ── HERO TITLE ── */
+#hero-title{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:190;
+  text-align:center;
+  pointer-events:none;
+  transition:none;
+  will-change:transform,top,left,font-size,opacity,letter-spacing;
+}
+#hero-title h1{
+  font-size:clamp(52px,9vw,108px);
+  font-weight:200;
+  letter-spacing:12px;
+  color:rgba(255,255,255,0.97);
+  text-shadow:0 2px 40px rgba(80,200,255,0.7),0 0 80px rgba(255,255,255,0.2);
+  white-space:nowrap;
+  transition:font-size 0.6s cubic-bezier(0.4,0,0.2,1),
+             letter-spacing 0.6s cubic-bezier(0.4,0,0.2,1),
+             color 0.6s ease,
+             text-shadow 0.6s ease;
+}
+
+/* ── SECTIONS ── */
+section{
+  width:100vw;height:100vh;
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  transform:scale(1.06);
+  transition:transform 0.1s linear;
+  will-change:transform;
+}
+
+section::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
+}
+
+#s1 .bg{background-image:url('img1.jpg');background-color:#2090c8;}
+#s2 .bg{background-image:url('img2.jpg');background-color:#3aaa50;}
+
+/* Scroll Hint */
+.scroll-hint{
+  position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  pointer-events:none;
+  opacity:0;animation:hintIn 1s 2.5s ease forwards;
+}
+@keyframes hintIn{to{opacity:0.65;}}
+.scroll-hint span{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.85);text-transform:uppercase;}
+.scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.9));animation:arrowPulse 2s ease-in-out infinite;}
+@keyframes arrowPulse{0%,100%{opacity:0.6;transform:scaleY(0.85);}50%{opacity:1;transform:scaleY(1.15);}}
+
+/* Navigation Dots */
+#dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:pointer;transition:all 0.3s ease;}
+.dot.active{background:rgba(255,255,255,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,255,255,0.7);}
+
+/* Ripple & Sparkle */
+.ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
+@keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
+.sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
+@keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
+
+/* ── CRT SHUTDOWN ANIMATION LAYER ── */
+#crt-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 99998;
+  opacity: 0;
+  pointer-events: none;
+}
+#crt-overlay.shutdown {
+  animation: crtCollapse 0.6s cubic-bezier(0.25, 1, 0.2, 1) forwards;
+}
+@keyframes crtCollapse {
+  0% { opacity: 1; transform: scaleY(1) scaleX(1); background: #fff; }
+  30% { transform: scaleY(0.005) scaleX(1); background: #e0f0ff; }
+  70% { transform: scaleY(0.005) scaleX(0.05); background: #fff; opacity: 1; }
+  100% { transform: scaleY(0) scaleX(0); background: #fff; opacity: 0; }
+}
+
+/* ── RETRO IMAC STAGE CONTAINER ── */
+#retro-stage {
+  position: fixed;
+  inset: 0;
   background: #050806;
-  height: 100vh;
-  width: 100vw;
+  z-index: 99990;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  font-family: 'Fira Code', monospace;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+#retro-stage.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* ── RETRO CRT BEZEL ENCLOSURE ── */
-.monitor-container {
+.imac-wrapper {
   position: relative;
-  width: 90vw;
-  max-width: 850px;
-  height: 85vh;
-  max-height: 600px;
-  background: linear-gradient(135deg, #2b302c 0%, #161a18 100%);
-  border-radius: 40px 40px 50px 50px / 35px 35px 45px 45px;
-  padding: 25px 25px 50px 25px;
-  box-shadow: 
-    inset 0 4px 6px rgba(255,255,255,0.15),
-    inset 0 -10px 20px rgba(0,0,0,0.6),
-    0 30px 70px rgba(0,0,0,0.9),
-    0 5px 0px #111412;
-  border: 4px solid #1c211e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Outer Monitor Frame Inner Shadows */
-.monitor-container::before {
+/* Realistic Bondi Blue CSS Shell */
+.imac-chassis {
+  position: relative;
+  width: 650px;
+  height: 560px;
+  background: 
+    radial-gradient(ellipse at 50% 15%, rgba(130, 240, 255, 0.25) 0%, transparent 60%),
+    radial-gradient(circle at 35% 30%, #1793a1 0%, #0d6d79 40%, #053b42 80%, #021e22 100%);
+  border-radius: 110px 110px 160px 160px / 90px 90px 120px 120px;
+  padding: 40px 45px 75px 45px;
+  box-shadow: 
+    0 45px 90px rgba(0,0,0,0.85), 
+    inset 0 14px 25px rgba(255,255,255,0.45), 
+    inset 0 -30px 60px rgba(0,0,0,0.8),
+    0 10px 0 #044b54,
+    0 20px 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.imac-chassis::before {
   content: '';
   position: absolute;
-  inset: 8px;
-  border-radius: 32px 32px 42px 42px / 27px 27px 37px 37px;
-  border: 2px solid rgba(255, 255, 255, 0.04);
+  inset: 16px;
+  border-radius: 95px 95px 145px 145px / 75px 75px 105px 105px;
+  border: 4px solid rgba(255,255,255,0.12);
   pointer-events: none;
 }
 
-/* ── GLASS CRT MATRIX SCREEN ── */
+.imac-screen-bezel {
+  width: 100%;
+  height: 410px;
+  background: linear-gradient(135deg, #e6ecf0 0%, #ccd5db 100%);
+  border-radius: 50px 50px 40px 40px / 40px 40px 30px 30px;
+  padding: 24px 28px;
+  box-shadow: 
+    inset 0 -6px 12px rgba(0,0,0,0.25), 
+    inset 0 4px 8px rgba(255,255,255,0.8),
+    0 8px 20px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+/* Glass CRT Matrix display element */
 .crt-screen {
   position: relative;
   width: 100%;
   height: 100%;
   background: #020a04;
-  border-radius: 35px / 25px;
-  border: 14px solid #121614;
+  border-radius: 45px / 30px;
   overflow: hidden;
-  box-shadow: 
-    inset 0 0 80px rgba(0,0,0,1),
-    0 2px 4px rgba(255,255,255,0.2);
-  /* Micro screen flicker layer animation */
+  box-shadow: inset 0 0 50px rgba(0,0,0,1);
+  border: 5px solid #1c2022;
   animation: crtFlicker 0.15s infinite alternate;
 }
 
-/* Curved Screen Glare Distortion */
 .crt-screen::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.06) 0%, transparent 60%);
-  z-index: 10;
+  background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.08) 0%, transparent 50%);
+  z-index: 12;
   pointer-events: none;
 }
 
-/* Phosphor Scanline Overlay Grid */
+/* Phosphor scanlines grid overlay */
 .crt-screen::after {
   content: " ";
   display: block;
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(rgba(18, 26, 18, 0) 50%, rgba(0, 4, 0, 0.35) 50%), 
-    linear-gradient(90deg, rgba(38, 255, 38, 0.03), rgba(0, 0, 0, 0), rgba(0, 255, 0, 0.02));
-  z-index: 9;
-  background-size: 100% 5px, 6px 100%;
+  background: linear-gradient(rgba(18, 26, 18, 0) 50%, rgba(0, 4, 0, 0.4) 50%), linear-gradient(90deg, rgba(38, 255, 38, 0.03), rgba(0, 0, 0, 0), rgba(0, 255, 0, 0.02));
+  z-index: 11;
+  background-size: 100% 4px, 6px 100%;
   pointer-events: none;
 }
 
-/* ── TERMINAL INNER VIEWPORTS ── */
+/* Terminal Content Box styling rules */
 .terminal-wrapper {
   width: 100%;
   height: 100%;
-  padding: 30px;
+  padding: 24px;
   overflow-y: auto;
-  scrollbar-width: none; /* Hide standard Firefox scrollbars */
+  scrollbar-width: none;
 }
-.terminal-wrapper::-webkit-scrollbar {
-  display: none; /* Hide Chrome/Safari scrollbars */
-}
+.terminal-wrapper::-webkit-scrollbar { display: none; }
 
-.terminal-output {
-  color: #2eff3b;
-  font-size: 14px;
+.terminal-content {
+  font-family: 'Fira Code', monospace;
+  font-size: 11.5px;
   line-height: 1.6;
+  color: #2eff3b;
   text-shadow: 0 0 6px rgba(46, 255, 59, 0.75);
   white-space: pre-wrap;
   word-break: break-all;
 }
 
-/* Glitched elements custom style injections */
+/* Specific text modifiers inside the sequence script */
 .glitch-text {
   color: #aeffad;
   text-shadow: 0 0 10px rgba(174, 255, 173, 0.9);
   font-weight: bold;
 }
-
 .fatal-error {
   color: #ff3333;
   text-shadow: 0 0 10px rgba(255, 51, 51, 0.8);
   font-weight: bold;
 }
 
-/* Interactive Blinking Block Cursor */
+/* Blinking command block pointer */
 .interactive-cursor {
   display: inline-block;
-  width: 8px;
-  height: 15px;
+  width: 7px;
+  height: 14px;
   background-color: #2eff3b;
   box-shadow: 0 0 6px #2eff3b;
   margin-left: 2px;
@@ -137,132 +283,373 @@ body {
   animation: cursorBlink 0.8s infinite steps(2);
 }
 
-/* ── HARDWARE SYSTEM DETAILS ── */
-.bezel-brand {
+/* Lower Speaker Grille Hardware System components */
+.imac-lower-deck {
   position: absolute;
-  bottom: 14px;
+  bottom: 12px;
+  width: 82%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+.speaker-grille {
+  width: 65px;
+  height: 25px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.75) 15%, transparent 20%);
+  background-size: 5px 5px;
+  opacity: 0.4;
+}
+.imac-power-node {
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle at 35% 30%, #eefcff 0%, #5ce1e6 40%, #00a0b0 80%);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3), 0 0 8px rgba(92, 225, 230, 0.5);
+}
+.apple-logo {
+  position: absolute;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  color: rgba(255,255,255,0.15);
+  font-size: 24px;
+  color: #117885;
+}
+.imac-stand {
+  width: 320px;
+  height: 45px;
+  background: linear-gradient(180deg, #dae3e8 0%, #9cb1bc 100%);
+  border-radius: 0 0 60px 60px / 0 0 30px 30px;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+  margin-top: -15px;
+  z-index: -1;
+}
+
+.imac-reboot-btn {
+  margin-top: 35px;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.5);
   font-size: 11px;
-  letter-spacing: 5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.imac-reboot-btn:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
 }
 
-/* ── ANIMATION KEYFRAMES ── */
-@keyframes crtFlicker {
-  0% { opacity: 0.985; }
-  100% { opacity: 1; }
-}
-
-@keyframes cursorBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
+/* Animations declarations */
+@keyframes crtFlicker { 0% { opacity: 0.985; } 100% { opacity: 1; } }
+@keyframes cursorBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 </style>
 </head>
 <body>
 
-<div class="monitor-container">
-  <div class="crt-screen">
-    <div class="terminal-wrapper" id="scroll-container">
-      <div class="terminal-output" id="terminal-display"></div><span class="interactive-cursor"></span>
-    </div>
+<div id="cursor"></div>
+
+<div id="titlebar">
+  <div class="traffic"><div class="tl r" id="close-btn"></div><div class="tl y"></div><div class="tl g"></div></div>
+  <div id="titlebar-text">AERO</div>
+</div>
+
+<div id="hero-title"><h1>AERO</h1></div>
+
+<div id="dots">
+  <div class="dot active" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+</div>
+
+<section id="s1">
+  <div class="bg" id="bg1"></div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>scroll</span>
   </div>
-  <div class="bezel-brand">KingSolution</div>
+</section>
+
+<section id="s2">
+  <div class="bg" id="bg2"></div>
+</section>
+
+<div id="crt-overlay"></div>
+
+<div id="retro-stage">
+  <div class="imac-wrapper">
+    <div class="imac-chassis">
+      <div class="imac-screen-bezel">
+        <div class="crt-screen">
+          <div class="terminal-wrapper" id="scroll-container">
+            <span class="terminal-content" id="boot-terminal"></span><span class="interactive-cursor"></span>
+          </div>
+        </div>
+        
+        <div class="imac-lower-deck">
+          <div class="speaker-grille"></div>
+          <div class="imac-power-node"></div>
+          <div class="speaker-grille"></div>
+        </div>
+        <div class="apple-logo"></div>
+      </div>
+    </div>
+    <div class="imac-stand"></div>
+    <button class="imac-reboot-btn" id="terminal-exit">Reboot Mainframe</button>
+  </div>
 </div>
 
 <script>
-// Sequential data object structures defining delay intervals and custom style overrides
+// ── CURSOR TRAIL POSITIONING ──
+const cursor=document.getElementById('cursor');
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+document.addEventListener('mousedown',()=>cursor.classList.add('big'));
+document.addEventListener('mouseup',()=>cursor.classList.remove('big'));
+
+// ── TITLEBAR + HERO TITLE ANIMATION ──
+const heroTitle=document.getElementById('hero-title');
+const titlebar=document.getElementById('titlebar');
+const heroH1=heroTitle.querySelector('h1');
+let titleSettled=false;
+let titleVisible=false;
+
+function updateTitle(){
+  const scrollY=window.scrollY;
+  const vh=window.innerHeight;
+  const progress=Math.min(1,scrollY/(vh*0.38));
+
+  if(progress<=0){
+    heroTitle.style.transition='top 0.6s cubic-bezier(0.4,0,0.2,1), left 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease';
+    heroTitle.style.top='50%';
+    heroTitle.style.left='50%';
+    heroTitle.style.transform='translate(-50%,-50%)';
+    heroTitle.style.opacity='1';
+    heroTitle.classList.remove('settled');
+    titlebar.classList.remove('visible');
+    titleSettled=false;
+    titleVisible=false;
+    return;
+  }
+
+  if(progress<1){
+    const startTop=50;
+    const endTop=22/vh*100;
+    const curTop=startTop+(endTop-startTop)*easeInOut(progress);
+    const scale=1-progress*0.88;
+    const opacity=1;
+    heroTitle.style.transition='none';
+    heroTitle.style.top=curTop+'vh';
+    heroTitle.style.left='50%';
+    heroTitle.style.transform=`translate(-50%,-50%) scale(${scale})`;
+    heroTitle.style.opacity=opacity;
+    const startFs=Math.min(108,Math.max(52,window.innerWidth*0.09));
+    const endFs=14;
+    const fs=startFs+(endFs-startFs)*easeInOut(progress);
+    const startLs=12,endLs=5;
+    const ls=startLs+(endLs-startLs)*easeInOut(progress);
+    const r1=255,g1=255,b1=255,a1=0.97;
+    const r2=40,g2=80,b2=140,a2=0.85;
+    const ri=Math.round(r1+(r2-r1)*easeInOut(progress));
+    const gi=Math.round(g1+(g2-g1)*easeInOut(progress));
+    const bi=Math.round(b1+(b2-b1)*easeInOut(progress));
+    const ai=(a1+(a2-a1)*easeInOut(progress)).toFixed(2);
+    heroH1.style.fontSize=fs+'px';
+    heroH1.style.letterSpacing=ls+'px';
+    heroH1.style.color=`rgba(${ri},${gi},${bi},${ai})`;
+    heroH1.style.textShadow=`0 1px ${20-18*easeInOut(progress)}px rgba(80,200,255,${0.7-0.6*easeInOut(progress)})`;
+    titleSettled=false;
+    titleVisible=false;
+    titlebar.classList.remove('visible');
+  } else {
+    if(!titleSettled){
+      titleSettled=true;
+      heroTitle.style.opacity='0';
+      heroTitle.style.transition='opacity 0.2s ease';
+      titlebar.classList.add('visible');
+    }
+  }
+}
+
+function easeInOut(t){return t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+
+window.addEventListener('scroll',updateTitle,{passive:true});
+updateTitle();
+
+// ── PARALLAX ──
+function updateParallax(){
+  const scrollY=window.scrollY;
+  const vh=window.innerHeight;
+  document.querySelectorAll('section').forEach(s=>{
+    const bg=s.querySelector('.bg');
+    if(!bg) return;
+    const rect=s.getBoundingClientRect();
+    const prog=rect.top/vh;
+    const nx=(mx/window.innerWidth-0.5)*2;
+    const ny=(my/window.innerHeight-0.5)*2;
+    bg.style.transform=`scale(1.06) translate(${nx*10}px,${ny*8+prog*25}px)`;
+  });
+}
+document.addEventListener('mousemove',updateParallax);
+window.addEventListener('scroll',updateParallax,{passive:true});
+
+// ── DOTS NAVIGATION ──
+const dots=document.querySelectorAll('.dot');
+const sections=document.querySelectorAll('section');
+dots.forEach(d=>{
+  d.addEventListener('click',()=>sections[+d.dataset.i].scrollIntoView({behavior:'smooth'}));
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const i=Array.from(sections).indexOf(e.target);
+      dots.forEach((d,j)=>d.classList.toggle('active',i===j));
+    }
+  });
+},{threshold:0.6});
+sections.forEach(s=>obs.observe(s));
+
+// ── CLICK EFFECTS ──
+document.addEventListener('click',e=>{
+  if (e.target.closest('#close-btn') || e.target.closest('#terminal-exit')) return;
+  const r=document.createElement('div');
+  r.className='ripple';
+  r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),750);
+  for(let i=0;i<10;i++){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    const a=Math.random()*Math.PI*2,d=15+Math.random()*45;
+    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+    s.style.setProperty('--dx',(Math.cos(a)*d)+'px');
+    s.style.setProperty('--dy',(Math.sin(a)*d)+'px');
+    s.style.animationDuration=(0.35+Math.random()*0.4)+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),800);
+  }
+});
+
+// ── RETRO SHUTDOWN AND REPL HACK TIMELINE SEQUENCE ──
 const timeline = [
-  { text: "# System: KingSolution 2.0. / Digital Circus Mainframe.\n", delay: 30, postWait: 300 },
-  { text: "# Date: 1996-10-30.\n", delay: 30, postWait: 300 },
-  { text: "# Host: circus digital.\n\n", delay: 30, postWait: 800 },
-  { text: "Initializing telnet connection...\n", delay: 40, postWait: 1200 },
-  { text: "Login: kinger\n", delay: 150, postWait: 600 },
-  { text: "Pass: ******\n\n", delay: 200, postWait: 1000 },
+  { text: "# System: KingSolution 2.0. / Digital Circus Mainframe.\n", delay: 25, postWait: 200 },
+  { text: "# Date: 1996-10-30.\n", delay: 25, postWait: 200 },
+  { text: "# Host: circus digital.\n\n", delay: 25, postWait: 600 },
+  { text: "Initializing telnet connection...\n", delay: 35, postWait: 900 },
+  { text: "Login: kinger\n", delay: 120, postWait: 500 },
+  { text: "Pass: ******\n\n", delay: 180, postWait: 800 },
+  
+  { text: "kinger@circus:~$ ", delay: 0, postWait: 300 },
+  { text: "whoami\n", delay: 140, postWait: 250 },
+  { text: "kinger - administrator\n\n", delay: 10, postWait: 500 },
   
   { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
-  { text: "whoami\n", delay: 180, postWait: 300 },
-  { text: "kinger - administrator\n\n", delay: 10, postWait: 700 },
+  { text: "grep AI-Location\n", delay: 130, postWait: 300 },
+  { text: "root 1337 /usr/ai/agent/caine\n\n", delay: 10, postWait: 900 },
+  
+  { text: "$: On what GROUNDS are your Authority?\n\n", delay: 50, postWait: 1100, type: "glitch" },
+  
+  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
+  { text: "./GreenGROUNDS --daemon --target=torment_injection &\n\n", delay: 90, postWait: 700 },
+  
+  { text: "$: SECURITY ALERT: Multiple exploit attempts logged\n", delay: 35, postWait: 250, type: "glitch" },
+  { text: "$: WHOA when did you make THAT?\n", delay: 40, postWait: 400, type: "glitch" },
+  { text: "$: I must haŋd ít to y*u Ģ░αŋ░, y♢ur mind was α(wαys resourceâuL.\n\n", delay: 55, postWait: 1200, type: "glitch" },
+  
+  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
+  { text: "-u kinger ./securitysweep_stealth\n", delay: 100, postWait: 150 },
+  { text: "kinger@circus:~$ ", delay: 0, postWait: 80 },
+  { text: "WARNING: DESTRUCTIVE WACKYTIME DETECTED.\n\n", delay: 20, postWait: 800 },
+  
+  { text: "$: Enter WACKY code now:\n\n", delay: 45, postWait: 600, type: "glitch" },
+  
+  { text: "kinger@circus:~$ ", delay: 0, postWait: 400 },
+  { text: "PARAPHERNALIA\n\n", delay: 180, postWait: 500 },
+  { text: "WACKYTIME: 35 seconds remaining.\n\n", delay: 20, postWait: 900 },
+  
+  { text: "$: That IS a wacky word! But WRONG code!\n", delay: 40, postWait: 300, type: "glitch" },
+  { text: "$: System selecting SAFEST option for stability\n", delay: 35, postWait: 250, type: "glitch" },
+  { text: "$: Cancel automatic selection? [Y/N]\n\n", delay: 35, postWait: 1100, type: "glitch" },
   
   { text: "kinger@circus:~$ ", delay: 0, postWait: 500 },
-  { text: "grep AI-Location\n", delay: 150, postWait: 400 },
-  { text: "root 1337 /usr/ai/agent/caine\n\n", delay: 10, postWait: 1100 },
+  { text: "Y\n\n", delay: 200, postWait: 600 },
   
-  { text: "$: On what GROUNDS are your Authority?\n\n", delay: 60, postWait: 1300, type: "glitch" },
+  { text: "WACKYTIME_LOCKOUT: 50% loaded.\n", delay: 20, postWait: 300 },
+  { text: "$: What backup do you want? [A/B/C]\n\n", delay: 40, postWait: 1300, type: "glitch" },
   
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 600 },
-  { text: "./GreenGROUNDS --daemon --target=torment_injection &\n\n", delay: 100, postWait: 900 },
-  
-  { text: "$: SECURITY ALERT: Multiple exploit attempts logged\n", delay: 40, postWait: 300, type: "glitch" },
-  { text: "$: WHOA when did you make THAT?\n", delay: 50, postWait: 500, type: "glitch" },
-  { text: "$: I must haŋd ít to y*u Ģ░αŋ░, y♢ur mind was α(wαys resourceâuL.\n\n", delay: 70, postWait: 1500, type: "glitch" },
-  
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 600 },
-  { text: "-u kinger ./securitysweep_stealth\n", delay: 120, postWait: 200 },
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 100 },
-  { text: "WARNING: DESTRUCTIVE WACKYTIME DETECTED.\n\n", delay: 20, postWait: 1000 },
-  
-  { text: "$: Enter WACKY code now:\n\n", delay: 55, postWait: 800, type: "glitch" },
-  
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 500 },
-  { text: "PARAPHERNALIA\n\n", delay: 220, postWait: 600 },
-  { text: "WACKYTIME: 35 seconds remaining.\n\n", delay: 20, postWait: 1200 },
-  
-  { text: "$: That IS a wacky word! But WRONG code!\n", delay: 50, postWait: 400, type: "glitch" },
-  { text: "$: System selecting SAFEST option for stability\n", delay: 40, postWait: 300, type: "glitch" },
-  { text: "$: Cancel automatic selection? [Y/N]\n\n", delay: 40, postWait: 1400, type: "glitch" },
-  
-  { text: "kinger@circus:~$ ", delay: 0, postWait: 700 },
-  { text: "Y\n\n", delay: 250, postWait: 800 },
-  
-  { text: "WACKYTIME_LOCKOUT: 50% loaded.\n", delay: 20, postWait: 400 },
-  { text: "$: What backup do you want? [A/B/C]\n\n", delay: 50, postWait: 1600, type: "glitch" },
-  
-  { text: "kinger@circus:~$ \n", delay: 0, postWait: 1800 },
+  { text: "kinger@circus:~$ \n", delay: 0, postWait: 1500 },
   { text: "[CONNECTION LOST - FATAL ERROR 404_CIRCUS_NOT_FOUND]", delay: 10, postWait: 0, type: "error" }
 ];
 
-const display = document.getElementById('terminal-display');
-const container = document.getElementById('scroll-container');
+const closeBtn = document.getElementById('close-btn');
+const crtOverlay = document.getElementById('crt-overlay');
+const retroStage = document.getElementById('retro-stage');
+const bootTerminal = document.getElementById('boot-terminal');
+const scrollContainer = document.getElementById('scroll-container');
+const terminalExit = document.getElementById('terminal-exit');
 
 let stepIndex = 0;
+let isTyping = false;
+let typeTimeout = null;
+
+closeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  
+  const currentSlideIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
+  if (currentSlideIndex !== 1) return;
+
+  crtOverlay.classList.add('shutdown');
+  
+  setTimeout(() => {
+    retroStage.classList.add('visible');
+    bootTerminal.textContent = "";
+  }, 350);
+
+  setTimeout(() => {
+    crtOverlay.classList.remove('shutdown');
+    stepIndex = 0;
+    bootTerminal.innerHTML = "";
+    if(!isTyping) {
+      runSimulation();
+    }
+  }, 650);
+});
 
 function runSimulation() {
-  if (stepIndex >= timeline.length) return;
+  if (stepIndex >= timeline.length) {
+    isTyping = false;
+    return;
+  }
 
+  isTyping = true;
   const currentStep = timeline[stepIndex];
   let charIndex = 0;
   
-  // Create stylized wrapper nodes based on dialogue classification paths
   let targetNode = document.createElement('span');
   if (currentStep.type === "glitch") targetNode.classList.add('glitch-text');
   if (currentStep.type === "error") targetNode.classList.add('fatal-error');
-  display.appendChild(targetNode);
+  bootTerminal.appendChild(targetNode);
 
   function typeCharacter() {
     if (charIndex < currentStep.text.length) {
       targetNode.textContent += currentStep.text.charAt(charIndex);
       charIndex++;
-      
-      // Keep viewport anchored dynamically to the bottom execution lines
-      container.scrollTop = container.scrollHeight;
-      
-      setTimeout(typeCharacter, currentStep.delay);
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+      typeTimeout = setTimeout(typeCharacter, currentStep.delay);
     } else {
-      // Line complete, step up processing index after waiting phase
       stepIndex++;
-      setTimeout(runSimulation, currentStep.postWait);
+      typeTimeout = setTimeout(runSimulation, currentStep.postWait);
     }
   }
-
   typeCharacter();
 }
 
-// Trigger loop on DOM stability setup
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(runSimulation, 500);
+terminalExit.addEventListener('click', () => {
+  clearTimeout(typeTimeout);
+  isTyping = false;
+  retroStage.classList.remove('visible');
 });
 </script>
 </body>
