@@ -105,22 +105,13 @@ section:not(#s2)::after{
   width: 85%;
   max-width: 850px;
   padding: 55px 45px;
-  background: linear-gradient(135deg, rgba(60, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
-  border: 1px solid rgba(255, 50, 50, 0.2);
-  border-radius: 28px;
-  backdrop-filter: blur(25px) saturate(1.2);
-  -webkit-backdrop-filter: blur(25px) saturate(1.2);
-  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
-/* FOOL'S CAP NAVIGATION JESTER IMAGE & HOTSPOTS */
 .jester-panel-overlay-wrapper {
-  position: absolute;
-  top: -85px;    
-  right: -58px;  
-  width: 190px;  
-  height: 190px;
-  z-index: 20;   
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 220px;  
+  height: auto;
 }
 
 .jester-panel-overlay {
@@ -130,33 +121,12 @@ section:not(#s2)::after{
   filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
 }
 
-/* Invisible click zones sitting over the 3 hat points/bells */
-.hat-nav-point {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: none;
-  z-index: 30;
-  background: rgba(255, 255, 255, 0.01);
-  transition: transform 0.2s;
-}
-.hat-nav-point:hover {
-  transform: scale(1.3);
-  box-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
-  background: rgba(255, 77, 77, 0.2);
-}
-/* Coordinated mapping to overlay parts */
-#bell-mirrors { top: 12px; left: 32px; }
-#bell-trivia { top: -5px; left: 95px; }
-#bell-gauntlet { top: 38px; right: 5px; }
-
 .text-type-wrapper {
   position: relative;
   z-index: 15; 
 }
 
-/* Slide 2 Container Layout Mesh */
+/* Slide 2 Content Card (The Archives / Vault Room) */
 .jester-content-card {
   z-index: 10;
   width: 92%;
@@ -173,6 +143,34 @@ section:not(#s2)::after{
   gap: 25px;
   max-height: 85vh;
   overflow-y: auto;
+}
+
+/* Navigation tabs layout for Slide 2 subpages */
+.vault-nav-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+  z-index: 20;
+}
+.vault-tab {
+  background: rgba(20, 0, 0, 0.6);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  color: #ffcccc;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: none;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.vault-tab.active, .vault-tab:hover {
+  background: #ff4d4d;
+  color: #000;
+  font-weight: 600;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+  border-color: #ff9999;
 }
 
 /* 6. TYPING STRINGS GLYPH STYLING */
@@ -230,7 +228,7 @@ section:not(#s2)::after{
   letter-spacing: 2px;
 }
 
-/* 8. NEW: INNER ROUTED APP PAGES STYLING */
+/* 8. INNER ROUTED APP PAGES STYLING */
 .jester-subpage-container {
   width: 100%;
   display: none;
@@ -289,7 +287,6 @@ section:not(#s2)::after{
   object-fit: cover;
   transition: transform 0.5s, filter 0.5s;
 }
-/* Funhouse Warp and Shimmer Effects on Hover */
 .mirror-item:hover {
   border-color: rgba(255, 77, 77, 0.6);
   transform: scale(1.03) rotate(1deg);
@@ -314,6 +311,7 @@ section:not(#s2)::after{
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
   max-width: 750px;
   margin: 0 auto;
 }
@@ -424,7 +422,72 @@ section:not(#s2)::after{
   box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
 }
 
-/* 9. OTHER SYSTEM UI ELEMENTS */
+/* 9. DIGITAL CIPHER INTERFACE (BOTTOM RIGHT) */
+.cipher-terminal-pod {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 500;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(60, 0, 0, 0.8) 0%, rgba(10, 0, 0, 0.95) 100%);
+  border: 2px solid rgba(255, 50, 50, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.4s, border-color 0.3s;
+  overflow: hidden;
+}
+.cipher-terminal-pod:hover, .cipher-terminal-pod:focus-within {
+  width: 260px;
+  border-radius: 32px;
+  border-color: rgba(255, 77, 77, 0.8);
+  box-shadow: 0 8px 32px rgba(255, 0, 0, 0.15), 0 0 20px rgba(255, 0, 0, 0.3);
+}
+.cipher-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 12px;
+  gap: 8px;
+}
+.cipher-icon {
+  font-size: 20px;
+  color: #ff4d4d;
+  user-select: none;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+  text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+.cipher-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.cipher-terminal-pod:hover .cipher-input, .cipher-terminal-pod:focus-within .cipher-input {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cipher-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 10. OTHER SYSTEM UI ELEMENTS */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:6px;
@@ -478,6 +541,13 @@ section:not(#s2)::after{
 
 <div id="jesterAlert" class="jester-alert-popup">🎭 A silly choice!</div>
 
+<div class="cipher-terminal-pod">
+  <div class="cipher-wrapper">
+    <div class="cipher-icon">🔑</div>
+    <input type="text" class="cipher-input" id="realmCipher" placeholder="Enter key..." maxlength="10">
+  </div>
+</div>
+
 <div id="scroll-container">
 
   <section id="s1">
@@ -485,11 +555,7 @@ section:not(#s2)::after{
     <div class="jester-display-panel">
        <div class="jester-panel-overlay-wrapper">
          <img src="jester.png" alt="Jester Hat" class="jester-panel-overlay">
-         <div class="hat-nav-point" id="bell-mirrors" title="The Hall of Mirrors"></div>
-         <div class="hat-nav-point" id="bell-trivia" title="The Treasury of Trivia"></div>
-         <div class="hat-nav-point" id="bell-gauntlet" title="The Jester's Gauntlet"></div>
        </div>
-       
        <div class="text-type-wrapper">
          <div id="textTypeEngine1" class="text-type"></div>
        </div>
@@ -506,6 +572,12 @@ section:not(#s2)::after{
     <div class="jester-content-card">
       <div class="curved-loop-jacket">
         <div class="curved-loop-svg-target" style="width:100%;"></div>
+      </div>
+
+      <div class="vault-nav-tabs">
+        <button class="vault-tab active" onclick="switchInternalTab('page-mirrors')">Mirrors</button>
+        <button class="vault-tab" onclick="switchInternalTab('page-trivia')">Treasury</button>
+        <button class="vault-tab" onclick="switchInternalTab('page-gauntlet')">Gauntlet</button>
       </div>
       
       <div id="page-mirrors" class="jester-subpage-container active-page">
@@ -753,12 +825,13 @@ void main() {
 
 function initFaultyTerminal() {
     const container = document.getElementById('terminal-bg');
+    if(!container) return;
     const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
     const gl = renderer.gl;
     container.appendChild(gl.canvas);
 
     const geometry = new Triangle(gl);
-    const tintColor = new Color('#800000'); // DARK RED SHADER BACKGROUND TINT
+    const tintColor = new Color('#800000'); 
 
     const program = new Program(gl, {
         vertex: vertexShader,
@@ -865,33 +938,44 @@ const obs=new IntersectionObserver(entries=>{
 },{root: scrollContainer, threshold:0.5});
 sections.forEach(s=>obs.observe(s));
 
-/* ── FOOL'S CAP SUBPAGE INTERNAL ROUTING LOGIC ── */
-function switchSubpage(pageId) {
-  // Hide all containers
+
+/* ── CIPHER CODES ENGINE DIRECT ACCESS ROUTER ── */
+const cipherInput = document.getElementById('realmCipher');
+cipherInput.addEventListener('input', (e) => {
+  // Check if the user entered '0' (The Fool's Vector number)
+  if (e.target.value.trim() === '0') {
+    triggerTrinket('✨ The Fool\'s number accepted. Accessing the Vault...');
+    e.target.value = '';
+    e.target.blur();
+    
+    // Jump down instantly to the themed cards arena on page 2
+    setTimeout(() => {
+      sections[1].scrollIntoView({behavior:'smooth'});
+    }, 400);
+  }
+});
+
+/* ── SUBPAGE CONTROLLER MECHANISM ── */
+window.switchInternalTab = function(pageId) {
+  document.querySelectorAll('.vault-tab').forEach(btn => btn.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
   document.querySelectorAll('.jester-subpage-container').forEach(page => {
     page.classList.remove('active-page');
   });
-  // Show requested container
+  
   const targetPage = document.getElementById(pageId);
   if (targetPage) {
     targetPage.classList.add('active-page');
   }
-  // Scroll seamlessly to Slide 2 display viewport
-  sections[1].scrollIntoView({behavior:'smooth'});
-}
-
-document.getElementById('bell-mirrors').addEventListener('click', () => switchSubpage('page-mirrors'));
-document.getElementById('bell-trivia').addEventListener('click', () => switchSubpage('page-trivia'));
-document.getElementById('bell-gauntlet').addEventListener('click', () => switchSubpage('page-gauntlet'));
+};
 
 /* ── SUBPAGE INTERACTIVE LOGIC UNITS ── */
 // 1. Hall of Mirrors filter system
 window.filterMirrors = function(category) {
-  // Toggle Active lens buttons style state
   document.querySelectorAll('.lens-btn').forEach(btn => btn.classList.remove('active'));
   event.currentTarget.classList.add('active');
   
-  // Warp grid elements outside requested category away
   document.querySelectorAll('.mirror-item').forEach(item => {
     if (category === 'all' || item.dataset.cat === category) {
       item.style.display = 'block';
@@ -905,10 +989,7 @@ window.filterMirrors = function(category) {
 window.togglePouch = function(headerElement) {
   const pouch = headerElement.parentElement;
   const wasOpen = pouch.classList.contains('open');
-  
-  // Close existing open velvet items
   document.querySelectorAll('.velvet-pouch').forEach(p => p.classList.remove('open'));
-  
   if(!wasOpen) {
     pouch.classList.add('open');
   }
@@ -925,7 +1006,7 @@ window.triggerTrinket = function(message) {
 
 // ── SPARK PARTICLE LAYER INTERACTION ──
 document.addEventListener('click',e=>{
-  if (e.target.closest('.curved-loop-svg') || e.target.closest('.hat-nav-point') || e.target.closest('.gauntlet-input') || e.target.closest('.lens-btn')) return;
+  if (e.target.closest('.curved-loop-svg') || e.target.closest('.cipher-terminal-pod') || e.target.closest('.gauntlet-input') || e.target.closest('.lens-btn') || e.target.closest('.vault-tab')) return;
   const r=document.createElement('div');
   r.className='ripple';
   r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
@@ -944,7 +1025,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── CHRONO POOL SHUFFLE ENGINE (HELLO WORLD FIXED AT INDEX 0) ──
+// ── CHRONO POOL SHUFFLE ENGINE ──
 function initTextTypeEngine(id) {
   const target = document.getElementById(id);
   if(!target) return;
