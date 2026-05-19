@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>✦ Jester's Realm</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600;700&display=swap" rel="stylesheet">
 <style>
 /* 1. CORE SNAP-SCROLL CONTAINER SETUP */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -113,18 +113,43 @@ section:not(#s2)::after{
   box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
-.jester-panel-overlay {
+/* FOOL'S CAP NAVIGATION JESTER IMAGE & HOTSPOTS */
+.jester-panel-overlay-wrapper {
   position: absolute;
-  top: -55px;    
-  right: -48px;  
-  width: 155px;  
-  height: auto;
+  top: -85px;    
+  right: -58px;  
+  width: 190px;  
+  height: 190px;
   z-index: 20;   
+}
+
+.jester-panel-overlay {
+  width: 100%;
+  height: auto;
   transform: rotate(15deg); 
-  transform-origin: center center;
-  pointer-events: none; 
   filter: drop-shadow(5px 12px 16px rgba(0,0,0,0.75)); 
 }
+
+/* Invisible click zones sitting over the 3 hat points/bells */
+.hat-nav-point {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: none;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.01);
+  transition: transform 0.2s;
+}
+.hat-nav-point:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
+  background: rgba(255, 77, 77, 0.2);
+}
+/* Coordinated mapping to overlay parts */
+#bell-mirrors { top: 12px; left: 32px; }
+#bell-trivia { top: -5px; left: 95px; }
+#bell-gauntlet { top: 38px; right: 5px; }
 
 .text-type-wrapper {
   position: relative;
@@ -141,24 +166,26 @@ section:not(#s2)::after{
   border-radius: 28px;
   backdrop-filter: blur(15px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
-  padding: 60px 40px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 25px;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 /* 6. TYPING STRINGS GLYPH STYLING */
 .text-type {
   display: inline-block;
   white-space: pre-wrap;
-  font-size: clamp(22px, 3.8vw, 42px);
+  font-size: clamp(20px, 3.2vw, 36px);
   font-weight: 300;
   letter-spacing: 2px;
   color: #ffffff;
   text-shadow: 0 4px 20px rgba(255, 0, 0, 0.5), 0 0 30px rgba(0, 0, 0, 0.4);
   line-height: 1.4;
-  min-height: 3.2em;
+  min-height: 2.8em;
 }
 
 .text-type__cursor {
@@ -189,13 +216,13 @@ section:not(#s2)::after{
 .curved-loop-svg {
   user-select: none;
   width: 100%;
-  aspect-ratio: 1440 / 220;
+  aspect-ratio: 1440 / 140;
   overflow: visible;
   display: block;
 }
 
 .curved-loop-svg text {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
   text-transform: uppercase;
   fill: #ffffff;
@@ -203,7 +230,201 @@ section:not(#s2)::after{
   letter-spacing: 2px;
 }
 
-/* 8. UI ACCENTS & TRANSITIONS */
+/* 8. NEW: INNER ROUTED APP PAGES STYLING */
+.jester-subpage-container {
+  width: 100%;
+  display: none;
+  animation: fadeInSubpage 0.5s ease forwards;
+}
+.jester-subpage-container.active-page {
+  display: block;
+}
+@keyframes fadeInSubpage {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Page 1: Hall of Mirrors Portfolio */
+.filter-lens-rack {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+.lens-btn {
+  background: rgba(30, 0, 0, 0.6);
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: none;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+.lens-btn.active, .lens-btn:hover {
+  background: #ff4d4d;
+  box-shadow: 0 0 15px #ff4d4d;
+  border-color: #ff9999;
+}
+.mirrors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+.mirror-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.mirror-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s, filter 0.5s;
+}
+/* Funhouse Warp and Shimmer Effects on Hover */
+.mirror-item:hover {
+  border-color: rgba(255, 77, 77, 0.6);
+  transform: scale(1.03) rotate(1deg);
+  box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+}
+.mirror-item:hover img {
+  transform: scale(1.15) skewX(2deg);
+  filter: saturate(1.3) brightness(1.1) contrast(1.1);
+}
+.mirror-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 10px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Page 2: Treasury of Trivia Accordion */
+.treasury-vault {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 750px;
+  margin: 0 auto;
+}
+.velvet-pouch {
+  border: 1px solid rgba(255, 50, 50, 0.2);
+  background: rgba(30, 5, 5, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.pouch-header {
+  padding: 18px 25px;
+  background: rgba(50, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: none;
+  user-select: none;
+  font-weight: 600;
+  color: #ffcccc;
+  letter-spacing: 1px;
+}
+.pouch-header:hover {
+  background: rgba(90, 10, 10, 0.4);
+  color: #fff;
+}
+.pouch-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+  background: rgba(0, 0, 0, 0.3);
+}
+.pouch-content p {
+  padding: 20px 25px;
+  color: #e0e0e0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+.velvet-pouch.open {
+  border-color: rgba(255, 77, 77, 0.5);
+}
+.velvet-pouch.open .pouch-content {
+  max-height: 200px;
+}
+.velvet-pouch.open .pouch-header::after {
+  content: '▲';
+}
+.pouch-header::after {
+  content: '▼';
+  font-size: 11px;
+  color: #ff4d4d;
+}
+
+/* Page 3: Jester's Gauntlet Contact Form */
+.gauntlet-form {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+.form-group label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ff9999;
+  padding-left: 5px;
+}
+.gauntlet-input {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 50, 50, 0.3);
+  border-radius: 8px;
+  padding: 14px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.gauntlet-input:focus {
+  border-color: #ff4d4d;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
+}
+.gauntlet-submit {
+  background: linear-gradient(135deg, #800000 0%, #cc1111 100%);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: none;
+  margin-top: 10px;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+.gauntlet-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+}
+
+/* 9. OTHER SYSTEM UI ELEMENTS */
 .scroll-hint{
   position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:6px;
@@ -223,6 +444,23 @@ section:not(#s2)::after{
 @keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
 .sparkle{position:fixed;width:5px;height:5px;background:#ff3333;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(255,0,0,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
+
+/* Jester Custom Alerts styling */
+.jester-alert-popup {
+  position: fixed;
+  bottom: -100px; left: 50%;
+  transform: translateX(-50%);
+  background: #ff4d4d;
+  color: #000;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(255,0,0,0.5);
+  z-index: 10000;
+  transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.jester-alert-popup.show { bottom: 50px; }
 </style>
 </head>
 <body>
@@ -238,12 +476,20 @@ section:not(#s2)::after{
   <div class="dot" data-i="1"></div>
 </div>
 
+<div id="jesterAlert" class="jester-alert-popup">🎭 A silly choice!</div>
+
 <div id="scroll-container">
 
   <section id="s1">
     <div class="bg" id="bg1"></div>
     <div class="jester-display-panel">
-       <img src="jester.png" alt="Jester Hat" class="jester-panel-overlay">
+       <div class="jester-panel-overlay-wrapper">
+         <img src="jester.png" alt="Jester Hat" class="jester-panel-overlay">
+         <div class="hat-nav-point" id="bell-mirrors" title="The Hall of Mirrors"></div>
+         <div class="hat-nav-point" id="bell-trivia" title="The Treasury of Trivia"></div>
+         <div class="hat-nav-point" id="bell-gauntlet" title="The Jester's Gauntlet"></div>
+       </div>
+       
        <div class="text-type-wrapper">
          <div id="textTypeEngine1" class="text-type"></div>
        </div>
@@ -261,7 +507,69 @@ section:not(#s2)::after{
       <div class="curved-loop-jacket">
         <div class="curved-loop-svg-target" style="width:100%;"></div>
       </div>
-      <div class="text-type-wrapper">
+      
+      <div id="page-mirrors" class="jester-subpage-container active-page">
+         <div class="filter-lens-rack">
+           <button class="lens-btn active" onclick="filterMirrors('all')">Clear Lens</button>
+           <button class="lens-btn" onclick="filterMirrors('dev')">Crimson Specs (Dev)</button>
+           <button class="lens-btn" onclick="filterMirrors('design')">Amber Glass (Design)</button>
+         </div>
+         <div class="mirrors-grid">
+           <div class="mirror-item" data-cat="dev"><img src="img1.jpg" alt="Project"> <div class="mirror-caption">Warped Pipeline</div></div>
+           <div class="mirror-item" data-cat="design"><img src="img1.jpg" alt="Project"> <div class="mirror-caption">Uncanny Geometry</div></div>
+           <div class="mirror-item" data-cat="dev"><img src="img1.jpg" alt="Project"> <div class="mirror-caption">Shimmering Logic</div></div>
+           <div class="mirror-item" data-cat="design"><img src="img1.jpg" alt="Project"> <div class="mirror-caption">The Fool's Palette</div></div>
+         </div>
+      </div>
+
+      <div id="page-trivia" class="jester-subpage-container">
+         <div class="treasury-vault">
+           <div class="velvet-pouch">
+             <div class="pouch-header" onclick="togglePouch(this)">Who Claims This Identity?</div>
+             <div class="pouch-content"><p>A computational craftsperson pulling strings in the shadow of the browser engine, mixing system engineering tricks with avant-garde front-end theater.</p></div>
+           </div>
+           <div class="velvet-pouch">
+             <div class="pouch-header" onclick="togglePouch(this)">What Trickery Lies Within Your Arsenal?</div>
+             <div class="pouch-content"><p>Deep expertise across high-performance interactive interfaces, customized reactive architectures, raw mathematical WebGL shaders, and fluid layout optimization.</p></div>
+           </div>
+           <div class="velvet-pouch">
+             <div class="pouch-header" onclick="triggerTrinket('🐔 You squeezed the Rubber Chicken! SQUEAK!')">A Strange Rubber Fowl</div>
+             <div class="pouch-content"></div>
+           </div>
+           <div class="velvet-pouch">
+             <div class="pouch-header" onclick="triggerTrinket('🪙 The coin clinks against the desk... It\'s made of cheap painted lead!')">A Suspicious Shiny Coin</div>
+             <div class="pouch-content"></div>
+           </div>
+         </div>
+      </div>
+
+      <div id="page-gauntlet" class="jester-subpage-container">
+         <form class="gauntlet-form" onsubmit="event.preventDefault(); alert('Your scroll has been delivered safely via pigeon mail!');">
+           <div class="form-group">
+             <label>Identify Yourself, Traveler</label>
+             <input type="text" class="gauntlet-input" required placeholder="State your title...">
+           </div>
+           <div class="form-group">
+             <label>Where shall the carrier pigeon fly?</label>
+             <input type="email" class="gauntlet-input" required placeholder="your.comms@realm.com">
+           </div>
+           <div class="form-group">
+             <label>Nature of Your Gathering</label>
+             <select class="gauntlet-input" style="cursor:none;">
+               <option>Business Inquiry</option>
+               <option>Send High Praise</option>
+               <option>Challenge You to a Duel of Wits</option>
+             </select>
+           </div>
+           <div class="form-group">
+             <label>State your business or tell a tale</label>
+             <textarea class="gauntlet-input" rows="4" required placeholder="Write down your parameters..."></textarea>
+           </div>
+           <button type="submit" class="gauntlet-submit">Blow the Horn</button>
+         </form>
+      </div>
+
+      <div class="text-type-wrapper" style="margin-top:15px;">
          <div id="textTypeEngine2" class="text-type"></div>
       </div>
     </div>
@@ -450,7 +758,7 @@ function initFaultyTerminal() {
     container.appendChild(gl.canvas);
 
     const geometry = new Triangle(gl);
-    const tintColor = new Color('#800000'); // HARD TINT TO DARK RED PER INSTRUCTION
+    const tintColor = new Color('#800000'); // DARK RED SHADER BACKGROUND TINT
 
     const program = new Program(gl, {
         vertex: vertexShader,
@@ -525,7 +833,7 @@ document.addEventListener('mouseup',()=>cursor.classList.remove('big'));
 
 const scrollContainer = document.getElementById('scroll-container');
 
-// ── PERSISTENT SECT PARALLAX ──
+// ── PERSISTENT PARALLAX INTERACTION ──
 function updateParallax(){
   const vh=window.innerHeight;
   document.querySelectorAll('section').forEach(s=>{
@@ -557,9 +865,67 @@ const obs=new IntersectionObserver(entries=>{
 },{root: scrollContainer, threshold:0.5});
 sections.forEach(s=>obs.observe(s));
 
+/* ── FOOL'S CAP SUBPAGE INTERNAL ROUTING LOGIC ── */
+function switchSubpage(pageId) {
+  // Hide all containers
+  document.querySelectorAll('.jester-subpage-container').forEach(page => {
+    page.classList.remove('active-page');
+  });
+  // Show requested container
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add('active-page');
+  }
+  // Scroll seamlessly to Slide 2 display viewport
+  sections[1].scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('bell-mirrors').addEventListener('click', () => switchSubpage('page-mirrors'));
+document.getElementById('bell-trivia').addEventListener('click', () => switchSubpage('page-trivia'));
+document.getElementById('bell-gauntlet').addEventListener('click', () => switchSubpage('page-gauntlet'));
+
+/* ── SUBPAGE INTERACTIVE LOGIC UNITS ── */
+// 1. Hall of Mirrors filter system
+window.filterMirrors = function(category) {
+  // Toggle Active lens buttons style state
+  document.querySelectorAll('.lens-btn').forEach(btn => btn.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  
+  // Warp grid elements outside requested category away
+  document.querySelectorAll('.mirror-item').forEach(item => {
+    if (category === 'all' || item.dataset.cat === category) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+};
+
+// 2. Treasury pouch toggle
+window.togglePouch = function(headerElement) {
+  const pouch = headerElement.parentElement;
+  const wasOpen = pouch.classList.contains('open');
+  
+  // Close existing open velvet items
+  document.querySelectorAll('.velvet-pouch').forEach(p => p.classList.remove('open'));
+  
+  if(!wasOpen) {
+    pouch.classList.add('open');
+  }
+};
+
+// 3. Jester Alert System
+window.triggerTrinket = function(message) {
+  const alertEl = document.getElementById('jesterAlert');
+  alertEl.textContent = message;
+  alertEl.classList.add('show');
+  setTimeout(() => alertEl.classList.remove('show'), 3500);
+};
+
+
 // ── SPARK PARTICLE LAYER INTERACTION ──
 document.addEventListener('click',e=>{
-  if (e.target.closest('.curved-loop-svg')) return;
+  if (e.target.closest('.curved-loop-svg') || e.target.closest('.hat-nav-point') || e.target.closest('.gauntlet-input') || e.target.closest('.lens-btn')) return;
   const r=document.createElement('div');
   r.className='ripple';
   r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
@@ -598,13 +964,11 @@ function initTextTypeEngine(id) {
     "the ultimate tragedy is a silent crowd"
   ];
   
-  // Fisher-Yates shuffle exclusively for the secondary pool
   for (let i = pool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
   
-  // Anchor Hello World explicitly to top of array index 0
   const textArray = ["Hello world", ...pool];
   let displayedText = "", charIdx = 0, isDeleting = false, textIdx = 0, timeout;
   target.innerHTML = `<span class="text-type__content"></span><span class="text-type__cursor">|</span>`;
@@ -645,8 +1009,8 @@ function createCurvedLoop() {
   if(!target) return;
   const marqueeText = "THE SHOW MUST GO ON ✦ THE MASK NEVER SLIPS ✦ DANCE FOR THE KINGDOM OF SHADOWS ✦ ";
   const uid = 'curved-path';
-  const pathD = `M-400,30 Q720,210 1840,30`;
-  target.innerHTML = `<svg class="curved-loop-svg" viewBox="0 0 1440 220"><defs><path id="${uid}" d="${pathD}" fill="none" /></defs><text ref="measure" style="visibility:hidden; opacity:0; font-weight:700;">${marqueeText}</text><text font-weight="bold"><textPath id="loopTextPath" href="#${uid}" startOffset="0px"></textPath></text></svg>`;
+  const pathD = `M-400,30 Q720,150 1840,30`;
+  target.innerHTML = `<svg class="curved-loop-svg" viewBox="0 0 1440 160"><defs><path id="${uid}" d="${pathD}" fill="none" /></defs><text ref="measure" style="visibility:hidden; opacity:0; font-weight:700;">${marqueeText}</text><text font-weight="bold"><textPath id="loopTextPath" href="#${uid}" startOffset="0px"></textPath></text></svg>`;
   const textPathNode = document.getElementById('loopTextPath');
   const measureNode = target.querySelector('text[ref="measure"]');
   setTimeout(() => {
