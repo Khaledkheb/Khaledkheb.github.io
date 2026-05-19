@@ -86,11 +86,28 @@ section::after{
   background-color:#2a0000;
   background-image: radial-gradient(circle at 50% 45%, #4a0404 0%, #1a0101 60%, #000000 100%);
 }
+
+/* Slide 2 Background Styling */
 #s2 .bg{
-  background-image:url('img1.jpg');
   background-color:#2090c8;
-  background-image:url('img1.jpg'), radial-gradient(circle at 30% 30%, #3ca9e2 0%, #156293 100%);
+  background-image: radial-gradient(circle at 30% 30%, #156293 0%, #0c3652 100%);
 }
+
+/* Seamless Horizontal Repeating Pattern Border for Slide 2 */
+.slide-border-pattern {
+  position: absolute;
+  top: 44px; /* Flushed perfectly right under the titlebar layout layer */
+  left: 0;
+  width: 100%;
+  height: 60px; /* Adjust height based on how thick you want your border pattern band */
+  z-index: 30;
+  background-image: url('img1.jpg');
+  background-repeat: repeat-x; /* Repeats horizontally with absolutely no gaps */
+  background-position: left top;
+  background-size: contain; /* Automatically scales image height to lock into frame boundaries */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
 #s3 .bg{
   background-image:url('img2.jpg');
   background-color:#217a35;
@@ -113,21 +130,23 @@ section::after{
   box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
-/* Overlay Jester Hat Image Styling */
+/* Overlay Jester Hat Image Styling - Tilted & Covering the Corner */
 .jester-panel-overlay {
   position: absolute;
-  top: -55px;   /* Positions it up past the border header */
-  right: -35px; /* Pulls it slightly off the right edge to break the frame line */
-  width: 140px;  /* Clean desktop sizing scale */
+  top: -45px;    /* Pulls it slightly up past the top boundary */
+  right: -45px;  /* Pulls it across the right boundary */
+  width: 150px;  /* Optimal presentation size */
   height: auto;
-  z-index: 12;  /* Sits forward overlapping the top right border */
-  pointer-events: none; /* Mouse elements fall straight through it */
-  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.65));
+  z-index: 20;   /* Sits cleanly on top of the borders to mask/cover the corner */
+  transform: rotate(-15deg); /* Tilted slightly counter-clockwise to look naturally thrown on */
+  transform-origin: center center;
+  pointer-events: none; /* Mouse elements pass straight through to prevent blocking text */
+  filter: drop-shadow(-5px 10px 15px rgba(0,0,0,0.7)); /* Casts shadow down onto the panel */
 }
 
 .text-type-wrapper {
   position: relative;
-  z-index: 15; /* Forces the text to stay fully readable and separate */
+  z-index: 15; /* Forces the text to stay fully readable */
 }
 
 .aero-content-card {
@@ -261,6 +280,9 @@ section::after{
 
   <section id="s2">
     <div class="bg" id="bg2"></div>
+    
+    <div class="slide-border-pattern"></div>
+    
     <div class="scroll-hint">
       <div class="scroll-arrow"></div>
       <span>scroll</span>
