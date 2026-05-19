@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✦ Aero Vista</title>
+<title>✦ Jester's Realm</title>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600;700&display=swap" rel="stylesheet">
 <style>
 /* Prevent scroll history conflicts and set up strict scroll snapping layout containers */
@@ -34,7 +34,7 @@ body {
 }
 
 /* ── CURSOR ── */
-#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.95),rgba(160,220,255,0.6),rgba(80,180,240,0.2));border:1px solid rgba(255,255,255,0.8);box-shadow:0 0 10px rgba(120,200,255,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
+#cursor{position:fixed;width:20px;height:20px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,rgba(255,50,50,0.95),rgba(100,0,0,0.6),rgba(0,0,0,0.2));border:1px solid rgba(255,100,100,0.8);box-shadow:0 0 10px rgba(255,0,0,0.5);mix-blend-mode:screen;transition:width 0.15s,height 0.15s;}
 #cursor.big{width:55px;height:55px;}
 
 /* ── TITLEBAR ── */
@@ -42,19 +42,18 @@ body {
   position:fixed;top:0;left:0;right:0;z-index:200;
   height:44px;
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(180deg,rgba(255,255,255,0.42) 0%,rgba(220,240,255,0.28) 100%);
-  border-bottom:1px solid rgba(255,255,255,0.65);
-  backdrop-filter:blur(20px) saturate(1.8);
-  -webkit-backdrop-filter:blur(20px) saturate(1.8);
-  box-shadow:0 2px 20px rgba(80,160,220,0.18),inset 0 1px 0 rgba(255,255,255,0.9);
+  background:linear-gradient(180deg,rgba(40,0,0,0.6) 0%,rgba(0,0,0,0.8) 100%);
+  border-bottom:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
 }
 
 /* traffic light dots */
 .traffic{position:absolute;left:16px;display:flex;gap:7px;align-items:center;}
 .tl{width:13px;height:13px;border-radius:50%;}
-.tl.r{background:radial-gradient(circle at 40% 35%,#ff8a8a,#e03030);box-shadow:0 1px 3px rgba(180,0,0,0.3);}
-.tl.y{background:radial-gradient(circle at 40% 35%,#ffe080,#d4a000);box-shadow:0 1px 3px rgba(160,120,0,0.3);}
-.tl.g{background:radial-gradient(circle at 40% 35%,#80e880,#20a020);box-shadow:0 1px 3px rgba(0,140,0,0.3);}
+.tl.r{background:radial-gradient(circle at 40% 35%,#ff4d4d,#800000);box-shadow:0 1px 3px rgba(100,0,0,0.5);}
+.tl.y{background:radial-gradient(circle at 40% 35%,#555,#111);}
+.tl.g{background:radial-gradient(circle at 40% 35%,#555,#111);}
 
 /* ── SECTIONS ── */
 section{
@@ -79,12 +78,13 @@ section{
 
 section::after{
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,20,60,0.3) 100%);
+  background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,0.6) 100%);
 }
 
+/* Slide 1: Dark Maroon & Black Background */
 #s1 .bg{
-  background-color:#146fa3;
-  background-image: radial-gradient(circle at 50% 45%, #1f89c7 0%, #0d466b 70%, #031c2e 100%);
+  background-color:#2a0000;
+  background-image: radial-gradient(circle at 50% 45%, #4a0404 0%, #1a0101 60%, #000000 100%);
 }
 #s2 .bg{
   background-image:url('img1.jpg');
@@ -97,19 +97,19 @@ section::after{
   background-image:url('img2.jpg'), radial-gradient(circle at 50% 50%, #309c48 0%, #134f20 100%);
 }
 
-/* ── FRUTIGER AERO CONTENT PRESENTATION ENGINE CARDS ── */
-.aero-display-panel {
+/* ── CONTENT PRESENTATION PANEL CARDS ── */
+.jester-display-panel {
   z-index: 10;
   text-align: center;
   width: 85%;
   max-width: 850px;
   padding: 55px 45px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.38) 0%, rgba(200, 235, 255, 0.14) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, rgba(60, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%);
+  border: 1px solid rgba(255, 50, 50, 0.2);
   border-radius: 28px;
-  backdrop-filter: blur(25px) saturate(1.75);
-  -webkit-backdrop-filter: blur(25px) saturate(1.75);
-  box-shadow: 0 40px 70px rgba(0, 25, 60, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(25px) saturate(1.2);
+  -webkit-backdrop-filter: blur(25px) saturate(1.2);
+  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
 }
 
 .aero-content-card {
@@ -128,7 +128,7 @@ section::after{
   justify-content: center;
 }
 
-/* ── NATIVE AUTO TYPING TEXT LAYOUT ANIMATION STYLES ── */
+/* ── AUTO TYPING TEXT LAYOUT STYLES ── */
 .text-type {
   display: inline-block;
   white-space: pre-wrap;
@@ -136,7 +136,7 @@ section::after{
   font-weight: 300;
   letter-spacing: 2px;
   color: #ffffff;
-  text-shadow: 0 4px 20px rgba(0, 140, 255, 0.65), 0 0 30px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 4px 20px rgba(255, 0, 0, 0.5), 0 0 30px rgba(0, 0, 0, 0.4);
   line-height: 1.4;
   min-height: 3.2em;
 }
@@ -145,8 +145,8 @@ section::after{
   margin-left: 0.2rem;
   display: inline-block;
   font-weight: 200;
-  color: #9ee2ff;
-  text-shadow: 0 0 12px #0099ff;
+  color: #ff4d4d;
+  text-shadow: 0 0 12px #ff0000;
   animation: cursorBlink 0.8s ease-in-out infinite alternate;
 }
 @keyframes cursorBlink {
@@ -154,7 +154,7 @@ section::after{
   to { opacity: 0; }
 }
 
-/* ── CURVED LOOP VANILLA LAYER ── */
+/* ── CURVED LOOP TEXT STYLES ── */
 .curved-loop-jacket {
   width: 100%;
   display: flex;
@@ -180,7 +180,7 @@ section::after{
   font-weight: 700;
   text-transform: uppercase;
   fill: #ffffff;
-  text-shadow: 0 4px 16px rgba(0, 50, 100, 0.25);
+  text-shadow: 0 4px 16px rgba(100, 0, 0, 0.4);
   letter-spacing: 2px;
 }
 
@@ -193,18 +193,18 @@ section::after{
 }
 @keyframes hintIn{to{opacity:0.65;}}
 .scroll-hint span{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.85);text-transform:uppercase;}
-.scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.9));animation:arrowPulse 2s ease-in-out infinite;}
+.scroll-arrow{width:1px;height:36px;background:linear-gradient(180deg,transparent,rgba(255,50,50,0.9));animation:arrowPulse 2s ease-in-out infinite;}
 @keyframes arrowPulse{0%,100%{opacity:0.6;transform:scaleY(0.85);}50%{opacity:1;transform:scaleY(1.15);}}
 
 /* nav dots */
 #dots{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:10px;}
-.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.35);border:1.5px solid rgba(255,255,255,0.7);cursor:none;transition:all 0.3s ease;}
-.dot.active{background:rgba(255,255,255,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,255,255,0.7);}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.4);cursor:none;transition:all 0.3s ease;}
+.dot.active{background:rgba(255,50,50,0.95);transform:scale(1.4);box-shadow:0 0 7px rgba(255,0,0,0.7);}
 
 /* ripple & sparkle */
-.ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,255,255,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
+.ripple{position:fixed;border-radius:50%;border:1.5px solid rgba(255,0,0,0.6);pointer-events:none;z-index:9996;animation:rippleOut 0.7s ease-out forwards;transform:translate(-50%,-50%) scale(0);}
 @keyframes rippleOut{0%{transform:translate(-50%,-50%) scale(0);opacity:0.9;}100%{transform:translate(-50%,-50%) scale(5);opacity:0;}}
-.sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
+.sparkle{position:fixed;width:5px;height:5px;background:#ff3333;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(255,0,0,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 </style>
 </head>
@@ -227,13 +227,13 @@ section::after{
   <section id="s1">
     <div class="bg" id="bg1"></div>
     
-    <div class="aero-display-panel">
+    <div class="jester-display-panel">
        <div id="textTypeEngine" class="text-type"></div>
     </div>
     
     <div class="scroll-hint">
       <div class="scroll-arrow"></div>
-      <span>scroll</span>
+      <span>descend</span>
     </div>
   </section>
 
@@ -274,7 +274,6 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style
 document.addEventListener('mousedown',()=>cursor.classList.add('big'));
 document.addEventListener('mouseup',()=>cursor.classList.remove('big'));
 
-// ── TRACK SCROLL ELEMENT OVERRIDES ──
 const scrollContainer = document.getElementById('scroll-container');
 
 // ── PARALLAX ──
@@ -330,7 +329,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-// ── NATIVE CHRONOLOGICAL TEXT-TYPE FRAMEWORK ──
+// ── CHRONOLOGICAL TEXT-TYPE FRAMEWORK ──
 function initTextTypeEngine() {
   const target = document.getElementById('textTypeEngine');
   if(!target) return;
@@ -403,9 +402,9 @@ function initTextTypeEngine() {
   executeTypingAnimation();
 }
 
-// ── VANILLA MARQUEE LOOP ENGINE ──
+// ── JESTERY CURVED MARQUEE LOOP ENGINE ──
 const curvedLoopConfig = {
-  marqueeText: "The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦ ",
+  marqueeText: "THE SHOW MUST GO ON ✦ THE MASK NEVER SLIPS ✦ DANCE FOR THE KINGDOM OF SHADOWS ✦ ",
   speed: 2.5,
   curveAmount: 180, 
   direction: "right",
