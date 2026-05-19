@@ -84,6 +84,73 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 .sparkle{position:fixed;width:5px;height:5px;background:#fff;border-radius:50%;pointer-events:none;z-index:9995;box-shadow:0 0 5px 2px rgba(200,240,255,0.8);animation:sparkPop ease-out forwards;}
 @keyframes sparkPop{0%{transform:scale(0);opacity:1;}100%{transform:scale(2) translate(var(--dx),var(--dy));opacity:0;}}
 
+/* ── FRUTIGER AERO CONTAINER CARD FOR THE CURVED LOOP ── */
+.aero-content-card {
+  z-index: 10;
+  width: 90%;
+  max-width: 1100px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(200, 235, 255, 0.22) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 30px;
+  backdrop-filter: blur(25px) saturate(1.7);
+  -webkit-backdrop-filter: blur(25px) saturate(1.7);
+  box-shadow: 
+    0 30px 60px rgba(0, 40, 80, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+}
+.aero-badge {
+  background: linear-gradient(135deg, #2090c8 0%, #3aaa50 100%);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(32, 144, 200, 0.3);
+}
+
+/* ── VANILLA ADAPTATION OF THE CURVEDLOOP COMPONENT ── */
+.curved-loop-jacket {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.curved-loop-svg {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  width: 100%;
+  aspect-ratio: 1440 / 180;
+  overflow: visible;
+  display: block;
+}
+
+.curved-loop-svg textPath {
+  font-size: 3.4rem; /* Adjusted gracefully to fit inside structural cards */
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 2px;
+  fill: #ffffff;
+  text-shadow: 0 4px 20px rgba(0, 80, 160, 0.35);
+}
+
+/* Custom design modification class injected as a prop parameter styling override */
+.custom-aero-style {
+  fill: url(#aeroGlowGrad) !important;
+  font-weight: 600 !important;
+}
+
 /* ── CRT FLASH/SHUTDOWN OVERLAY ── */
 #crt-overlay {
   position: fixed;inset: 0;background: #fff;z-index: 99998;opacity: 0;pointer-events: none;
@@ -107,25 +174,22 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 }
 #retro-stage.visible { opacity: 1; pointer-events: auto; }
 
-/* Cinematic Zooming Camera Wrapper */
 .camera-rig {
   display: flex;flex-direction: column;align-items: center;justify-content: center;
-  transform: scale(2.2) translateY(50px); /* Starts up close on the screen */
+  transform: scale(2.2) translateY(50px);
   transition: transform 1.8s cubic-bezier(0.5, 0, 0.1, 1);
   will-change: transform;
 }
 .camera-rig.zoomed-out {
-  transform: scale(0.95) translateY(-20px) rotateX(6deg); /* Cinematic structural workspace overview */
+  transform: scale(0.95) translateY(-20px) rotateX(6deg);
 }
 
-/* Ultra Realistic 3D iMac Assembly Structure */
 .imac-3d-scene {
   position: relative;
   display: flex;flex-direction: column;align-items: center;
   transform-style: preserve-3d;
 }
 
-/* Semi translucent volumetric 3D extruded case wrapper */
 .imac-chassis {
   position: relative;width: 610px;height: 520px;
   background: 
@@ -137,7 +201,7 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
     0 40px 80px rgba(0,0,0,0.9), 
     inset 0 15px 30px rgba(255,255,255,0.5), 
     inset 0 -25px 50px rgba(0,0,0,0.85),
-    0 12px 0 #04464e, /* Pseudo 3D Extrusion Side Wall */
+    0 12px 0 #04464e, 
     0 25px 30px rgba(0,0,0,0.6);
   display: flex;flex-direction: column;align-items: center;
 }
@@ -151,7 +215,6 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
   position: relative;
 }
 
-/* CRT monitor glass mask with interactive physics flicker layer */
 .crt-screen {
   position: relative;width: 100%;height: 100%;
   background: #010402;border-radius: 35px / 25px;overflow: hidden;
@@ -170,7 +233,6 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
   z-index: 11;background-size: 100% 4px, 6px 100%;pointer-events: none;
 }
 
-/* ── RETRO MAC SYSTEM REBOOT LOADING SCREEN ── */
 .mac-load-overlay {
   position: absolute;inset: 0;background: #cbd3d8;z-index: 15;
   display: flex;flex-direction: column;align-items: center;justify-content: center;
@@ -181,7 +243,6 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 .mac-load-bar-box { width: 160px; height: 14px; background: #fff; border: 2px solid #7a858d; border-radius: 2px; padding: 1px; overflow: hidden; }
 .mac-load-progress { width: 0%; height: 100%; background: #555e64; transition: width 0.1s linear; }
 
-/* Terminal content view text system */
 .terminal-wrapper { width: 100%;height: 100%;padding: 20px;overflow-y: auto;scrollbar-width: none; }
 .terminal-wrapper::-webkit-scrollbar { display: none; }
 .terminal-content {
@@ -195,11 +256,10 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 .interactive-cursor {
   display: inline-block;width: 7px;height: 13px;background-color: #2eff3b;
   box-shadow: 0 0 6px #2eff3b;margin-left: 2px;vertical-align: middle;
-  animation: cursorBlink 0.8s infinite steps(2);display: none;
+  display: none;
 }
 .interactive-cursor.active { display: inline-block; }
 
-/* Deck Hardware layout elements */
 .imac-lower-deck { position: absolute;bottom: 12px;width: 82%;display: flex;justify-content: space-between;align-items: center;padding: 0 10px; }
 .speaker-grille { width: 65px;height: 25px;background-image: radial-gradient(rgba(0, 0, 0, 0.75) 15%, transparent 20%);background-size: 5px 5px;opacity: 0.4; }
 .imac-power-node {
@@ -210,17 +270,12 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 .apple-logo { position: absolute;bottom: 14px;left: 50%;transform: translateX(-50%);font-size: 22px;color: #117885; }
 .imac-stand { width: 300px;height: 40px;background: linear-gradient(180deg, #d2dadf 0%, #90a5b0 100%);border-radius: 0 0 60px 60px / 0 0 30px 30px;box-shadow: 0 15px 25px rgba(0,0,0,0.5);margin-top: -12px;z-index: -1; }
 
-/* ── PERSPECTIVE MATCHED DETAILED PHYSICAL KEYBOARD ── */
 .imac-keyboard-3d {
   width: 440px;height: 110px;margin-top: 25px;
   background: linear-gradient(180deg, #e1e6eb 0%, #b8c3cc 100%);
   border-radius: 12px;transform: rotateX(35deg);transform-origin: top center;
-  box-shadow: 
-    0 15px 25px rgba(0,0,0,0.6), 
-    0 2px 0 #9bb0be, 
-    inset 0 2px 4px rgba(255,255,255,0.7);
-  padding: 8px;display: flex;flex-direction: column;gap: 4px;
-  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.6), 0 2px 0 #9bb0be, inset 0 2px 4px rgba(255,255,255,0.7);
+  padding: 8px;display: flex;flex-direction: column;gap: 4px;border: 1px solid rgba(0,0,0,0.15);
 }
 .keyboard-row { display: flex;width: 100%;gap: 3px;justify-content: space-between; }
 .key-cap {
@@ -229,7 +284,6 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 }
 .key-cap.space-bar { flex: 5; }
 
-/* Translucent Matching Bondi Blue Mouse */
 .imac-mouse-3d {
   position: absolute;right: -100px;bottom: 10px;width: 42px;height: 65px;
   background: radial-gradient(circle at 50% 30%, #1cb0be 0%, #064b54 80%);
@@ -281,6 +335,21 @@ section::after{content:'';position:absolute;inset:0;pointer-events:none;backgrou
 
 <section id="s2">
   <div class="bg" id="bg2"></div>
+  
+  <div class="aero-content-card">
+    <div class="aero-badge">Aero Vista Loop</div>
+    
+    <div class="curved-loop-jacket">
+      <curved-loop 
+        marquee-text="The Future is Clear: Connecting Worlds, Inspiring Possibilities ✦"
+        speed="3"
+        curve-amount="400"
+        direction="right"
+        interactive="true"
+        class-name="custom-aero-style">
+      </curved-loop>
+    </div>
+  </div>
 </section>
 
 <div id="crt-overlay"></div>
@@ -405,7 +474,7 @@ sections.forEach(s=>obs.observe(s));
 
 // ── CLICK EFFECTS ──
 document.addEventListener('click',e=>{
-  if (e.target.closest('#close-btn') || e.target.closest('#terminal-exit')) return;
+  if (e.target.closest('#close-btn') || e.target.closest('#terminal-exit') || e.target.closest('curved-loop')) return;
   const r=document.createElement('div');r.className='ripple';r.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:40px;height:40px;`;
   document.body.appendChild(r);setTimeout(()=>r.remove(),750);
   for(let i=0;i<10;i++){
@@ -414,6 +483,156 @@ document.addEventListener('click',e=>{
     document.body.appendChild(s);setTimeout(()=>s.remove(),800);
   }
 });
+
+// ── NATIVE VANILLA WEBCOMPONENT CONVERSION FOR REACT BITS CURVEDLOOP ──
+class CurvedLoopComponent extends HTMLElement {
+  constructor() {
+    super();
+    this.speed = 2;
+    this.curveAmount = 400;
+    this.direction = 'left';
+    this.interactive = true;
+    this.marqueeText = '';
+    this.className = '';
+    
+    this.spacing = 0;
+    this.offset = 0;
+    this.dragActive = false;
+    this.lastX = 0;
+    this.velocity = 0;
+    this.frameId = null;
+  }
+
+  connectedCallback() {
+    this.speed = parseFloat(this.getAttribute('speed')) || 2;
+    this.curveAmount = parseFloat(this.getAttribute('curve-amount')) || 400;
+    this.direction = this.getAttribute('direction') || 'left';
+    this.interactive = this.getAttribute('interactive') !== 'false';
+    this.marqueeText = this.getAttribute('marquee-text') || '';
+    this.className = this.getAttribute('class-name') || '';
+
+    this.currentDirection = this.direction;
+
+    const trailingText = /\s|\u00A0$/.test(this.marqueeText) ? this.marqueeText : this.marqueeText + '\u00A0';
+    this.processedText = trailingText;
+
+    const uid = Math.random().toString(36).substr(2, 9);
+    this.pathId = `curve-${uid}`;
+    this.pathD = `M-100,40 Q500,${40 + this.curveAmount} 1540,40`;
+
+    this.innerHTML = `
+      <svg class="curved-loop-svg" viewBox="0 0 1440 180">
+        <defs>
+          <linearGradient id="aeroGlowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="50%" stop-color="#bbf0ff" />
+            <stop offset="100%" stop-color="#ffffff" />
+          </linearGradient>
+          <path id="${this.pathId}" d="${this.pathD}" fill="none" stroke="transparent" />
+        </defs>
+        <text class="measure-node" xml:space="preserve" style="visibility: hidden; opacity: 0; pointer-events: none; font-size: 3.4rem; font-weight:700;">${this.processedText}</text>
+        <text font-weight="bold" xml:space="preserve" class="${this.className}" style="display: none;">
+          <textPath href="#${this.pathId}" startOffset="0px" xml:space="preserve"></textPath>
+        </text>
+      </svg>
+    `;
+
+    this.style.width = '100%';
+    this.style.display = 'block';
+    
+    this.jacket = this;
+    this.svg = this.querySelector('.curved-loop-svg');
+    this.measureNode = this.querySelector('.measure-node');
+    this.textContainer = this.querySelector('text:not(.measure-node)');
+    this.textPathNode = this.querySelector('textPath');
+
+    this.style.cursor = this.interactive ? 'grab' : 'auto';
+
+    // Measure spacing lengths
+    setTimeout(() => {
+      if (this.measureNode) {
+        this.spacing = this.measureNode.getComputedTextLength() || 600;
+        this.initLoop();
+      }
+    }, 50);
+
+    if (this.interactive) {
+      this.addEventListener('pointerdown', this.onPointerDown.bind(this));
+      this.addEventListener('pointermove', this.onPointerMove.bind(this));
+      this.addEventListener('pointerup', this.endDrag.bind(this));
+      this.addEventListener('pointerleave', this.endDrag.bind(this));
+    }
+  }
+
+  initLoop() {
+    if (!this.spacing) return;
+    this.offset = -this.spacing;
+    this.textPathNode.setAttribute('startOffset', this.offset + 'px');
+
+    const repeatCount = Math.ceil(2400 / this.spacing) + 2;
+    let concatenatedText = '';
+    for (let i = 0; i < repeatCount; i++) {
+      concatenatedText += this.processedText;
+    }
+    this.textPathNode.textContent = concatenatedText;
+    this.textContainer.style.display = 'block';
+
+    this.startAnimation();
+  }
+
+  startAnimation() {
+    const step = () => {
+      if (!this.dragActive && this.textPathNode) {
+        const delta = this.currentDirection === 'right' ? this.speed : -this.speed;
+        let newOffset = this.offset + delta;
+
+        if (newOffset <= -this.spacing) newOffset += this.spacing;
+        if (newOffset > 0) newOffset -= this.spacing;
+
+        this.offset = newOffset;
+        this.textPathNode.setAttribute('startOffset', this.offset + 'px');
+      }
+      this.frameId = requestAnimationFrame(step);
+    };
+    this.frameId = requestAnimationFrame(step);
+  }
+
+  onPointerDown(e) {
+    this.dragActive = true;
+    this.lastX = e.clientX;
+    this.velocity = 0;
+    this.style.cursor = 'grabbing';
+    this.setPointerCapture(e.pointerId);
+  }
+
+  onPointerMove(e) {
+    if (!this.dragActive || !this.textPathNode) return;
+    const dx = e.clientX - this.lastX;
+    this.lastX = e.clientX;
+    this.velocity = dx;
+
+    let newOffset = this.offset + dx;
+    if (newOffset <= -this.spacing) newOffset += this.spacing;
+    if (newOffset > 0) newOffset -= this.spacing;
+
+    this.offset = newOffset;
+    this.textPathNode.setAttribute('startOffset', this.offset + 'px');
+  }
+
+  endDrag() {
+    if (!this.dragActive) return;
+    this.dragActive = false;
+    this.style.cursor = 'grab';
+    if (Math.abs(this.velocity) > 0.2) {
+      this.currentDirection = this.velocity > 0 ? 'right' : 'left';
+    }
+  }
+
+  disconnectedCallback() {
+    if (this.frameId) cancelAnimationFrame(this.frameId);
+  }
+}
+customElements.define('curved-loop', CurvedLoopComponent);
 
 // ── REPL DIALOGUE TIMELINE DATA ──
 const timeline = [
@@ -454,7 +673,7 @@ const timeline = [
   { text: "[CONNECTION LOST - FATAL ERROR 404_CIRCUS_NOT_FOUND]", delay: 10, postWait: 0, type: "error" }
 ];
 
-// ── CINEMATIC RETRO PIPELINE STAGE MECHANISMS ──
+// ── RETRO SIMULATION VIEWPORT TRIGGERS ──
 const closeBtn = document.getElementById('close-btn');
 const crtOverlay = document.getElementById('crt-overlay');
 const retroStage = document.getElementById('retro-stage');
@@ -475,7 +694,6 @@ closeBtn.addEventListener('click', (e) => {
   const currentSlideIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
   if (currentSlideIndex !== 1) return;
 
-  // Step 1: CRT screen collapses to white line and goes black
   crtOverlay.classList.add('shutdown');
   
   setTimeout(() => {
@@ -484,10 +702,9 @@ closeBtn.addEventListener('click', (e) => {
     loadingMask.classList.remove('active');
     termCursor.classList.remove('active');
     bootTerminal.innerHTML = "";
-    mainCamera.classList.remove('zoomed-out'); // Ensure it starts up close
+    mainCamera.classList.remove('zoomed-out');
   }, 200);
 
-  // Step 2: Clear shutdown flash, screen stays black, then zoom out wide
   setTimeout(() => {
     crtOverlay.classList.remove('shutdown');
   }, 450);
@@ -496,7 +713,6 @@ closeBtn.addEventListener('click', (e) => {
     mainCamera.classList.add('zoomed-out');
   }, 700);
 
-  // Step 3: Mac powers up, glowing grey loading screen bar builds up
   setTimeout(() => {
     loadingMask.classList.add('active');
     animateLoadingBar(0);
@@ -506,12 +722,10 @@ closeBtn.addEventListener('click', (e) => {
 function animateLoadingBar(progress) {
   if (progress <= 100) {
     loadFluid.style.width = progress + '%';
-    // Variable step speeds for retro authenticity
     let nextStep = progress + Math.floor(Math.random() * 8) + 2;
     let speed = Math.floor(Math.random() * 120) + 40;
     setTimeout(() => animateLoadingBar(nextStep), speed);
   } else {
-    // Step 4: Loading complete, remove grey mask, activate screen terminal text
     loadingMask.classList.remove('active');
     hardwareGlass.classList.add('active-flicker');
     termCursor.classList.add('active');
