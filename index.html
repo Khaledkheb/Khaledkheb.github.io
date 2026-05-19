@@ -99,6 +99,7 @@ section::after{
 
 /* ── CONTENT PRESENTATION PANEL CARDS ── */
 .jester-display-panel {
+  position: relative; /* Anchor target for absolute positioning the corner image */
   z-index: 10;
   text-align: center;
   width: 85%;
@@ -110,6 +111,23 @@ section::after{
   backdrop-filter: blur(25px) saturate(1.2);
   -webkit-backdrop-filter: blur(25px) saturate(1.2);
   box-shadow: 0 40px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 100, 100, 0.15);
+}
+
+/* Overlay Jester Hat Image Styling */
+.jester-panel-overlay {
+  position: absolute;
+  top: -55px;   /* Positions it up past the border header */
+  right: -35px; /* Pulls it slightly off the right edge to break the frame line */
+  width: 140px;  /* Clean desktop sizing scale */
+  height: auto;
+  z-index: 12;  /* Sits forward overlapping the top right border */
+  pointer-events: none; /* Mouse elements fall straight through it */
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.65));
+}
+
+.text-type-wrapper {
+  position: relative;
+  z-index: 15; /* Forces the text to stay fully readable and separate */
 }
 
 .aero-content-card {
@@ -228,7 +246,11 @@ section::after{
     <div class="bg" id="bg1"></div>
     
     <div class="jester-display-panel">
-       <div id="textTypeEngine" class="text-type"></div>
+       <img src="jester.png" alt="Jester Hat" class="jester-panel-overlay">
+       
+       <div class="text-type-wrapper">
+         <div id="textTypeEngine" class="text-type"></div>
+       </div>
     </div>
     
     <div class="scroll-hint">
