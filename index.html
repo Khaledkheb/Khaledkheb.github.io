@@ -132,13 +132,13 @@ section::after{
 .text-type {
   display: inline-block;
   white-space: pre-wrap;
-  font-size: clamp(26px, 4.2vw, 48px);
+  font-size: clamp(22px, 3.8vw, 42px);
   font-weight: 300;
   letter-spacing: 2px;
   color: #ffffff;
   text-shadow: 0 4px 20px rgba(0, 140, 255, 0.65), 0 0 30px rgba(255, 255, 255, 0.4);
-  line-height: 1.35;
-  min-height: 2.8em;
+  line-height: 1.4;
+  min-height: 3.2em;
 }
 
 .text-type__cursor {
@@ -337,12 +337,23 @@ function initTextTypeEngine() {
 
   const textArray = [
     "Hello world", 
-    "the world is a kingdom, you are a jester"
+    "the world is a kingdom, you are a jester",
+    "oversee everyone, as you hold order in your speech",
+    "entertain the world, you are a fool after all",
+    "gilded crowns are heavy, but masks never slip",
+    "behind every synthetic horizon lies an empty stage",
+    "a digital paradise built for analog tears",
+    "dance for your audience of shadows and glass",
+    "the applause is real, the performer is missing",
+    "laugh through the neon, weep in the code",
+    "we are all players in an automated theater",
+    "your chains are made of gold and illusions",
+    "the ultimate tragedy is a silent crowd"
   ];
   
-  const typingSpeed = 65;
-  const pauseDuration = 2000;
-  const deletingSpeed = 25;
+  const typingSpeed = 55;
+  const pauseDuration = 2200;
+  const deletingSpeed = 20;
   const loop = true;
 
   let displayedText = "";
